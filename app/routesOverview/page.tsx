@@ -9,7 +9,6 @@ export default async function RoutesOverview() {
 
   const lines = roadtrips.map((roadtrip: RoadtripDisplay) => {
     return <RoutesTableLine key={`line-${roadtrip.id}`} roadtrip={roadtrip} />;
-    /* return <p>{roadtrip.username}</p>; */
   });
 
   return (

@@ -1,6 +1,7 @@
 .routesOverview {
   display: grid;
   grid-template-rows: min-content;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--gap);
 }
 
@@ -23,11 +24,24 @@
   top: 15%;
   left: 5%;
   width: 89%;
-  height: 0px;
-  padding: 0px 0px 55% 0px;
+  height: 78%;
+  padding: 0px 0px 0px 0px;
   background-color: white;
   color: #231e38;
   border: #65ace2 solid 2px;
+  overflow: scroll;
+}
+/*Roadtrip-List-Elements*/
+.routesOverview table tr:nth-of-type(even) {
+  background-color: #f9f5ff;
+}
+.routesOverview tr {
+  border-bottom: 1px solid #d3dbf8;
+}
+.routesOverview td {
+  padding: 5px 0px 5px 0px;
+  width: 25%;
+  text-align: center;
 }
 
 .routesOverview img[alt~="redFrame"],
@@ -43,8 +57,8 @@
   top: 5.5%;
   left: 3%;
   width: 93.5%;
-  height: 0px;
-  padding: 0px 0px 62% 0px;
+  height: 89%;
+  padding: 0px 0px 0px 0px;
   background-color: white;
   color: #231e38;
   border: #a84337 solid 2px;
