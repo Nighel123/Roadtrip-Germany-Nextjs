@@ -63,8 +63,8 @@ const addresses = [
 const roadtrips = [
   {
     user_id: users[0].id,
-    start: addresses[0].id,
-    dest: addresses[1].id,
+    start_id: addresses[0].id,
+    dest_id: addresses[1].id,
     date: "2022-12-06",
     image_url: "/customers/delba-de-oliveira.png",
     description:
@@ -72,8 +72,8 @@ const roadtrips = [
   },
   {
     user_id: users[0].id,
-    start: addresses[1].id,
-    dest: addresses[2].id,
+    start_id: addresses[1].id,
+    dest_id: addresses[2].id,
     date: "2022-12-06",
     image_url: "/customers/delba-de-oliveira.png",
     description:
@@ -81,8 +81,8 @@ const roadtrips = [
   },
   {
     user_id: users[1].id,
-    start: addresses[2].id,
-    dest: addresses[3].id,
+    start_id: addresses[2].id,
+    dest_id: addresses[3].id,
     date: "2022-12-06",
     image_url: "/customers/delba-de-oliveira.png",
     description:
@@ -90,8 +90,8 @@ const roadtrips = [
   },
   {
     user_id: users[0].id,
-    start: addresses[4].id,
-    dest: addresses[5].id,
+    start_id: addresses[4].id,
+    dest_id: addresses[5].id,
     date: "2022-12-06",
     image_url: "/customers/delba-de-oliveira.png",
     description:

@@ -12,12 +12,25 @@ export type User = {
 };
 
 export type Roadtrip = {
+  id: string;
   user_id: string;
   start: string;
-  end: string;
+  dest: string;
   date: string;
   description: string;
   image_url: string;
+};
+
+export type RoadtripDisplay = {
+  id: string;
+  date: string;
+  description: string;
+  destland: string;
+  desttown: string;
+  image_url: string;
+  username: string;
+  startland: string;
+  starttown: string;
 };
 
 export type Address = {

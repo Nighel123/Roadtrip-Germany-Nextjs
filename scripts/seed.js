@@ -8,6 +8,7 @@ const bcrypt = require("bcrypt");
 
 async function seedUsers(client) {
   try {
+    await client.sql`DROP TABLE users`;
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
@@ -49,6 +50,7 @@ async function seedUsers(client) {
 
 async function seedRoadtrips(client) {
   try {
+    await client.sql`DROP TABLE roadtrips`;
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     // Create the "roadtrips" table if it doesn't exist
@@ -56,8 +58,8 @@ async function seedRoadtrips(client) {
     CREATE TABLE IF NOT EXISTS roadtrips (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       user_id UUID NOT NULL,
-      start TEXT NOT NULL,
-      dest TEXT NOT NULL,
+      start_id UUID NOT NULL,
+      dest_id UUID NOT NULL,
       date DATE NOT NULL,
       image_url TEXT NOT NULL,
       description TEXT NOT NULL
@@ -70,8 +72,8 @@ async function seedRoadtrips(client) {
     const insertedRoadtrips = await Promise.all(
       roadtrips.map(
         (roadtrip) => client.sql`
-        INSERT INTO roadtrips (user_id, start, dest, date, image_url, description)
-        VALUES (${roadtrip.user_id}, ${roadtrip.start}, ${roadtrip.dest}, ${roadtrip.date},${roadtrip.image_url},${roadtrip.description})
+        INSERT INTO roadtrips (user_id, start_id, dest_id, date, image_url, description)
+        VALUES (${roadtrip.user_id}, ${roadtrip.start_id}, ${roadtrip.dest_id}, ${roadtrip.date},${roadtrip.image_url},${roadtrip.description})
         ON CONFLICT (id) DO NOTHING;
       `
       )
@@ -91,6 +93,7 @@ async function seedRoadtrips(client) {
 
 async function seedAddresses(client) {
   try {
+    await client.sql`DROP TABLE addresses`;
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     // Create the "addresses" table if it doesn't exist
