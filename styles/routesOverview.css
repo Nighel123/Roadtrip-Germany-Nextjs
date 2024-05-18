@@ -83,3 +83,16 @@
   grid-column: 1/3;
   grid-row: 5/6;
 }
+
+@keyframes shimmer {
+  to {
+    background-position-x: 0%;
+  }
+}
+#shimmeringList {
+  background: linear-gradient(-45deg, #d6d6d6 40%, #fafafa 50%, #dddddd 60%);
+  background-size: 300%;
+  background-position-x: 100%;
+  animation: shimmer 1s infinite linear;
+  white-space: pre-line;
+}

@@ -9,6 +9,7 @@ export const formatDateToLocal = (
   dateStr: string,
   locale: string = "de-DE"
 ) => {
+  if (!dateStr) return null;
   const date = new Date(dateStr);
   const options: Intl.DateTimeFormatOptions = {
     day: "numeric",

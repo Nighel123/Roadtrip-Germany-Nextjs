@@ -3,14 +3,12 @@ import { Roadtrip, RoadtripDisplay } from "app/lib/definitions";
 import Image from "next/image";
 import Link from "next/link";
 import RoutesTableLine from "./RoutesTableLine";
+import RoutesTable from "./RoutesTable";
+import { Suspense } from "react";
+import Loading from "./loading";
+import { TableSkeleton } from "app/ui/skeletons";
 
 export default async function RoutesOverview() {
-  const roadtrips = await fetchRoadtrips();
-
-  const lines = roadtrips.map((roadtrip: RoadtripDisplay) => {
-    return <RoutesTableLine key={`line-${roadtrip.id}`} roadtrip={roadtrip} />;
-  });
-
   return (
     <div className="routesOverview" data-testid="routesOverview">
       <Link href="/">
@@ -24,9 +22,9 @@ export default async function RoutesOverview() {
         height={444}
       />
       <div id="table">
-        <table id="roadtripslist" /* style={{ border-collapse:"collapse" }} */>
-          <tbody>{lines}</tbody>
-        </table>
+        <Suspense fallback={<TableSkeleton />}>
+          <RoutesTable />
+        </Suspense>
       </div>
 
       <Image
