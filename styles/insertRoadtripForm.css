@@ -1,0 +1,23 @@
+.insertRoadtrip form {
+  background: #f8f8f8;
+  padding: 5%;
+}
+
+.insertRoadtrip div.text {
+  height: 15em;
+}
+
+.insertRoadtrip div.imageUpload {
+  width: 70%;
+}
+
+.insertRoadtrip p {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.insertRoadtrip form > div {
+  margin-top: 0.5em;
+  margin-bottom: 0.6em;
+  display: flexbox;
+}

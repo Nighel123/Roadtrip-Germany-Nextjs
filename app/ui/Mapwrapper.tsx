@@ -1,6 +1,6 @@
 import { fetchRoadtrips } from "app/lib/data";
-import MapLoader from "./MapLoader";
-import MyMapComponent from "./MyMapComponent";
+import MapLoader from "./mapLoader";
+import MyMapComponent from "./map";
 
 export default async function MapWrapper(/* { roadtrips }: { roadtrips: RoadtripDisplay[] } */) {
   const roadtrips = await fetchRoadtrips();

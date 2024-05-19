@@ -1,0 +1,27 @@
+.insertRoadtrip {
+  display: grid;
+  grid-template-rows: max-content;
+  gap: 1%;
+  grid-auto-columns: 2.2fr 1fr;
+}
+
+.insertRoadtrip header {
+  grid-column: 1/3;
+  grid-row: 1/2;
+  text-align: center;
+}
+
+.insertRoadtrip #insertRoadtripImage {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+.insertRoadtrip form {
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+.insertRoadtrip h1 {
+  font-weight: 300;
+  font-size: 3em;
+}

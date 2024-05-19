@@ -2,13 +2,13 @@ import { fetchRoadtrips } from "app/lib/data";
 import { Roadtrip, RoadtripDisplay } from "app/lib/definitions";
 import Image from "next/image";
 import Link from "next/link";
-import RoutesTableLine from "./RoutesTableLine";
-import RoutesTable from "./RoutesTable";
+import RoutesTableLine from "./routesTableLine";
+import RoutesTable from "./routesTable";
 import { Suspense } from "react";
 import Loading from "./loading";
 import { MapSkeleton, TableSkeleton } from "app/ui/skeletons";
-import Map from "app/ui/MapLoader";
-import MapWrapper from "app/ui/Mapwrapper";
+import Map from "app/ui/mapLoader";
+import MapWrapper from "app/ui/mapWrapper";
 
 export default async function RoutesOverview() {
   return (

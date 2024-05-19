@@ -11,7 +11,10 @@ const render = (status: Status) => {
 
 export default function MapLoader({ children }: { children: ReactNode }) {
   return (
-    <Wrapper apiKey="AIzaSyA-WcuB9Wr6_nOeFrOslc2K0-ZzXwky2dg" render={render}>
+    <Wrapper
+      apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY || ""}
+      render={render}
+    >
       {children}
     </Wrapper>
   );

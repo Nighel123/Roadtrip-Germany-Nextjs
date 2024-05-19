@@ -1,5 +1,5 @@
 import { RoadtripDisplay } from "app/lib/definitions";
-import RoutesTableLine from "app/routesOverview/RoutesTableLine";
+import RoutesTableLine from "app/routesOverview/routesTableLine";
 import Image from "next/image";
 
 // Loading animation
