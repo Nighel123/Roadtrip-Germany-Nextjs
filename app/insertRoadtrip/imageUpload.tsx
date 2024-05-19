@@ -1,5 +1,4 @@
-import bilderHochladen from "./BilderHochladen.jpg";
-import profilePicTemp from "../profilePrev.jpg";
+import Image from "next/image";
 
 const style = {
   width: "100%",
@@ -8,9 +7,16 @@ const style = {
 const ImageUpload = () => {
   return (
     <div className="imageUpload">
-      <img src={profilePicTemp} id="imagePreview" alt="preview" style={style} />
+      <Image
+        src="/profilePrev.jpg"
+        id="imagePreview"
+        alt="preview"
+        width={282}
+        height={425}
+        style={style}
+      />
       <input
-        src={bilderHochladen}
+        src="/insertRoadtrip/BilderHochladen.jpg"
         type="image"
         alt="imageUpload"
         style={style}

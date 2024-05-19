@@ -1,6 +1,3 @@
-import Dropdown from "react-dropdown";
-import "react-dropdown/style.css";
-
 export const months = [
   "Januar",
   "Februar",
@@ -17,10 +14,19 @@ export const months = [
 ];
 
 const DateInput = () => {
+  const options = months.map((month, i) => (
+    <option key={month + i} value={month}>
+      {month}
+    </option>
+  ));
+
   return (
     <div className="date">
       <input id="day" placeholder="Tag" />
-      <Dropdown options={months} placeholder="Monat" />
+      <select id="month" defaultValue="">
+        <option value="">Monat</option>
+        {options}
+      </select>
       <input id="year" placeholder="Jahr" />
     </div>
   );

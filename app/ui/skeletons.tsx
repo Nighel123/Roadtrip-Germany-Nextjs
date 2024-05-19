@@ -33,7 +33,7 @@ export function MapSkeleton() {
     <div id="mapcontent">
       <Image
         src="/routesOverview/loadingmap.gif"
-        width={480}
+        width={555}
         height={360}
         alt="loading map"
         id="mapSkeleton"

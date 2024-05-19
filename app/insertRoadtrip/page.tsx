@@ -8,6 +8,7 @@ import DateInput from "./dateInput";
 import TextInput from "./textInput";
 import ImageUpload from "./imageUpload";
 import Submit from "./submit";
+import Image from "next/image";
 
 const InsertRoadtrip: React.FC = () => {
   return (
@@ -16,10 +17,12 @@ const InsertRoadtrip: React.FC = () => {
         <h1 id="heading">erstelle deinen eigenen Roadtrip</h1>
       </header>
 
-      <img
+      <Image
         id="insertRoadtripImage"
-        src={insertRoadtripImage}
+        src="/insertRoadtrip/insertRoadtripImage.jpg"
         alt="australian roads"
+        width={1006}
+        height={850}
       />
       <form id="insertRoadtripForm">
         <p>Wo wollt ihr losfahren?</p>

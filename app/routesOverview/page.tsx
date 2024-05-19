@@ -41,12 +41,14 @@ export default async function RoutesOverview() {
         </Suspense>
       </div>
 
-      <Image
-        src="/routesOverview/eigeneReiseMachen.jpg"
-        alt="insertRoadtrip"
-        width={662}
-        height={147}
-      />
+      <Link href="/insertRoadtrip">
+        <Image
+          src="/routesOverview/eigeneReiseMachen.jpg"
+          alt="insertRoadtrip"
+          width={662}
+          height={147}
+        />
+      </Link>
 
       <Image
         src="/routesOverview/reiseAnsehen.jpg"

@@ -83,7 +83,7 @@
   margin: 0;
 }
 
-.routesOverview img[alt~="insertRoadtrip"] {
+.routesOverview a[href="/insertRoadtrip"] {
   grid-column: 1/2;
   grid-row: 3/4;
 }

@@ -3,12 +3,15 @@
   padding: 5%;
 }
 
-.insertRoadtrip div.text {
-  height: 15em;
+input[type="image" i] {
+  width: 100%;
+  border: none;
+  padding: 0;
+  padding-top: 2%;
 }
 
-.insertRoadtrip div.imageUpload {
-  width: 70%;
+.insertRoadtrip div.text {
+  height: 15em;
 }
 
 .insertRoadtrip p {
@@ -19,5 +22,26 @@
 .insertRoadtrip form > div {
   margin-top: 0.5em;
   margin-bottom: 0.6em;
-  display: flexbox;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2%;
+}
+
+.insertRoadtrip form > div.text {
+  justify-content: center;
+}
+
+.insertRoadtrip form > div.imageUpload {
+  flex-direction: column;
+  width: 100%;
+}
+
+.insertRoadtrip form div.imageUpload > * {
+  width: 70% !important;
+}
+
+.insertRoadtrip form > div > input,
+.insertRoadtrip form > div > textarea {
+  width: 100%;
 }
