@@ -6,7 +6,9 @@ import RoutesTableLine from "./RoutesTableLine";
 import RoutesTable from "./RoutesTable";
 import { Suspense } from "react";
 import Loading from "./loading";
-import { TableSkeleton } from "app/ui/skeletons";
+import { MapSkeleton, TableSkeleton } from "app/ui/skeletons";
+import Map from "app/ui/MapLoader";
+import MapWrapper from "app/ui/Mapwrapper";
 
 export default async function RoutesOverview() {
   return (
@@ -33,7 +35,11 @@ export default async function RoutesOverview() {
         width={2486}
         height={1699}
       />
-      <div id="map"></div>
+      <div id="map">
+        <Suspense fallback={<MapSkeleton />}>
+          <MapWrapper />
+        </Suspense>
+      </div>
 
       <Image
         src="/routesOverview/eigeneReiseMachen.jpg"

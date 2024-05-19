@@ -1,5 +1,6 @@
 import { RoadtripDisplay } from "app/lib/definitions";
 import RoutesTableLine from "app/routesOverview/RoutesTableLine";
+import Image from "next/image";
 
 // Loading animation
 
@@ -24,6 +25,20 @@ export function TableSkeleton() {
     <table id="shimmeringList">
       <tbody>{lines}</tbody>
     </table>
+  );
+}
+
+export function MapSkeleton() {
+  return (
+    <div id="mapcontent">
+      <Image
+        src="/routesOverview/loadingmap.gif"
+        width={480}
+        height={360}
+        alt="loading map"
+        id="mapSkeleton"
+      />
+    </div>
   );
 }
 

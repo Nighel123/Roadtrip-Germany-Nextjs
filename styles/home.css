@@ -5,6 +5,10 @@
   align-items: center; /* putting everything into the center. */
 }
 
-img {
+.home img {
   margin-bottom: var(--gap);
+}
+
+.home a {
+  width: 80%;
 }

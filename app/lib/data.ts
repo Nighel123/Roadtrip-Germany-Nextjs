@@ -20,7 +20,7 @@ export async function fetchRoadtrips() {
     // Don't do this in production :)
 
     console.log("Fetching roadtrips data...");
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
     //so schreibt man also ein Promise!
 
     const data = await sql<RoadtripDisplay>`
@@ -31,7 +31,7 @@ export async function fetchRoadtrips() {
       JOIN addresses start ON start_id = start.id
     `;
 
-    console.log("Data fetch completed after 3 seconds.");
+    // console.log("Data fetch completed after 3 seconds.");
 
     return data.rows;
   } catch (error) {
