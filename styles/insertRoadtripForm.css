@@ -45,3 +45,7 @@ input[type="image" i] {
 .insertRoadtrip form > div > textarea {
   width: 100%;
 }
+
+.insertRoadtrip p.errorMssg {
+  color: red;
+}

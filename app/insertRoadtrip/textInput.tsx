@@ -5,7 +5,9 @@ const styleDesctription = {
 const TextInput = () => {
   return (
     <div className="text">
-      <textarea id="description" style={styleDesctription}></textarea>
+      <textarea id="description" style={styleDesctription} name="description">
+        yeah ich bin so ein cooler typ!
+      </textarea>
     </div>
   );
 };

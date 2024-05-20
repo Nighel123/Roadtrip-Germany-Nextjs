@@ -20,6 +20,23 @@ export const formatDateToLocal = (
   return formatter.format(date);
 };
 
+export function restrict(p: string[], u: { [key: string]: any }) {
+  const o = { ...u };
+  for (const prop in o) {
+    // For all props in o // Delete if not in p
+    if (!p.includes(prop)) delete o[prop];
+  }
+  return o;
+}
+
+export function deleteEmptyKeys(u: { [key: string]: any }) {
+  const o = { ...u };
+  for (const key in o) {
+    if (!o[key]) delete o[key];
+  }
+  return o;
+}
+
 /* export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis
   // based on highest record and in 1000s

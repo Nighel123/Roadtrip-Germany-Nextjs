@@ -33,6 +33,33 @@ export type RoadtripDisplay = {
   starttown: string;
 };
 
+export const months = [
+  "Januar",
+  "Februar",
+  "März",
+  "April",
+  "Mai",
+  "Juni",
+  "Juli",
+  "August",
+  "September",
+  "Oktober",
+  "November",
+  "Dezember",
+] as const;
+export type Month = (typeof months)[number];
+
+export type RoadtripForm = {
+  startland: string;
+  starttown: string;
+  destland: string;
+  desttown: string;
+  day: string;
+  month: Month;
+  year: string;
+  description: string;
+};
+
 export type Address = {
   id: string;
   land: string;
@@ -72,14 +99,12 @@ export type FormattedCustomersTable = {
   total_paid: string;
 };
 
+export type InitialFormState = {
+  message: string;
+  errors: { [key: string]: string };
+} | null;
+
 export type CustomerField = {
   id: string;
   name: string;
-};
-
-export type InvoiceForm = {
-  id: string;
-  customer_id: string;
-  amount: number;
-  status: "pending" | "paid";
 };

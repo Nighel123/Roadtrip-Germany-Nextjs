@@ -1,55 +1,153 @@
-'use server';
+"use server";
 
-import { sql } from '@vercel/postgres';
-import { error } from 'console';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
-import { z } from 'zod';
-import { signIn } from '@/auth';
-import { AuthError } from 'next-auth';
+import { sql } from "@vercel/postgres";
+import { error } from "console";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { z } from "zod";
+import { RoadtripDisplay, RoadtripForm, months, Month } from "./definitions";
+import { deleteEmptyKeys, restrict } from "./utils";
 
-const FormSchema = z.object({
-  id: z.string(),
-  customerId: z.string({
-    invalid_type_error: 'Please select a customer', //from the tutorial i guess this is always shown wheen there is an eerror.
+const monthToNumber = (month: Month) => months.indexOf(month) + 1;
+
+const zobj = {
+  startland: z.string(),
+  starttown: z.string(),
+  destland: z.string(),
+  desttown: z.string(),
+  day: z.coerce
+    .number({
+      required_error: "bitte gebe einen Tag ein.",
+      invalid_type_error: "bitte gebe eine Zahl für den Tag ein.",
+    })
+    .gt(0, { message: "Bitte gebe einen Tag größer als 0 ein." })
+    .lt(32, { message: "Bitte gebe einen Tag kleiner als 32 ein." }),
+  year: z.coerce.number({
+    required_error: "bitte gebe einen Jahr ein.",
+    invalid_type_error: "bitte gebe eine Zahl für ein Jahr ein.",
   }),
-  amount: z.coerce
-    .number()
-    .gt(0, { message: 'Please enter an amount greater than $0.' }), //coerce means zwingene. Das was ich gerne mit Hannah oder mädchen tuen will :)
-  status: z.enum(['pending', 'paid'], {
-    invalid_type_error: 'Please select an invoice status.',
+  month: z.enum(months, {
+    message: "Bitte wähle einen Monat aus.",
   }),
-  date: z.string(),
-});
+  description: z
+    .string()
+    .length(100, { message: "Bitte gebe mindestens 100 Zeichen ein." }),
+};
 
 export type State = {
   errors?: {
-    customerId?: string[];
-    amount?: string[];
-    status?: string[];
+    startland?: string[];
+    starttown?: string[];
+    destland?: string[];
+    desttown?: string[];
+    day?: string[];
+    year?: string[];
+    month?: string[];
+    description?: string[];
   };
   message?: string | null;
 };
 
-const CreateInvoice = FormSchema.omit({ id: true, date: true });
+export async function insertRoadtrip(prevState: State, formData: FormData) {
+  //throw new Error("Failed to insert Roadtrip");
+
+  const formDataObj = Object.fromEntries(formData.entries()) as RoadtripForm & {
+    touched: string;
+  };
+  const touched = JSON.parse(formDataObj.touched) as string[];
+
+  const restrictedFormDataObj = restrict(touched, formDataObj);
+  const trimmedRestrictedFormDataObj = deleteEmptyKeys(restrictedFormDataObj);
+  const restrictedzobj = restrict(touched, zobj);
+  const FormSchema = z.object(restrictedzobj);
+
+  const validatedFields = FormSchema.safeParse(trimmedRestrictedFormDataObj);
+
+  if (!validatedFields.success) {
+    console.log(validatedFields);
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to Create Invoice.",
+    };
+  }
+
+  const {
+    startland,
+    starttown,
+    destland,
+    desttown,
+    day,
+    month: monthInLetters,
+    year,
+    description,
+  } = validatedFields.data;
+
+  // Test it out:
+  const month = monthToNumber(monthInLetters);
+  const date = `${year}/${month}/${day}`;
+  const user_id = "410544b2-4001-4271-9855-fec4b6a6442a";
+  const image_url = ".jpg";
+  try {
+    const {
+      rows: [{ id: start_id }],
+    } = await sql`
+        INSERT INTO addresses (land, town)  
+        VALUES (${startland}, ${starttown})
+        RETURNING id`;
+    const {
+      rows: [{ id: dest_id }],
+    } = await sql`
+        INSERT INTO addresses (land, town)  
+        VALUES (${destland}, ${desttown})
+        RETURNING id`;
+    await sql`
+        INSERT INTO roadtrips (user_id, start_id, dest_id, date, image_url, description)
+        VALUES (${user_id},${start_id},${dest_id}, ${date}, ${image_url}, ${description})
+        RETURNING id`;
+  } catch (error) {
+    console.log(error);
+    return {
+      message: "Database Error: Failed to Create Invoice",
+    };
+  }
+
+  revalidatePath("/insertRoadtrip");
+  redirect("/routesOverview");
+}
+
+/* const FormSchema = z.object({
+  id: z.string(),
+  customerId: z.string({
+    invalid_type_error: "Please select a customer", //from the tutorial i guess this is always shown wheen there is an eerror.
+  }),
+  amount: z.coerce
+    .number()
+    .gt(0, { message: "Please enter an amount greater than $0." }), //coerce means zwingene. Das was ich gerne mit Hannah oder mädchen tuen will :)
+  status: z.enum(["pending", "paid"], {
+    invalid_type_error: "Please select an invoice status.",
+  }),
+  date: z.string(),
+}); */
+
+/* const CreateInvoice = FormSchema.omit({ id: true, date: true }); */
 
 export async function createInvoice(prevState: State, formData: FormData) {
   const validatedFields = CreateInvoice.safeParse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
+    customerId: formData.get("customerId"),
+    amount: formData.get("amount"),
+    status: formData.get("status"),
   });
   //console.log(validatedFields);
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoices',
+      message: "Missing Fields. Failed to Create Invoices",
     };
   }
 
   const { customerId, amount, status } = validatedFields.data;
   const amountInCents = amount * 100;
-  const date = new Date().toISOString().split('T')[0]; //isolates only the date
+  const date = new Date().toISOString().split("T")[0]; //isolates only the date
   //console.log(date);
 
   try {
@@ -58,18 +156,18 @@ export async function createInvoice(prevState: State, formData: FormData) {
         VALUES (${customerId}, ${amountInCents}, ${status}, ${date})`;
   } catch (error) {
     return {
-      message: 'Database Error: Failed to Create Invoice',
+      message: "Database Error: Failed to Create Invoice",
     };
   }
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
+  revalidatePath("/dashboard/invoices");
+  redirect("/dashboard/invoices");
 }
 
 export async function updateInvoice(id: string, formData: FormData) {
   const { customerId, amount, status } = CreateInvoice.parse({
-    customerId: formData.get('customerId'),
-    amount: formData.get('amount'),
-    status: formData.get('status'),
+    customerId: formData.get("customerId"),
+    amount: formData.get("amount"),
+    status: formData.get("status"),
   });
   const amountInCents = amount * 100;
 
@@ -80,23 +178,23 @@ export async function updateInvoice(id: string, formData: FormData) {
     WHERE id = ${id}
   `;
   } catch (error) {
-    return { message: 'Database Error: Failed to Update Invoice.' };
+    return { message: "Database Error: Failed to Update Invoice." };
   }
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
+  revalidatePath("/dashboard/invoices");
+  redirect("/dashboard/invoices");
 }
 
 export async function deleteInvoice(id: string) {
-  throw new Error('Failed to Delete Invoice ');
+  throw new Error("Failed to Delete Invoice ");
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath('/dashboard/invoices');
+    revalidatePath("/dashboard/invoices");
   } catch (error) {
-    return { message: 'Database Error: Failed to Delete Invoice' };
+    return { message: "Database Error: Failed to Delete Invoice" };
   }
 }
 
-export async function authenticate(
+/* export async function authenticate(
   prevState: string | undefined,
   formData: FormData,
 ) {
@@ -113,4 +211,4 @@ export async function authenticate(
     }
     throw error;
   }
-}
+} */

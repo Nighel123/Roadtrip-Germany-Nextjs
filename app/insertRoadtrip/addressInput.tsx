@@ -1,8 +1,8 @@
-const AddressInput = () => {
+const AddressInput = ({ name }: { name: "start" | "dest" }) => {
   return (
     <div className="address">
-      <input id="startLand" placeholder="Land" />
-      <input id="startTown" placeholder="Stadt" />
+      <input id={name + "land"} placeholder="Land" name={name + "land"} />
+      <input id={name + "town"} placeholder="Stadt" name={name + "town"} />
     </div>
   );
 };
