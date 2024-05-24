@@ -1,114 +1,146 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
-import { error } from "console";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-import { RoadtripDisplay, RoadtripForm, months, Month } from "./definitions";
-import { deleteEmptyKeys, restrict } from "./utils";
+import { ZodIssue, z } from "zod";
+import {
+  RoadtripDisplay,
+  RoadtripForm,
+  months,
+  Month,
+  RegisterForm,
+  sex,
+} from "./definitions";
+import { arrSubset, deleteEmptyKeys, restrict } from "./utils";
+import path from "path";
+import fs from "fs";
+import {
+  FormDataErrors,
+  formatErrors,
+  insertFormToZObj,
+  zFormDataObj,
+  error,
+  zDate,
+} from "app/insertRoadtrip/utils";
+import { formatRegisterData, zRegisterForm } from "app/register/utils";
 
-const monthToNumber = (month: Month) => months.indexOf(month) + 1;
+const { log } = console;
 
-const zobj = {
-  startland: z.string(),
-  starttown: z.string(),
-  destland: z.string(),
-  desttown: z.string(),
-  day: z.coerce
-    .number({
-      required_error: "bitte gebe einen Tag ein.",
-      invalid_type_error: "bitte gebe eine Zahl für den Tag ein.",
-    })
-    .gt(0, { message: "Bitte gebe einen Tag größer als 0 ein." })
-    .lt(32, { message: "Bitte gebe einen Tag kleiner als 32 ein." }),
-  year: z.coerce.number({
-    required_error: "bitte gebe einen Jahr ein.",
-    invalid_type_error: "bitte gebe eine Zahl für ein Jahr ein.",
-  }),
-  month: z.enum(months, {
-    message: "Bitte wähle einen Monat aus.",
-  }),
-  description: z
-    .string()
-    .length(100, { message: "Bitte gebe mindestens 100 Zeichen ein." }),
-};
+export async function register(
+  prevState: error[],
+  formData: FormData
+): Promise<error[]> {
+  const formDataObj = Object.fromEntries(
+    formData.entries()
+  ) as RegisterForm<any>;
 
-export type State = {
-  errors?: {
-    startland?: string[];
-    starttown?: string[];
-    destland?: string[];
-    desttown?: string[];
-    day?: string[];
-    year?: string[];
-    month?: string[];
-    description?: string[];
-  };
-  message?: string | null;
-};
+  const formatedDataObj = formatRegisterData(formDataObj);
+  const resFormDataObj = await zRegisterForm.safeParseAsync(formatedDataObj);
 
-export async function insertRoadtrip(prevState: State, formData: FormData) {
+  if (!resFormDataObj.success) {
+    return formatErrors(
+      resFormDataObj.error?.flatten((issue: ZodIssue) => ({
+        path: issue.path,
+        message: issue.message,
+      })) as FormDataErrors
+    );
+  }
+
+  const { username, email, password, birthday, sex } = resFormDataObj.data;
+
+  try {
+    await sql`
+        INSERT INTO users (username, email, password, birthday,sex)  
+        VALUES (${username}, ${email}, ${password},${birthday.date}, ${sex})`;
+  } catch (error) {
+    console.log(error);
+    return [
+      {
+        message: "Database Fehler: Benutzer konnte nicht erstellt werden.",
+        path: ["database"],
+      },
+    ];
+  }
+}
+export async function insertRoadtrip(
+  prevState: error[],
+  formData: FormData
+): Promise<error[]> {
   //throw new Error("Failed to insert Roadtrip");
+  const formDataObj = Object.fromEntries(
+    formData.entries()
+  ) as RoadtripForm<any>;
 
-  const formDataObj = Object.fromEntries(formData.entries()) as RoadtripForm & {
-    touched: string;
-  };
-  const touched = JSON.parse(formDataObj.touched) as string[];
+  const formDataZObj = insertFormToZObj(formDataObj);
+  // we have a mocked async AddressCheck function inside our validation.
+  const resFormDataObj = await zFormDataObj.safeParseAsync(formDataZObj);
 
-  const restrictedFormDataObj = restrict(touched, formDataObj);
-  const trimmedRestrictedFormDataObj = deleteEmptyKeys(restrictedFormDataObj);
-  const restrictedzobj = restrict(touched, zobj);
-  const FormSchema = z.object(restrictedzobj);
-
-  const validatedFields = FormSchema.safeParse(trimmedRestrictedFormDataObj);
-
-  if (!validatedFields.success) {
-    console.log(validatedFields);
-    return {
-      errors: validatedFields.error.flatten().fieldErrors,
-      message: "Missing Fields. Failed to Create Invoice.",
-    };
+  if (!resFormDataObj.success) {
+    //console.log(validatedFields);
+    return formatErrors(
+      resFormDataObj.error?.flatten((issue: ZodIssue) => ({
+        path: issue.path,
+        message: issue.message,
+      })) as FormDataErrors
+    );
   }
 
   const {
-    startland,
-    starttown,
-    destland,
-    desttown,
-    day,
-    month: monthInLetters,
-    year,
     description,
-  } = validatedFields.data;
-
+    file,
+    route: { start, dest },
+    date: { date },
+  } = resFormDataObj.data;
   // Test it out:
-  const month = monthToNumber(monthInLetters);
-  const date = `${year}/${month}/${day}`;
+
   const user_id = "410544b2-4001-4271-9855-fec4b6a6442a";
-  const image_url = ".jpg";
+
   try {
     const {
       rows: [{ id: start_id }],
     } = await sql`
         INSERT INTO addresses (land, town)  
-        VALUES (${startland}, ${starttown})
+        VALUES (${start.land}, ${start.town})
         RETURNING id`;
     const {
       rows: [{ id: dest_id }],
     } = await sql`
         INSERT INTO addresses (land, town)  
-        VALUES (${destland}, ${desttown})
+        VALUES (${dest.land}, ${dest.town})
         RETURNING id`;
-    await sql`
+    var {
+      rows: [{ id: imgName }],
+    } = await sql`
         INSERT INTO roadtrips (user_id, start_id, dest_id, date, image_url, description)
-        VALUES (${user_id},${start_id},${dest_id}, ${date}, ${image_url}, ${description})
+        VALUES (${user_id},${start_id},${dest_id}, ${date}, ${file.ext}, ${description})
         RETURNING id`;
   } catch (error) {
     console.log(error);
-    return {
-      message: "Database Error: Failed to Create Invoice",
-    };
+    return [
+      {
+        message: "Database Fehler: Roadtrip konnte nicht eingetragen werden.",
+        path: ["database"],
+      },
+    ];
+  }
+
+  if (file) {
+    const arrayBuffer = await file.File.arrayBuffer();
+    const buffer = new Uint8Array(arrayBuffer);
+    await fs.writeFile(
+      `./public/uploads/${file.name + file.ext}`,
+      buffer,
+      (err) => {
+        console.log(err);
+        return [
+          {
+            message: "Failure writing file.",
+            path: ["file"],
+          },
+        ];
+      }
+    );
   }
 
   revalidatePath("/insertRoadtrip");

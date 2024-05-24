@@ -1,12 +1,13 @@
-import roadtripEintragen from "./roadtripEintragen.jpg";
+import { handleClickType } from "app/lib/definitions";
 
-const Submit = () => {
+const Submit = ({ handleSubmit }: { handleSubmit: handleClickType }) => {
   return (
     <div className="submit">
       <input
         type="image"
         src="/insertRoadtrip/roadtripEintragen.jpg"
         alt="submit"
+        onClick={handleSubmit}
       />
     </div>
   );

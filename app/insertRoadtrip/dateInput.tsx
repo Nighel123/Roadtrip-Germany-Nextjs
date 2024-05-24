@@ -1,7 +1,6 @@
-import { months } from "app/lib/definitions";
-import { handleBlurType } from "./form";
+import { handleBlurType, months } from "app/lib/definitions";
 
-const DateInput = ({ handleBlur }: { handleBlur: handleBlurType }) => {
+const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
   const options = months.map((month, i) => (
     <option key={month + i} value={month}>
       {month}

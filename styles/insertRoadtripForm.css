@@ -3,18 +3,19 @@
   padding: 5%;
 }
 
-input[type="image" i] {
+.insertRoadtrip input[type="image" i],
+.insertRoadtrip img {
   width: 100%;
   border: none;
   padding: 0;
-  padding-top: 2%;
+  margin-top: 2%;
 }
 
 .insertRoadtrip div.text {
   height: 15em;
 }
 
-.insertRoadtrip p {
+.insertRoadtrip label {
   margin-bottom: 0;
   font-weight: 700;
 }
@@ -44,6 +45,10 @@ input[type="image" i] {
 .insertRoadtrip form > div > input,
 .insertRoadtrip form > div > textarea {
   width: 100%;
+}
+
+.insertRoadtrip form > div > img:hover {
+  cursor: pointer;
 }
 
 .insertRoadtrip p.errorMssg {

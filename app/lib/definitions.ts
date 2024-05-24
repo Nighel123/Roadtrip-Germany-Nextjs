@@ -1,7 +1,26 @@
 // This file contains type definitions for your data.
 // It describes the shape of the data, and what data type each property should accept.
 // For simplicity of teaching, we're manually defining these types.
+
+import {
+  ChangeEvent,
+  FocusEvent,
+  MouseEvent,
+  MutableRefObject,
+  useRef,
+  useState,
+} from "react";
+
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+export type handleBlurType = (
+  e: FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+) => void;
+export type handleChangeType = (
+  e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+) => void;
+export type handleChangeFileType = (e: ChangeEvent<HTMLInputElement>) => void;
+export type handleClickType = (e: MouseEvent<HTMLInputElement>) => void;
+
 export type User = {
   id: string;
   name: string;
@@ -47,17 +66,30 @@ export const months = [
   "November",
   "Dezember",
 ] as const;
+export const sex = ["männlich", "weiblich"] as const;
 export type Month = (typeof months)[number];
+export type Sex = (typeof sex)[number];
 
-export type RoadtripForm = {
-  startland: string;
-  starttown: string;
-  destland: string;
-  desttown: string;
-  day: string;
+export type RegisterForm<T> = {
+  username: T;
+  email: T;
+  password: T;
+  day: T;
   month: Month;
-  year: string;
-  description: string;
+  year: T;
+  sex: Sex;
+};
+
+export type RoadtripForm<T> = {
+  startland: T;
+  starttown: T;
+  destland: T;
+  desttown: T;
+  day: T;
+  month: Month;
+  year: T;
+  description: T;
+  file: T;
 };
 
 export type Address = {

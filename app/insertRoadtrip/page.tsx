@@ -6,7 +6,7 @@ import "@/styles/insertRoadtripForm.css";
 import Image from "next/image";
 import Form from "./form";
 
-const InsertRoadtrip: React.FC = () => {
+const InsertRoadtrip = () => {
   return (
     <div className="insertRoadtrip" data-testid="insertRoadtrip">
       <header>

@@ -1,3 +1,12 @@
+import { MutableRefObject } from "react";
+import {
+  Month,
+  RoadtripForm,
+  handleBlurType,
+  handleChangeType,
+  months,
+} from "./definitions";
+
 export const formatCurrency = (amount: number) => {
   return (amount / 100).toLocaleString("en-US", {
     style: "currency",
@@ -20,6 +29,7 @@ export const formatDateToLocal = (
   return formatter.format(date);
 };
 
+/* intersection of p and u */
 export function restrict(p: string[], u: { [key: string]: any }) {
   const o = { ...u };
   for (const prop in o) {
@@ -28,7 +38,17 @@ export function restrict(p: string[], u: { [key: string]: any }) {
   }
   return o;
 }
+/* checks whether a is a subset of b */
+export function arrSubset(a: any[], b: any[]) {
+  return a.every((e) => b.includes(e));
+}
 
+export function arrIntersection(a: any[], b: any[]) {
+  //return a.some((e) => b.includes(e));
+  return a.filter((value) => b.includes(value));
+}
+
+/* delete all properties of u with a falsy value   */
 export function deleteEmptyKeys(u: { [key: string]: any }) {
   const o = { ...u };
   for (const key in o) {
@@ -36,6 +56,8 @@ export function deleteEmptyKeys(u: { [key: string]: any }) {
   }
   return o;
 }
+
+export const monthToNumber = (month: Month) => months.indexOf(month) + 1;
 
 /* export const generateYAxis = (revenue: Revenue[]) => {
   // Calculate what labels we need to display on the y-axis

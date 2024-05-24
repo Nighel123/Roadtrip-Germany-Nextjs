@@ -12,61 +12,81 @@ import ImageUpload from "./imageUpload";
 import Submit from "./submit";
 import { insertRoadtrip } from "app/lib/actions";
 import { useFormState } from "react-dom";
-import Err from "./errorMessage";
-import { FocusEvent, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  MouseEvent,
+  MutableRefObject,
+  useRef,
+  useState,
+} from "react";
+import { error } from "./utils";
+import { useTouched } from "./useTouched";
+import ErrorComponent from "./errorMessage";
+import {
+  Dispatch,
+  handleBlurType,
+  handleChangeFileType,
+  handleClickType,
+} from "app/lib/definitions";
+import { factoryHandleBlur } from "app/lib/utils";
 
-export type handleBlurType = (
-  e: FocusEvent<HTMLInputElement | HTMLSelectElement>
-) => void;
+const { log } = console;
+const errorPaths = [
+  "day",
+  "month",
+  "year",
+  "date",
+  "start",
+  "dest",
+  "file",
+  "description",
+];
 
 export default function insertForm() {
-  const initialState = { message: "", errors: {} };
+  const initialState: error[] = [];
   const [state, dispatch] = useFormState(insertRoadtrip, initialState);
-  const [touched, setTouched] = useState<string[]>([]);
-  const formRef = useRef(null);
+  const { touched, formRef, handleBlur, handleChangeFile, handleSubmit } =
+    useTouched(dispatch, errorPaths);
 
-  const handleBlur: handleBlurType = (e) => {
-    if (!formRef.current) return;
-    const formData = new FormData(formRef.current);
-    const name = e.target.name;
-
-    if (touched.includes(name)) {
-      formData.set("touched", JSON.stringify(touched));
-    } else {
-      const nextTouched = [...touched];
-      nextTouched.push(name);
-      setTouched(nextTouched);
-      formData.set("touched", JSON.stringify(nextTouched));
-    }
-    dispatch(formData);
-  };
-
+  /* make the error-componet sammmler */
+  /* do checks whether the start and destaddress are the same */
+  /* do checks whether those addresses exist.  */
   return (
     <form id="insertRoadtripForm" action={dispatch} ref={formRef}>
-      <p>Wo wollt ihr losfahren?</p>
-      <AddressInput name="start" />
-      <Err errors={state.errors?.startland} />
-      <Err errors={state.errors?.starttown} />
+      <label htmlFor="startland">Wo wollt ihr losfahren?</label>
+      <AddressInput name="start" handleBlur={handleBlur} />
+      <ErrorComponent
+        errors={state}
+        touched={touched}
+        show={["start", "startland", "starttown"]}
+      />
 
-      <p>Wo wollt ihr hin?</p>
-      <AddressInput name="dest" />
-      <Err errors={state.errors?.destland} />
-      <Err errors={state.errors?.desttown} />
-      <p>Wann wollt ihr losfahren?</p>
+      <label htmlFor="destland">Wo wollt ihr hin?</label>
+      <AddressInput name="dest" handleBlur={handleBlur} />
+      <ErrorComponent
+        errors={state}
+        touched={touched}
+        show={["dest", "route", "desttown", "destland"]}
+      />
+      <label htmlFor="day">Wann wollt ihr losfahren?</label>
       <DateInput handleBlur={handleBlur} />
-      <Err errors={state.errors?.day} />
-      <Err errors={state.errors?.month} />
-      <Err errors={state.errors?.year} />
-      <p>
+      <ErrorComponent
+        errors={state}
+        touched={touched}
+        show={["date", "day", "month", "year"]}
+      />
+      <label htmlFor="description">
         Beschreibe in einem Text wer du bist und was du auf deiner Reise
         vorhast:
-      </p>
-      <TextInput />
-      <Err errors={state.errors?.description} />
+      </label>
+      <TextInput handleBlur={handleBlur} />
+      <ErrorComponent errors={state} touched={touched} show={["description"]} />
 
-      <ImageUpload />
+      <ImageUpload handleChangeFile={handleChangeFile} />
+      <ErrorComponent errors={state} touched={touched} show={["file"]} />
 
-      <Submit />
+      <Submit handleSubmit={handleSubmit} />
     </form>
   );
 }

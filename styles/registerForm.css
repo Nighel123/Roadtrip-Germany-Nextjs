@@ -1,0 +1,45 @@
+.register form {
+  background: #f8f8f8;
+  padding: 5%;
+}
+
+.register input[type="image" i] {
+  width: 100%;
+  border: none;
+  padding: 0;
+  padding-top: 0;
+}
+
+.register label {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.register form div > div {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2%;
+}
+
+.register form div.sex {
+  margin-bottom: 4em;
+}
+
+.register select {
+  width: 100%;
+}
+
+.register form > div {
+  margin-bottom: 1.5em;
+}
+
+.register form div > div > input {
+  width: 100%;
+}
+
+.register p.errorMssg {
+  color: red;
+}
