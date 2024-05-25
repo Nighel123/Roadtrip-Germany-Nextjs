@@ -3,17 +3,8 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { ZodIssue, z } from "zod";
-import {
-  RoadtripDisplay,
-  RoadtripForm,
-  months,
-  Month,
-  RegisterForm,
-  sex,
-} from "./definitions";
-import { arrSubset, deleteEmptyKeys, restrict } from "./utils";
-import path from "path";
+import { ZodIssue } from "zod";
+import { RoadtripForm, RegisterForm } from "./definitions";
 import fs from "fs";
 import {
   FormDataErrors,
@@ -21,11 +12,31 @@ import {
   insertFormToZObj,
   zFormDataObj,
   error,
-  zDate,
 } from "app/insertRoadtrip/utils";
 import { formatRegisterData, zRegisterForm } from "app/register/utils";
+import { signIn } from "auth";
+import { AuthError } from "next-auth";
 
 const { log } = console;
+
+export async function authenticate(
+  prevState: string | undefined,
+  formData: FormData
+) {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
+  }
+}
 
 export async function register(
   prevState: error[],

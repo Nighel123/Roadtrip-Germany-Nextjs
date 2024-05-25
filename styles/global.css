@@ -7,6 +7,9 @@ body {
   --gap: 3%;
   margin: var(--gap); /* margins around the whole page */
 }
+p.errorMssg {
+  color: red;
+}
 
 img {
   width: 100%;

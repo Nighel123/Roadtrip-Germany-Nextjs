@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import { authenticate } from "app/lib/actions";
 
 export function Form() {
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [swipe, setSwipe] = useState(false);
 
   const ToogleSwipe: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = (
@@ -34,9 +37,13 @@ export function Form() {
         />
       </div>
       <div id="swipeContainer">
-        <form id="logInForm">
+        <form id="logInForm" action={dispatch}>
           <div id="usernamePage" className={swipe ? "unfocus" : "focus"}>
-            <input name="usrName" placeholder="Benutzername" />
+            <input
+              name="username"
+              placeholder="Benutzername"
+              defaultValue={"Nighel123"}
+            />
             <button
               id="weiter"
               className="nextPage button"
@@ -46,7 +53,12 @@ export function Form() {
             </button>
           </div>
           <div id="passwordPage" className={swipe ? "focus" : "unfocus"}>
-            <input name="pw" type="password" placeholder="Passwort" />
+            <input
+              name="password"
+              type="password"
+              placeholder="Passwort"
+              defaultValue={"Nighel123@gmail.com"}
+            />
             <input
               type="submit"
               id="logIn"
@@ -56,6 +68,11 @@ export function Form() {
           </div>
         </form>
       </div>
+      {errorMessage && (
+        <>
+          <p className="errorMssg">{errorMessage}</p>
+        </>
+      )}
     </div>
   );
 }
