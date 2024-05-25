@@ -1,0 +1,145 @@
+.login header {
+  width: 100%;
+  margin-bottom: 50px;
+  overflow: auto;
+}
+
+/*SignIn Überschrift*/
+.login h1 {
+  margin: 20px auto 20px auto;
+  width: 90%;
+  position: relative;
+  padding-bottom: 45%; /*berechnet sich aus Höhe:Breite*/
+  background-size: 100% 100%;
+  z-index: -1;
+}
+
+.login #usernamePage {
+  position: absolute;
+  top: 0px;
+  transition: left 200ms;
+}
+
+.login #usernamePage.focus {
+  left: 22%;
+}
+
+.login #usernamePage.unfocus {
+  left: -100%;
+}
+
+.login #passwordPage {
+  position: absolute;
+  top: 0px;
+  transition: left 200ms;
+}
+
+.login #passwordPage.unfocus {
+  left: 100%;
+}
+
+.login #passwordPage.focus {
+  left: 22%;
+}
+
+/*Window to log in*/
+
+.login #SignInWindow {
+  width: 31%;
+  margin: 0 auto; /*centers the div*/
+  padding: 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  border: 1px #94949a solid;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login #signInImage {
+  margin-top: 3em;
+  width: 80%;
+  margin-bottom: 4em;
+}
+
+@media only screen and (max-width: 1000px) {
+  .login #SignInWindow {
+    width: 100%;
+  }
+}
+
+.login input {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px #94949a solid; /*noch die input-felder oval malen!!!*/
+  padding: 3px;
+}
+.login #swipeContainer {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 4em;
+}
+.login form {
+  margin-bottom: 40px;
+  position: relative;
+}
+.login #message {
+  margin: 10px 20px 10px 20px;
+  text-align: center;
+}
+
+/*Buttons*/
+.login #register {
+  width: 8%;
+  float: left;
+  margin: -10px 0px 0px 14px;
+  position: absolute;
+  padding-bottom: 3%;
+  top: 1.5em;
+  left: 0em;
+}
+.login #title {
+  width: 8%;
+  float: right;
+  margin: -10px 0px 0px 14px;
+  position: absolute;
+  padding-bottom: 3%;
+  top: 1.5em;
+  right: 1em;
+}
+.login .button {
+  margin: 0px;
+  font-size: 20px;
+  width: 100%;
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 4px;
+  color: #ffffff;
+  border: rgb(224, 54, 48) solid 2px;
+  background: -webkit-linear-gradient(rgb(255, 90, 82), rgb(253, 59, 49));
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(rgb(255, 90, 82), rgb(224, 54, 48));
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(rgb(255, 90, 82), rgb(224, 54, 48));
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(rgb(255, 90, 82), rgb(224, 54, 48));
+  /* Standard syntax (must be last) */
+}
+.login #arrowBack {
+  left: -110px;
+  width: 20px;
+  top: -60px;
+  height: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.login #arrowBack.hide {
+  opacity: 0;
+}
+
+.login #arrowBack.show {
+  opacity: initial;
+}

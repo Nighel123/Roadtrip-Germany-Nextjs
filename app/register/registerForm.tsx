@@ -36,6 +36,7 @@ export function Form() {
             name="username"
             onBlur={handleBlur}
             onChange={handleChange}
+            defaultValue={"Nighel123"}
           />
         </div>
         <ErrorComponent errors={state} touched={touched} show={["username"]} />
@@ -50,6 +51,7 @@ export function Form() {
             name="email"
             onBlur={handleBlur}
             onChange={handleChange}
+            defaultValue={"Nighel123@gmail.com"}
           />
         </div>
         <ErrorComponent errors={state} touched={touched} show={["email"]} />
@@ -64,6 +66,7 @@ export function Form() {
             name="password"
             onBlur={handleBlur}
             onChange={handleChange}
+            defaultValue={"Nighel123@gmail.com"}
           />
         </div>
         <ErrorComponent errors={state} touched={touched} show={["password"]} />
@@ -84,13 +87,13 @@ export function Form() {
           <select
             id="sex"
             name="sex"
-            defaultValue=""
+            defaultValue="weiblich"
             onChange={handleChange}
             onBlur={handleBlur}
           >
-            <option defaultValue="">Geschlecht</option>
-            <option value="Weiblich">Weiblich</option>
-            <option value="Männlich">Männlich</option>
+            <option defaultValue="weiblich">Geschlecht</option>
+            <option value="weiblich">Weiblich</option>
+            <option value="männlich">Männlich</option>
           </select>
         </div>
         <ErrorComponent errors={state} touched={touched} show={["sex"]} />

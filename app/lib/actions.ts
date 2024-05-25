@@ -51,7 +51,7 @@ export async function register(
 
   try {
     await sql`
-        INSERT INTO users (username, email, password, birthday,sex)  
+        INSERT INTO users (name, email, password, birthday,sex)  
         VALUES (${username}, ${email}, ${password},${birthday.date}, ${sex})`;
   } catch (error) {
     console.log(error);
@@ -62,6 +62,8 @@ export async function register(
       },
     ];
   }
+
+  redirect("/");
 }
 export async function insertRoadtrip(
   prevState: error[],

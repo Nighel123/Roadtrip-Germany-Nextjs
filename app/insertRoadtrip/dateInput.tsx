@@ -10,12 +10,29 @@ const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
   return (
     <>
       <div className="date">
-        <input id="day" placeholder="Tag" name="day" onBlur={handleBlur} />
-        <select id="month" defaultValue="" name="month" onBlur={handleBlur}>
+        <input
+          id="day"
+          placeholder="Tag"
+          name="day"
+          onBlur={handleBlur}
+          defaultValue={"1"}
+        />
+        <select
+          id="month"
+          defaultValue="Januar"
+          name="month"
+          onBlur={handleBlur}
+        >
           <option>Monat</option>
           {options}
         </select>
-        <input id="year" placeholder="Jahr" name="year" onBlur={handleBlur} />
+        <input
+          id="year"
+          placeholder="Jahr"
+          name="year"
+          onBlur={handleBlur}
+          defaultValue={"1991"}
+        />
       </div>
     </>
   );

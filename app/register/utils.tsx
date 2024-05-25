@@ -1,14 +1,23 @@
-import { zDate } from "app/insertRoadtrip/utils";
 import { RegisterForm, months, sex } from "app/lib/definitions";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { monthToNumber } from "app/lib/utils";
+import { sql } from "@vercel/postgres";
 
 async function checkUserNameExists(a: string) {
-  return Promise.resolve(true);
+  return Promise.resolve(false);
+}
+
+async function checkIfUserNameExists(a: string) {
+  const res = await sql`SELECT name FROM users WHERE name=${a}`;
+  return Boolean(res.rows.length);
 }
 async function checkEmailExists(a: string) {
-  return Promise.resolve(true);
+  return Promise.resolve(false);
+}
+async function checkIfEmailExists(a: string) {
+  const res = await sql`SELECT email FROM users WHERE email=${a}`;
+  return Boolean(res.rows.length);
 }
 
 export function formatRegisterData(o: RegisterForm<any>) {
@@ -66,7 +75,7 @@ export const zRegisterForm = z.object({
     })
     .refine(
       async (username) => {
-        return await checkUserNameExists(username);
+        return !(await checkIfUserNameExists(username));
       },
       {
         message: "Dieser Nutzerame existiert bereits.",
@@ -77,7 +86,7 @@ export const zRegisterForm = z.object({
     .email({ message: "Das ist keine valide Email-Addresse." })
     .refine(
       async (email) => {
-        return await checkEmailExists(email);
+        return !(await checkIfEmailExists(email));
       },
       { message: "Diese Email existiert bereits." }
     ),
@@ -94,7 +103,7 @@ export const zRegisterForm = z.object({
     })
     .regex(
       //https://stackoverflow.com/questions/5142103/regex-to-validate-password-strength
-      new RegExp("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])$"),
+      new RegExp("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])"),
       {
         message:
           "Das Passwort sollte mindestens jeweils einen großen, einen kleinen, eine Zahl und ein Sonderzeichen enthalten.",

@@ -18,12 +18,12 @@ export function useTouched(
 
   const setTouched = (newTouched_: string[]) => {
     //make the entries unique inside newTouched
-    const newTouched = new Set(newTouched_);
+    const newTouched = [...new Set(newTouched_)];
     //do nothing if the values are already inside touched
-    if (new Set(newTouched, touched)) {
+    if (arrSubset(newTouched, touched)) {
       return;
     }
-    if (new Set(["day", "month", "year"]).isSubsetOf(newTouched)) {
+    if (arrSubset(["day", "month", "year"], newTouched)) {
       setTouched_([...newTouched, "date"]);
       return;
     }

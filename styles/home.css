@@ -9,6 +9,25 @@
   margin-bottom: var(--gap);
 }
 
+#register {
+  width: 8%;
+  float: left;
+  margin: -10px 0px 0px 14px;
+  position: absolute;
+  top: 1.5em;
+  left: 0em;
+}
+
+#login {
+  width: 13.5%;
+  float: left;
+  margin: 0px 90% 0px 10px;
+  position: absolute;
+  padding-bottom: 5.5%;
+  top: 3em;
+  left: 0em;
+}
+
 .home a {
   width: 80%;
 }

@@ -12,6 +12,13 @@ import {
 } from "react";
 
 // However, these types are generated automatically if you're using an ORM such as Prisma.
+
+// Lets you work with Sets easyly. Rememver that this is only working because of the the field "typeRoots": ["./types"] in the tsconfig.json,
+// that points to a file that implements the methods not yet implemented by typescript.
+export const S = (...v: string[]) => {
+  return new Set<string>(v);
+};
+
 export type handleBlurType = (
   e: FocusEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
 ) => void;
