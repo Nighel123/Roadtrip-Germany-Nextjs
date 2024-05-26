@@ -1,3 +1,4 @@
+import { auth, signOut } from "auth";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -5,25 +6,47 @@ export const metadata = {
   title: "App Router",
 };
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+
   return (
     <>
-      <Link href="/login" id="login">
-        <Image
-          src="/home/einloggenBlack.jpg"
-          width={408}
-          height={145}
-          alt="einloggen"
-        />
-      </Link>
-      <Link href="/register" id="register">
-        <Image
-          src="/home/registrierenBlack.jpg"
-          width={468}
-          height={149}
-          alt="registrieren"
-        />
-      </Link>
+      {session?.user ? (
+        <form
+          id="ausloggen"
+          action={async () => {
+            "use server";
+            await signOut();
+          }}
+        >
+          <input
+            type="image"
+            src="/home/ausloggen.jpg"
+            width={408}
+            height={145}
+            alt="ausloggen"
+          />
+        </form>
+      ) : (
+        <>
+          <Link href="/login" id="login">
+            <Image
+              src="/home/einloggenBlack.jpg"
+              width={408}
+              height={145}
+              alt="einloggen"
+            />
+          </Link>
+          <Link href="/register" id="register">
+            <Image
+              src="/home/registrierenBlack.jpg"
+              width={468}
+              height={149}
+              alt="registrieren"
+            />
+          </Link>
+        </>
+      )}
       <div className="home" data-testid="home">
         <Image src="/title.jpg" width={1374} height={567} alt="Titel" />
         <Link href="/routesOverview">

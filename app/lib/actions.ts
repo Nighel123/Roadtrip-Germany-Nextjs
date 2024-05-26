@@ -16,6 +16,7 @@ import {
 import { formatRegisterData, zRegisterForm } from "app/register/utils";
 import { signIn } from "auth";
 import { AuthError } from "next-auth";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 const { log } = console;
 
@@ -27,6 +28,7 @@ export async function authenticate(
     await signIn("credentials", formData);
   } catch (error) {
     if (error instanceof AuthError) {
+      //log(error);
       switch (error.type) {
         case "CredentialsSignin":
           return "Invalid credentials.";
@@ -34,6 +36,11 @@ export async function authenticate(
           return "Something went wrong.";
       }
     }
+    if (isRedirectError(error)) {
+      // I guess it is not possible to prevet this error since it also happens in the tutorial!
+      throw error;
+    }
+    //log({ error });
     throw error;
   }
 }
