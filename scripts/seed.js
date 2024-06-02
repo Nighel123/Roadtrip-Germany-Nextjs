@@ -18,7 +18,9 @@ async function seedUsers(client) {
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
         birthday DATE NOT NULL,
-        sex VARCHAR(255) NOT NULL
+        sex VARCHAR(255) NOT NULL,
+        image TEXT,
+        email_verified TIMESTAMPTZ
       );
     `;
 
@@ -57,7 +59,7 @@ async function seedRoadtrips(client) {
     const createTable = await client.sql`
     CREATE TABLE IF NOT EXISTS roadtrips (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      user_id UUID NOT NULL,
+      user_id SERIAL NOT NULL,
       start_id UUID NOT NULL,
       dest_id UUID NOT NULL,
       date DATE NOT NULL,

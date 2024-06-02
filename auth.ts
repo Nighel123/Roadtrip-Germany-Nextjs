@@ -1,13 +1,13 @@
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
-import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import type { User } from "app/lib/definitions";
 import bcrypt from "bcrypt";
-import { redirect } from "next/dist/server/api-utils";
-import { NextURL } from "next/dist/server/web/next-url";
-import { NextRequest } from "next/server";
+import apple from "next-auth/providers/apple";
+import google from "next-auth/providers/google";
+import { Pool } from "pg";
+import PostgresAdapter from "@auth/pg-adapter";
 
 async function getUser(username: string): Promise<User | undefined> {
   try {
@@ -19,9 +19,23 @@ async function getUser(username: string): Promise<User | undefined> {
   }
 }
 
+const pool = new Pool({
+  host: process.env.POSTGRES_HOST,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DATABASE,
+  ssl: true,
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
+
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
+  adapter: PostgresAdapter(pool),
   providers: [
+    google,
+    apple,
     Credentials({
       async authorize(credentials) {
         /* this function will be called from the signIn-function */
