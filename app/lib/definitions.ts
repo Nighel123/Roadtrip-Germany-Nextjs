@@ -77,6 +77,11 @@ export const sex = ["männlich", "weiblich"] as const;
 export type Month = (typeof months)[number];
 export type Sex = (typeof sex)[number];
 
+export type LoginForm<T> = {
+  username: T;
+  password: T;
+};
+
 export type RegisterForm<T> = {
   username: T;
   email: T;

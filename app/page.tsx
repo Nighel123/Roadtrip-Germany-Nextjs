@@ -1,6 +1,8 @@
 import { auth, signOut } from "auth";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { SignInButton } from "./ui/signInButton";
 
 export const metadata = {
   title: "App Router",
@@ -29,14 +31,7 @@ export default async function Page() {
         </form>
       ) : (
         <>
-          <Link href="/login" id="login">
-            <Image
-              src="/home/einloggenBlack.jpg"
-              width={408}
-              height={145}
-              alt="einloggen"
-            />
-          </Link>
+          <SignInButton />
           <Link href="/register" id="register">
             <Image
               src="/home/registrierenBlack.jpg"

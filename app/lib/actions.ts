@@ -3,8 +3,8 @@
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { ZodIssue } from "zod";
-import { RoadtripForm, RegisterForm } from "./definitions";
+import { ZodIssue, z } from "zod";
+import { RoadtripForm, RegisterForm, LoginForm } from "./definitions";
 import fs from "fs";
 import {
   FormDataErrors,
@@ -24,24 +24,45 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData
 ) {
-  try {
-    await signIn("credentials", formData);
-  } catch (error) {
-    if (error instanceof AuthError) {
-      //log(error);
-      switch (error.type) {
-        case "CredentialsSignin":
-          return "Invalid credentials.";
-        default:
-          return "Something went wrong.";
+  const LoginObj = Object.fromEntries(formData.entries()) as LoginForm<any>;
+
+  const parsedCredentials = z
+    .object({
+      username: z.string(),
+      password: z.string().min(6),
+      callbackUrl: z.string(),
+    })
+    .safeParse(LoginObj);
+
+  if (parsedCredentials.success) {
+    const { username, password, callbackUrl } = parsedCredentials.data;
+
+    try {
+      /* const { url, status, ok, error } =  */ await signIn("credentials", {
+        username: username,
+        password: password,
+        redirectTo: callbackUrl, // digested by the redirect callback in the
+      });
+      //redirect(url);
+      //console.log(url);
+      log("no errors");
+    } catch (error) {
+      if (error instanceof AuthError) {
+        //log(error);
+        switch (error.type) {
+          case "CredentialsSignin":
+            return "Invalid credentials.";
+          default:
+            return "Something went wrong.";
+        }
       }
-    }
-    if (isRedirectError(error)) {
-      // I guess it is not possible to prevet this error since it also happens in the tutorial!
+      if (isRedirectError(error)) {
+        // I guess it is not possible to prevet this error since it also happens in the tutorial!
+        throw error;
+      }
+      //log({ error });
       throw error;
     }
-    //log({ error });
-    throw error;
   }
 }
 

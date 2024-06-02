@@ -3,17 +3,33 @@ import type { NextAuthConfig } from "next-auth";
 export const authConfig = {
   pages: {
     signIn: "/login",
-    newUser: "/", // does not work
+    //newUser: "/", // does not work
   },
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const { pathname } = nextUrl;
       if (pathname === "/insertRoadtrip") return !!auth;
       return true;
-    },
+    } /* ,
     async redirect({ url, baseUrl }) {
-      return "/";
+      console.log("url: ", url, "baseUrl: ", baseUrl);
+      return url;
     },
+    async signIn({ user, account, profile, email, credentials }) {
+      console.log(
+        "user: ",
+        user,
+        "account: ",
+        account,
+        "profile: ",
+        profile,
+        "email: ",
+        email,
+        "credentials: ",
+        credentials
+      );
+      return true;
+    }, */,
   },
   providers: [], // Add providers with an empty array for now
   debug: process.env.NODE_ENV !== "production" ? true : false,

@@ -4,10 +4,13 @@ import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { authenticate } from "app/lib/actions";
+import { useSearchParams } from "next/navigation";
 
 export function Form() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [swipe, setSwipe] = useState(false);
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams?.get("callbackUrl") || "/";
 
   const ToogleSwipe: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = (
     event
@@ -38,6 +41,7 @@ export function Form() {
       </div>
       <div id="swipeContainer">
         <form id="logInForm" action={dispatch}>
+          <input hidden name="callbackUrl" value={callbackUrl} />
           <div id="usernamePage" className={swipe ? "unfocus" : "focus"}>
             <input
               name="username"

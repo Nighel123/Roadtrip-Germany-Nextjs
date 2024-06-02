@@ -5,6 +5,9 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import type { User } from "app/lib/definitions";
 import bcrypt from "bcrypt";
+import { redirect } from "next/dist/server/api-utils";
+import { NextURL } from "next/dist/server/web/next-url";
+import { NextRequest } from "next/server";
 
 async function getUser(username: string): Promise<User | undefined> {
   try {
@@ -16,21 +19,26 @@ async function getUser(username: string): Promise<User | undefined> {
   }
 }
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
       async authorize(credentials) {
-        const parsedCredentials = z
-          .object({ username: z.string(), password: z.string().min(6) })
-          .safeParse(credentials);
-        if (parsedCredentials.success) {
-          const { username, password } = parsedCredentials.data;
-          const user = await getUser(username);
-          if (!user) return null;
-          const passwordsMatch = await bcrypt.compare(password, user.password);
+        /* this function will be called from the signIn-function */
+        //const nextUrl: NextURL = request.nextUrl;
+        const { username, password, redirectTo } = credentials as {
+          username: string;
+          password: string;
+          redirectTo: string;
+        };
+        console.log(redirectTo);
+        const user = await getUser(username);
+        if (!user) return null;
+        const passwordsMatch = await bcrypt.compare(password, user.password);
 
-          if (passwordsMatch) return user;
+        if (passwordsMatch) {
+          //Response.redirect(new URL("/dashboard", request.nextUrl));
+          return user;
         }
 
         console.log("Invalid credentials");
