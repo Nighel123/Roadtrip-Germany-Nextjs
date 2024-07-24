@@ -43,7 +43,6 @@ export function Form() {
           height={20}
           alt="arrow back"
         />
-        x
       </div>
       <div id="swipeContainer">
         <form id="logInForm" action={dispatch}>
