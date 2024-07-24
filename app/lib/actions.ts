@@ -105,15 +105,17 @@ export async function register(
   const { username, email, password, birthday, sex } = resFormDataObj.data;
 
   try {
+    await sql`BEGIN`; // start a transaction
     const {
       rows: [{ id: user_id }],
     } = await sql`
         INSERT INTO users (name, email, password, birthday,sex)  
         VALUES (${username}, ${email}, ${password},${birthday.date}, ${sex})
         RETURNING id`;
-    await sendVerificationEmail("nickel.paulsen@googlemail.com", user_id);
+    await sendVerificationEmail(email, user_id);
   } catch (error) {
     console.log(error);
+    await sql`ROLLBACK`; // rollback the transaction
     return [
       {
         message: "Database Fehler: Benutzer konnte nicht erstellt werden.",

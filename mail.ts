@@ -9,7 +9,7 @@ export async function sendVerificationEmail(email: string, user_id: string) {
   const confirmLink = `${domain}/login/?verification_token=${token}`;
 
   const lol = await resend.emails.send({
-    from: "onboarding@resend.dev",
+    from: "validateEmail@roadtrip-germany.de",
     to: email,
     subject: "Confirm your email",
     html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
