@@ -1,0 +1,47 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center; /* putting everything into the center. */
+}
+
+.home img {
+  margin-bottom: var(--gap);
+}
+
+#register {
+  width: 8%;
+  float: left;
+  margin: -10px 0px 0px 14px;
+  position: absolute;
+  top: 1.5em;
+  left: 0em;
+}
+#ausloggen > input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+}
+#ausloggen {
+  width: 12%;
+  margin: -10px 0px 0px 14px;
+  float: left;
+  position: absolute;
+  top: 1.5em;
+  left: 0em;
+}
+
+#login {
+  width: 13.5%;
+  float: left;
+  margin: 0px 90% 0px 10px;
+  position: absolute;
+  padding-bottom: 5.5%;
+  top: 3em;
+  left: 0em;
+}
+
+.home a {
+  width: 80%;
+}

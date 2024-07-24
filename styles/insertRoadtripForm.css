@@ -1,0 +1,56 @@
+.insertRoadtrip form {
+  background: #f8f8f8;
+  padding: 5%;
+}
+
+.insertRoadtrip input[type="image" i],
+.insertRoadtrip img {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin-top: 2%;
+}
+
+.insertRoadtrip div.text {
+  height: 15em;
+}
+
+.insertRoadtrip label {
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.insertRoadtrip form > div {
+  margin-top: 0.5em;
+  margin-bottom: 0.6em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2%;
+}
+
+.insertRoadtrip form > div.text {
+  justify-content: center;
+}
+
+.insertRoadtrip form > div.imageUpload {
+  flex-direction: column;
+  width: 100%;
+}
+
+.insertRoadtrip form div.imageUpload > * {
+  width: 70% !important;
+}
+
+.insertRoadtrip form > div > input,
+.insertRoadtrip form > div > textarea {
+  width: 100%;
+}
+
+.insertRoadtrip form > div > img:hover {
+  cursor: pointer;
+}
+
+.insertRoadtrip p.errorMssg {
+  color: red;
+}
