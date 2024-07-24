@@ -2,28 +2,31 @@
 // https://nextjs.org/learn/dashboard-app/fetching-data
 const users = [
   {
-    id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    id: "1",
     name: "Flemming",
     email: "user@nextmail.com",
-    password: "123456",
+    password: "Nighel123@gmail.com",
     birthday: "1991-12-06",
     sex: "weiblich",
+    emailVerified: "2024-07-24 10:03:49.238+00",
   },
   {
-    id: "410544b2-4221-4271-9855-fec4b6a6442a",
+    id: "2",
     name: "Nighel123",
     email: "nighel@nextmail.com",
-    password: "123456",
+    password: "Nighel123@gmail.com",
     birthday: "1999-12-06",
     sex: "männlich",
+    emailVerified: "2024-07-24 10:03:49.238+00",
   },
   {
-    id: "410544b2-4035-4271-9855-fec4b6a6442a",
+    id: "3",
     name: "Hannah",
     email: "Hannah@nextmail.com",
-    password: "123456",
+    password: "Nighel123@gmail.com",
     birthday: "2002-12-06",
     sex: "männlich",
+    emailVerified: "2024-07-24 10:03:49.238+00",
   },
 ];
 

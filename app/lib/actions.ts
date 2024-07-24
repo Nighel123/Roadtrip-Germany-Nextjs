@@ -124,7 +124,7 @@ export async function register(
     ];
   }
 
-  redirect("/");
+  redirect("/register/success");
 }
 export async function insertRoadtrip(
   prevState: error[],

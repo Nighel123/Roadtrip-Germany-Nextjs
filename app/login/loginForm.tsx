@@ -29,6 +29,9 @@ export function Form() {
         alt="signIn"
         id="signInImage"
       />
+      {verificationToken ? (
+        <h1>Log dich ein, um deine Email zu verifizieren.</h1>
+      ) : null}
       <div
         id="arrowBack"
         className={swipe ? "show" : "hide"}
@@ -40,11 +43,13 @@ export function Form() {
           height={20}
           alt="arrow back"
         />
+        x
       </div>
       <div id="swipeContainer">
         <form id="logInForm" action={dispatch}>
           <input hidden name="callbackUrl" value={callbackUrl} />
           <input hidden name="verificationToken" value={verificationToken} />
+
           <div id="usernamePage" className={swipe ? "unfocus" : "focus"}>
             <input
               name="username"

@@ -9,9 +9,12 @@
   margin: 20px auto 20px auto;
   width: 90%;
   position: relative;
-  padding-bottom: 45%; /*berechnet sich aus Höhe:Breite*/
   background-size: 100% 100%;
   z-index: -1;
+  font-weight: 300;
+  font-size: 2em;
+  color: green;
+  text-align: center;
 }
 
 .login #usernamePage {

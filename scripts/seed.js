@@ -6,9 +6,34 @@ const {
 } = require("../app/lib/placeholder-data.js");
 const bcrypt = require("bcrypt");
 
+async function createTableVerification_token(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+    // Create the "users" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE verification_token
+      (
+        identifier TEXT NOT NULL,
+        expires TIMESTAMPTZ NOT NULL,
+        token TEXT NOT NULL,
+        user_id SERIAL,
+ 
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        PRIMARY KEY (identifier, token)
+      );
+    `;
+    console.log(`Created "verification_token" table`);
+    return {
+      createTable,
+    };
+  } catch (error) {
+    console.error("Error seeding users:", error);
+    throw error;
+  }
+}
+
 async function seedUsers(client) {
   try {
-    await client.sql`DROP TABLE users`;
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
     // Create the "users" table if it doesn't exist
     const createTable = await client.sql`
@@ -18,7 +43,9 @@ async function seedUsers(client) {
         email TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
         birthday DATE NOT NULL,
-        sex VARCHAR(255) NOT NULL
+        sex VARCHAR(255) NOT NULL,
+        image TEXT,
+        "emailVerified" TIMESTAMPTZ
       );
     `;
 
@@ -50,19 +77,21 @@ async function seedUsers(client) {
 
 async function seedRoadtrips(client) {
   try {
-    await client.sql`DROP TABLE roadtrips`;
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     // Create the "roadtrips" table if it doesn't exist
     const createTable = await client.sql`
     CREATE TABLE IF NOT EXISTS roadtrips (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      user_id UUID NOT NULL,
+      user_id SERIAL NOT NULL,
       start_id UUID NOT NULL,
       dest_id UUID NOT NULL,
       date DATE NOT NULL,
       image_url TEXT NOT NULL,
-      description TEXT NOT NULL
+      description TEXT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      FOREIGN KEY (start_id) REFERENCES addresses(id) ON DELETE CASCADE,
+      FOREIGN KEY (dest_id) REFERENCES addresses(id) ON DELETE CASCADE
   );
 `;
 
@@ -93,7 +122,6 @@ async function seedRoadtrips(client) {
 
 async function seedAddresses(client) {
   try {
-    await client.sql`DROP TABLE addresses`;
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     // Create the "addresses" table if it doesn't exist
@@ -132,10 +160,24 @@ async function seedAddresses(client) {
 
 async function main() {
   const client = await db.connect();
+  const { sql } = client;
 
+  try {
+    /* await client.sql`BEGIN`;
+    await client.sql`DELETE FROM users`;
+    await client.sql`COMMIT`; */
+    await client.sql`DROP TABLE IF EXISTS roadtrips`;
+    await client.sql`DROP TABLE IF EXISTS verification_token`;
+    await client.sql`DROP TABLE IF EXISTS users`;
+    await client.sql`DROP TABLE IF EXISTS addresses`;
+  } catch (error) {
+    console.log(`Error dropping Tables`);
+    throw error;
+  }
+  await createTableVerification_token(client);
+  await seedAddresses(client);
   await seedUsers(client);
   await seedRoadtrips(client);
-  await seedAddresses(client);
 
   await client.end();
 }
