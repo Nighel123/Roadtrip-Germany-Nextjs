@@ -5,6 +5,7 @@ import "@/styles/login.css";
 import Image from "next/image";
 import Link from "next/link";
 import { Form } from "./loginForm";
+import { Suspense } from "react";
 
 const Login = () => {
   return (
@@ -23,8 +24,9 @@ const Login = () => {
           />
         </Link>
       </header>
-
-      <Form />
+      <Suspense>
+        <Form />
+      </Suspense>
     </div>
   );
 };

@@ -15,7 +15,6 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
-    "noUnusedParameters": true,
     "types": ["@testing-library/jest-dom"],
     "paths": {
       "@/components/*": ["components/*"],

@@ -3,6 +3,7 @@ import { monthToNumber } from "app/lib/utils";
 import { z } from "zod";
 import { Client, GeocodeRequest } from "@googlemaps/google-maps-services-js";
 export async function isAddressValid(a: string, b: string) {
+  console.log(a, b);
   return Promise.resolve(true);
 }
 
