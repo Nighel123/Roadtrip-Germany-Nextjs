@@ -30,7 +30,6 @@ export function insertFormToZObj(o: RoadtripForm<any>) {
     year,
     description,
     file,
-    submit = false,
   } = o;
   const dest = { land: destland, town: desttown };
   const start = { land: startland, town: starttown };

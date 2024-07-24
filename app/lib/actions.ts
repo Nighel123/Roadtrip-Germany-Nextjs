@@ -282,7 +282,7 @@ export async function verifyUserEmail(user_id: string) {
 
 /* const CreateInvoice = FormSchema.omit({ id: true, date: true }); */
 
-export async function createInvoice(prevState: State, formData: FormData) {
+/* export async function createInvoice(prevState: State, formData: FormData) {
   const validatedFields = CreateInvoice.safeParse({
     customerId: formData.get("customerId"),
     amount: formData.get("amount"),
@@ -343,7 +343,7 @@ export async function deleteInvoice(id: string) {
   } catch (error) {
     return { message: "Database Error: Failed to Delete Invoice" };
   }
-}
+} */
 
 /* export async function authenticate(
   prevState: string | undefined,

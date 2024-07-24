@@ -12,24 +12,9 @@ import ImageUpload from "./imageUpload";
 import Submit from "./submit";
 import { insertRoadtrip } from "app/lib/actions";
 import { useFormState } from "react-dom";
-import {
-  ChangeEvent,
-  FocusEvent,
-  MouseEvent,
-  MutableRefObject,
-  useRef,
-  useState,
-} from "react";
 import { error } from "./utils";
 import { useTouched } from "./useTouched";
 import ErrorComponent from "./errorMessage";
-import {
-  Dispatch,
-  handleBlurType,
-  handleChangeFileType,
-  handleClickType,
-} from "app/lib/definitions";
-import { factoryHandleBlur } from "app/lib/utils";
 
 const { log } = console;
 const errorPaths = [

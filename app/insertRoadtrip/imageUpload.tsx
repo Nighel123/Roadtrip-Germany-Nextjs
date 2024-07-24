@@ -16,7 +16,7 @@ const ImageUpload = ({
   const [preview, setPreview] = useState("/profilePrev.jpg");
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 
-  const onClickInput = (event: MouseEvent<HTMLImageElement>) => {
+  const onClickInput = () => {
     hiddenInputRef.current?.click();
   };
 

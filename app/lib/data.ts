@@ -1,13 +1,5 @@
 import { sql } from "@vercel/postgres";
-import {
-  CustomerField,
-  CustomersTableType,
-  InvoiceForm,
-  InvoicesTable,
-  RoadtripDisplay,
-  User,
-} from "./definitions";
-import { formatCurrency } from "./utils";
+import { RoadtripDisplay } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchRoadtrips() {

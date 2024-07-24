@@ -70,7 +70,7 @@ export function useTouched(
     Dispatch();
   };
 
-  const handleSubmit: handleClickType = (event) => {
+  const handleSubmit: handleClickType = () => {
     setTouched(errorPaths);
     Dispatch(true);
   };
