@@ -1,11 +1,11 @@
 .routesDetailed #title {
   width: 8%;
   float: right;
-  margin: -10px 0px 0px 14px;
+  margin: -1.5vw 0px 0px 2vw;
   position: absolute;
   padding-bottom: 3%;
-  top: 1.5em;
-  right: 1em;
+  top: 4vw;
+  right: 1vw;
 }
 
 div.routesDetailed .grid {
@@ -35,7 +35,7 @@ div.routesDetailed .grid {
   width: 97%;
   background-color: white;
   color: #231e38;
-  margin: 2em;
+  margin: 1.8vw;
   margin-left: 0;
 }
 
@@ -47,7 +47,7 @@ div.routesDetailed .grid {
   flex-wrap: nowrap;
   flex-direction: column;
   background-color: white;
-  margin: 2em;
+  margin: 1.8vw;
   margin-right: 0;
 }
 
