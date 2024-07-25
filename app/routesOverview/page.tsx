@@ -46,13 +46,14 @@ export default async function RoutesOverview() {
           height={147}
         />
       </Link>
-
-      <Image
-        src="/routesOverview/reiseAnsehen.jpg"
-        alt="routesDetailed"
-        width={662}
-        height={145}
-      />
+      <Link href="/routesDetailed">
+        <Image
+          src="/routesOverview/reiseAnsehen.jpg"
+          alt="routesDetailed"
+          width={662}
+          height={145}
+        />
+      </Link>
 
       <Image
         src="/routesOverview/img1.jpg"

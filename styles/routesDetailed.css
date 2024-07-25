@@ -1,0 +1,68 @@
+.routesDetailed #title {
+  width: 8%;
+  float: right;
+  margin: -10px 0px 0px 14px;
+  position: absolute;
+  padding-bottom: 3%;
+  top: 1.5em;
+  right: 1em;
+}
+
+div.routesDetailed .grid {
+  margin-top: 10%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1.3fr 3fr;
+}
+
+.routesDetailed img {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+
+.routesDetailed #tableContainer {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.routesDetailed #mapcontent {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.routesDetailed #mapcontent {
+  height: 93%;
+  width: 97%;
+  background-color: white;
+  color: #231e38;
+  margin: 2em;
+  margin-left: 0;
+}
+
+.routesDetailed #tableContainer {
+  border: #65ace2 solid 2px;
+  overflow: scroll;
+  /* make it flex in a colloum direction */
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  background-color: white;
+  margin: 2em;
+  margin-right: 0;
+}
+
+.routesDetailed a.tableRow:nth-of-type(even) {
+  background-color: #f9f5ff;
+}
+.routesDetailed .tableRow {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #d3dbf8;
+}
+.routesDetailed .tableItem {
+  padding: 5px 0px 5px 0px;
+  width: 25%;
+  text-align: center;
+  align-content: center;
+  font-size: 0.9vw;
+}

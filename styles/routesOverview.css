@@ -36,7 +36,7 @@
   flex-direction: column;
 }
 /*Roadtrip-List-Elements*/
-.routesOverview div.tableRow:nth-of-type(even) {
+.routesOverview .tableRow:nth-of-type(even) {
   background-color: #f9f5ff;
 }
 .routesOverview .tableRow {
@@ -96,7 +96,7 @@
   grid-row: 3/4;
 }
 
-.routesOverview img[alt~="routesDetailed"] {
+.routesOverview a[href="/routesDetailed"] {
   grid-column: 2/3;
   grid-row: 3/4;
 }

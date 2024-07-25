@@ -8,7 +8,7 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    mapPlot(ref, 4, 10, "14px", true, true, roadtrips);
+    mapPlot(ref, 4, 10, "11", true, true, roadtrips);
   });
 
   return <div ref={ref} id="mapcontent" />;
