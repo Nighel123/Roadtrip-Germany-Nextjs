@@ -12,11 +12,7 @@ const TextInput = ({ handleBlur }: { handleBlur: handleBlurType }) => {
         style={styleDesctription}
         name="description"
         onBlur={handleBlur}
-      >
-        yeah ich bin so ein cooler typ! Und ich kann fliegen und bin noch cooler
-        als ihr alle. UUnd
-        aspofjhwpqoeuihruhfkjandvpiuiahsepfijnpqwi3uhrpijn;afksjfhdpiuhasefpoiuijnew4
-      </textarea>
+      ></textarea>
     </div>
   );
 };

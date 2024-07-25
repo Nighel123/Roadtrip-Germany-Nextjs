@@ -53,7 +53,7 @@ export function Form() {
             <input
               name="username"
               placeholder="Benutzername"
-              defaultValue={"Nighel123"}
+              /* defaultValue={"Nighel123"} */
             />
             <button
               id="weiter"
@@ -68,7 +68,7 @@ export function Form() {
               name="password"
               type="password"
               placeholder="Passwort"
-              defaultValue={"Nighel123@gmail.com"}
+              /* defaultValue={"Nighel123@gmail.com"} */
             />
             <input
               type="submit"

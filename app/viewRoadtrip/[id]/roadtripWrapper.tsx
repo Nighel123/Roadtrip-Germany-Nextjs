@@ -6,7 +6,7 @@ import Image from "next/image";
 export default async function RoadtripWrapper({ id }: { id: string }) {
   const roadtrips = await fetchRoadtripById(id);
   const { description, image_url, username } = roadtrips[0];
-  const image = "/uploads/" + id + image_url;
+  const image = "/uploads/" + id + "." + image_url;
 
   return (
     <div className="roadtripWrapper">

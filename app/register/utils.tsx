@@ -103,10 +103,10 @@ export const zRegisterForm = z.object({
     })
     .regex(
       //https://stackoverflow.com/questions/5142103/regex-to-validate-password-strength
-      new RegExp("^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])"),
+      new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])"),
       {
         message:
-          "Das Passwort sollte mindestens jeweils einen großen, einen kleinen, eine Zahl und ein Sonderzeichen enthalten.",
+          "Das Passwort sollte mindestens jeweils einen großen, einen kleinen Buchstaben und eine Zahl enthalten.",
       }
     )
     .transform(async (password) => {
