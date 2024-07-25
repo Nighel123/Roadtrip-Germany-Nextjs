@@ -17,32 +17,19 @@
   text-align: center;
 }
 
-.login #usernamePage {
-  position: absolute;
-  top: 0px;
+.login #swipeContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 200%;
+  position: relative;
+  top: 0;
+  left: 0;
   transition: left 200ms;
+  height: 100px;
+  margin-bottom: 4em;
 }
-
-.login #usernamePage.focus {
-  left: 22%;
-}
-
-.login #usernamePage.unfocus {
+.login #swipeContainer.right {
   left: -100%;
-}
-
-.login #passwordPage {
-  position: absolute;
-  top: 0px;
-  transition: left 200ms;
-}
-
-.login #passwordPage.unfocus {
-  left: 100%;
-}
-
-.login #passwordPage.focus {
-  left: 22%;
 }
 
 /*Window to log in*/
@@ -66,7 +53,13 @@
   margin-bottom: 4em;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1000px) and (min-width: 500px) {
+  .login #SignInWindow {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
   .login #SignInWindow {
     width: 100%;
   }
@@ -79,14 +72,11 @@
   border: 2px #94949a solid; /*noch die input-felder oval malen!!!*/
   padding: 3px;
 }
-.login #swipeContainer {
-  width: 100%;
-  height: 100px;
-  margin-bottom: 4em;
-}
+
 .login form {
   margin-bottom: 40px;
   position: relative;
+  width: 100%;
 }
 .login #message {
   margin: 10px 20px 10px 20px;

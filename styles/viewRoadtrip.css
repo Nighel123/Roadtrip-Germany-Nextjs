@@ -1,0 +1,47 @@
+.viewRoadtrip #title {
+  width: 8%;
+  float: right;
+  margin: -10px 0px 0px 14px;
+  position: absolute;
+  padding-bottom: 3%;
+  top: 1.5em;
+  right: 1em;
+}
+
+.viewRoadtrip div.roadtripWrapper {
+  margin-top: 10%;
+  display: grid;
+  grid-template-rows: min-content;
+  grid-template-columns: 3fr 1fr;
+  gap: 5%;
+}
+
+.viewRoadtrip div.description {
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.viewRoadtrip .roadtripWrapper img {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  height: 200px;
+}
+
+.viewRoadtrip #map {
+  grid-column: 1/3;
+  grid-row: 2/3;
+}
+
+.viewRoadtrip #map {
+  background-color: white;
+  color: #231e38;
+  border: #a84337 solid 2px;
+  overflow: hidden;
+}
+
+.viewRoadtrip #mapcontent {
+  position: relative;
+  height: 500px;
+  background-color: white;
+  color: #231e38;
+}

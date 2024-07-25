@@ -44,12 +44,12 @@ export function Form() {
           alt="arrow back"
         />
       </div>
-      <div id="swipeContainer">
-        <form id="logInForm" action={dispatch}>
-          <input hidden name="callbackUrl" value={callbackUrl} />
-          <input hidden name="verificationToken" value={verificationToken} />
 
-          <div id="usernamePage" className={swipe ? "unfocus" : "focus"}>
+      <form id="logInForm" action={dispatch}>
+        <input hidden name="callbackUrl" value={callbackUrl} />
+        <input hidden name="verificationToken" value={verificationToken} />
+        <div id="swipeContainer" className={swipe ? "right" : "left"}>
+          <div id="usernamePage">
             <input
               name="username"
               placeholder="Benutzername"
@@ -63,7 +63,7 @@ export function Form() {
               weiter
             </button>
           </div>
-          <div id="passwordPage" className={swipe ? "focus" : "unfocus"}>
+          <div id="passwordPage">
             <input
               name="password"
               type="password"
@@ -77,8 +77,9 @@ export function Form() {
               value="einloggen"
             />
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
+
       {errorMessage && (
         <>
           <p className="errorMssg">{errorMessage}</p>

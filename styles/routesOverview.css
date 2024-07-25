@@ -12,14 +12,14 @@
 }
 
 .routesOverview img[alt~="blueFrame"],
-.routesOverview #table {
+.routesOverview #tableContainer {
   grid-column: 1/2;
   grid-row: 2/3;
 }
 .routesOverview img[alt~="blueFrame"] {
   height: 100%;
 }
-.routesOverview #table {
+.routesOverview #tableContainer {
   position: relative;
   top: 15%;
   left: 5%;
@@ -30,18 +30,26 @@
   color: #231e38;
   border: #65ace2 solid 2px;
   overflow: scroll;
+  /* make it flex in a colloum direction */
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 /*Roadtrip-List-Elements*/
-.routesOverview table tr:nth-of-type(even) {
+.routesOverview div.tableRow:nth-of-type(even) {
   background-color: #f9f5ff;
 }
-.routesOverview tr {
+.routesOverview .tableRow {
+  display: flex;
+  width: 100%;
   border-bottom: 1px solid #d3dbf8;
 }
-.routesOverview td {
+.routesOverview .tableItem {
   padding: 5px 0px 5px 0px;
   width: 25%;
   text-align: center;
+  align-content: center;
+  font-size: 1vw;
 }
 
 .routesOverview img[alt~="redFrame"],

@@ -7,9 +7,5 @@ export default async function RoutesTable() {
   const lines = roadtrips.map((roadtrip: RoadtripDisplay) => {
     return <RoutesTableLine key={`line-${roadtrip.id}`} roadtrip={roadtrip} />;
   });
-  return (
-    <table id="roadtripslist" /* style={{ border-collapse:"collapse" }} */>
-      <tbody>{lines}</tbody>
-    </table>
-  );
+  return <div id="table">{lines}</div>;
 }

@@ -5,6 +5,8 @@ import { Suspense } from "react";
 import { MapSkeleton, TableSkeleton } from "app/ui/skeletons";
 import MapWrapper from "app/ui/mapWrapper";
 
+import "@/styles/routesOverview.css";
+
 export default async function RoutesOverview() {
   return (
     <div className="routesOverview" data-testid="routesOverview">
@@ -18,7 +20,7 @@ export default async function RoutesOverview() {
         width={740}
         height={444}
       />
-      <div id="table">
+      <div id="tableContainer">
         <Suspense fallback={<TableSkeleton />}>
           <RoutesTable />
         </Suspense>

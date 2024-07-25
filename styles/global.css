@@ -6,6 +6,7 @@ body {
   font-size: 13px;
   --gap: 3%;
   margin: var(--gap); /* margins around the whole page */
+  width: 93%;
 }
 p.errorMssg {
   color: red;
