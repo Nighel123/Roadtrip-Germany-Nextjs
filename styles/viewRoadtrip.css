@@ -28,6 +28,13 @@
   width: auto;
 }
 
+@media screen and (max-width: 550px) {
+  .viewRoadtrip .roadtripWrapper img {
+    height: 100px;
+    width: auto;
+  }
+}
+
 .viewRoadtrip #map {
   grid-column: 1/3;
   grid-row: 2/3;
