@@ -194,7 +194,15 @@ export async function insertRoadtrip(
       const arrayBuffer = await file.File.arrayBuffer();
       const buffer = new Uint8Array(arrayBuffer);
 
-      const filePath = `./uploads/${imgName}.${file.ext}`;
+      await fs.mkdir("./uploads", { recursive: true }, (err) => {
+        if (err) throw err;
+      });
+
+      const filePath = path.join(
+        process.cwd(),
+        `/uploads/${imgName}.${file.ext}`
+      );
+
       await fs.writeFile(filePath, buffer, async (err) => {
         console.log("fileupload: ", err);
         //throw new Error(`Error writing file: ${err}`);

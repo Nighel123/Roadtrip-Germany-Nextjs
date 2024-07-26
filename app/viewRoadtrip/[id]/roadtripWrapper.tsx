@@ -2,11 +2,12 @@ import { fetchRoadtripById } from "app/lib/data";
 import MapLoader from "../../ui/mapLoader";
 import MyMapComponent from "../../ui/map";
 import Image from "next/image";
+import path from "path";
 
 export default async function RoadtripWrapper({ id }: { id: string }) {
   const roadtrips = await fetchRoadtripById(id);
   const { description, image_url, username } = roadtrips[0];
-  const image = "/uploads/" + id + "." + image_url;
+  const image = `.uploads/${id}.${image_url}`;
 
   return (
     <div className="roadtripWrapper">
@@ -16,7 +17,7 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
         </label>
         <p className="description">{description}</p>
       </div>
-      <Image src={image} alt="roadtripPicture" width={100} height={200} />
+      <img src={image} alt="roadtripPicture" width={100} height={200} />
       <div id="map">
         <MapLoader>
           <MyMapComponent roadtrips={roadtrips} />
