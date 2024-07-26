@@ -15,11 +15,11 @@ const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
           placeholder="Tag"
           name="day"
           onBlur={handleBlur}
-          defaultValue={"1"}
+          /* defaultValue={"1"} */
         />
         <select
           id="month"
-          defaultValue="Januar"
+          /* defaultValue="Januar" */
           name="month"
           onBlur={handleBlur}
         >
@@ -31,7 +31,7 @@ const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
           placeholder="Jahr"
           name="year"
           onBlur={handleBlur}
-          defaultValue={"2025"}
+          /* defaultValue={"2025"} */
         />
       </div>
     </>
