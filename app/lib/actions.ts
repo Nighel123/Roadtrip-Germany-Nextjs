@@ -195,17 +195,11 @@ export async function insertRoadtrip(
       const buffer = new Uint8Array(arrayBuffer);
 
       await fs.writeFile(
-        path.join(process.cwd(), `/public/uploads/${imgName}.${file.ext}`),
+        path.join(process.cwd(), `public/uploads/${imgName}.${file.ext}`),
         buffer,
         async (err) => {
-          console.log(err);
-          await sql`ROLLBACK`; // rollback the transaction
-          return [
-            {
-              message: "Failure writing file.",
-              path: ["file"],
-            },
-          ];
+          console.log("fileupload: ", err);
+          throw new Error(`Error writing file: ${err}`);
         }
       );
     } else {
@@ -217,8 +211,8 @@ export async function insertRoadtrip(
     await sql`ROLLBACK`; // rollback the transaction
     return [
       {
-        message: "Database Fehler: Roadtrip konnte nicht eingetragen werden.",
-        path: ["database"],
+        message: `Roadtrip konnte nicht eingetragen werden. ${error}`,
+        path: ["file"],
       },
     ];
   }
