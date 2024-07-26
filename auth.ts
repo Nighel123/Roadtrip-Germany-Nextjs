@@ -33,7 +33,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
             redirectTo: string;
             verificationToken: string;
           };
-        console.log(verificationToken);
+        /* console.log(verificationToken); */
         const user = await getUser(username);
         if (!user) return null;
         const passwordsMatch = await bcrypt.compare(password, user.password);

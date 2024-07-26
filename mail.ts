@@ -14,6 +14,6 @@ export async function sendVerificationEmail(email: string, user_id: string) {
     subject: "Confirm your email",
     html: `<p>Click <a href="${confirmLink}">here</a> to confirm email.</p>`,
   });
-  console.log("email sent to: ", email);
-  console.log({ lol });
+  /* console.log("email sent to: ", email); */
+  /* console.log({ lol }); */
 }

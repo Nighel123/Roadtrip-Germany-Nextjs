@@ -1,6 +1,7 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
+import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodIssue, z } from "zod";
@@ -194,19 +195,29 @@ export async function insertRoadtrip(
       const arrayBuffer = await file.File.arrayBuffer();
       const buffer = new Uint8Array(arrayBuffer);
 
-      await fs.mkdir("./uploads", { recursive: true }, (err) => {
+      /* await fs.mkdir("./uploads", { recursive: true }, (err) => {
         if (err) throw err;
-      });
+      }); */
 
-      const filePath = path.join(
+      const blob = await put(`${imgName}.${file.ext}`, file.File, {
+        access: "public",
+      });
+      console.log(blob);
+      await sql`
+        UPDATE roadtrips 
+        SET image_url = ${blob.downloadUrl} 
+        WHERE id = ${imgName};
+      `;
+
+      /* const filePath = path.join(
         process.cwd(),
-        `/uploads/${imgName}.${file.ext}`
+        `public/uploads/${imgName}.${file.ext}`
       );
 
       await fs.writeFile(filePath, buffer, async (err) => {
         console.log("fileupload: ", err);
         //throw new Error(`Error writing file: ${err}`);
-      });
+      }); */
     } else {
       await sql`ROLLBACK`; // rollback the transaction
     }
