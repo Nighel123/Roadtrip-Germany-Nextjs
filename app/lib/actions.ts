@@ -194,16 +194,10 @@ export async function insertRoadtrip(
       const arrayBuffer = await file.File.arrayBuffer();
       const buffer = new Uint8Array(arrayBuffer);
 
-      let env = process.env.NODE_ENV || "development";
-      let filePath: string;
-      if (env === "production") {
-        filePath = `./uploads/${imgName}.${file.ext}`;
-      } else {
-        filePath = `./public/uploads/${imgName}.${file.ext}`;
-      }
+      const filePath = `./uploads/${imgName}.${file.ext}`;
       await fs.writeFile(filePath, buffer, async (err) => {
         console.log("fileupload: ", err);
-        throw new Error(`Error writing file: ${err}`);
+        //throw new Error(`Error writing file: ${err}`);
       });
     } else {
       await sql`ROLLBACK`; // rollback the transaction
