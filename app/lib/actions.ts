@@ -195,7 +195,7 @@ export async function insertRoadtrip(
       const buffer = new Uint8Array(arrayBuffer);
 
       await fs.writeFile(
-        path.join(process.cwd(), `public/uploads/${imgName}.${file.ext}`),
+        path.join(process.cwd(), `/public/uploads/${imgName}.${file.ext}`),
         buffer,
         async (err) => {
           console.log(err);
