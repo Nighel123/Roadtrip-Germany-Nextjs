@@ -14,14 +14,14 @@ const AddressInput = ({
         placeholder="Land"
         name={name + "land"}
         onBlur={handleBlur}
-        /* defaultValue={"Mallorca"} */
+        defaultValue={"Mallorca"}
       />
       <input
         id={name + "town"}
         placeholder="Stadt"
         name={name + "town"}
         onBlur={handleBlur}
-        /* defaultValue={"Mallorcad"} */
+        defaultValue={"Mallorcad"}
       />
     </div>
   );
