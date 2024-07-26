@@ -19,6 +19,7 @@ import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { sendVerificationEmail } from "mail";
 import { randomUUID } from "node:crypto";
+import path from "path";
 
 const { log } = console;
 
@@ -194,7 +195,7 @@ export async function insertRoadtrip(
       const buffer = new Uint8Array(arrayBuffer);
 
       await fs.writeFile(
-        `public/uploads/${imgName}.${file.ext}`,
+        path.join(process.cwd(), `public/uploads/${imgName}.${file.ext}`),
         buffer,
         async (err) => {
           console.log(err);
@@ -207,6 +208,8 @@ export async function insertRoadtrip(
           ];
         }
       );
+    } else {
+      await sql`ROLLBACK`; // rollback the transaction
     }
     await sql`COMMIT`; // commit the transaction
   } catch (error) {
