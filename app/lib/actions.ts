@@ -197,12 +197,9 @@ export async function insertRoadtrip(
       let env = process.env.NODE_ENV || "development";
       let filePath: string;
       if (env === "production") {
-        filePath = path.join(process.cwd(), `uploads/${imgName}.${file.ext}`);
+        filePath = `./uploads/${imgName}.${file.ext}`;
       } else {
-        filePath = path.join(
-          process.cwd(),
-          `public/uploads/${imgName}.${file.ext}`
-        );
+        filePath = `./public/uploads/${imgName}.${file.ext}`;
       }
       await fs.writeFile(filePath, buffer, async (err) => {
         console.log("fileupload: ", err);
