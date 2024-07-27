@@ -156,7 +156,7 @@ export async function insertRoadtrip(
     description,
     file,
     route: { start, dest },
-    date: { date },
+    date: { Date },
   } = resFormDataObj.data;
   // Test it out:
 
@@ -188,7 +188,9 @@ export async function insertRoadtrip(
       rows: [{ id: imgName }],
     } = await sql`
         INSERT INTO roadtrips (user_id, start_id, dest_id, date, image_url, description)
-        VALUES (${user_id},${start_id},${dest_id}, ${date}, ${file.ext}, ${description})
+        VALUES (${user_id},${start_id},${dest_id}, ${Date.toISOString()}, ${
+      file.ext
+    }, ${description})
         RETURNING id`;
 
     if (file) {

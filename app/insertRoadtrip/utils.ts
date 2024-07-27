@@ -60,8 +60,8 @@ export const zDate = z
   .object({
     day: z.coerce
       .number({ message: "Bitte gebe eine Nummer für den Tag ein." })
-      .min(1, { message: "Bitte gebe einen Tag gößer eins ein." })
-      .max(32, { message: "Bitte gebe einen Tag der kleiner als 32 ist ein." }),
+      .min(1, { message: "Bitte gebe einen Tag größer als null ein." })
+      .max(31, { message: "Bitte gebe einen Tag der kleiner als 31 ist ein." }),
     month: z
       .enum(months, {
         message: `Bitte wähle einen der folgneden Monate aus: ${months.join(
