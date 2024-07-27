@@ -14,7 +14,7 @@ export function useTouched(
   errorPaths: string[],
   action: (prevState: error[], formData: FormData) => Promise<error[]>
 ) {
-  const formRef = useRef(undefined);
+  const formRef = useRef(null);
   const [touched, setTouched_] = useState<string[]>([]);
   const initialState: error[] = [];
   const [state, dispatch] = useFormState(action, initialState);
