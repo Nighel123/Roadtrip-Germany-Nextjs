@@ -27,51 +27,44 @@ const errorPaths = [
 
 export default function insertForm() {
   const {
-    touched,
+    errors,
     formRef,
     handleBlur,
     handleChangeFile,
     handleSubmit,
     dispatch,
-    state,
   } = useTouched(errorPaths, insertRoadtrip);
 
   /* make the error-componet sammmler */
   /* do checks whether the start and destaddress are the same */
   /* do checks whether those addresses exist.  */
   return (
-    <form id="insertRoadtripForm" action={dispatch} ref={formRef}>
+    <form id="insertRoadtripForm" /* action={dispatch} */ ref={formRef}>
       <label htmlFor="startland">Wo wollt ihr losfahren?</label>
       <AddressInput name="start" handleBlur={handleBlur} />
       <ErrorComponent
-        errors={state}
-        touched={touched}
+        errors={errors}
         show={["start", "startland", "starttown"]}
       />
 
       <label htmlFor="destland">Wo wollt ihr hin?</label>
       <AddressInput name="dest" handleBlur={handleBlur} />
       <ErrorComponent
-        errors={state}
-        touched={touched}
+        errors={errors}
         show={["dest", "route", "desttown", "destland"]}
       />
       <label htmlFor="day">Wann wollt ihr losfahren?</label>
       <DateInput handleBlur={handleBlur} />
-      <ErrorComponent
-        errors={state}
-        touched={touched}
-        show={["date", "day", "month", "year"]}
-      />
+      <ErrorComponent errors={errors} show={["date", "day", "month", "year"]} />
       <label htmlFor="description">
         Beschreibe in einem Text wer du bist und was du auf deiner Reise
         vorhast:
       </label>
       <TextInput handleBlur={handleBlur} />
-      <ErrorComponent errors={state} touched={touched} show={["description"]} />
+      <ErrorComponent errors={errors} show={["description"]} />
 
       <ImageUpload handleChangeFile={handleChangeFile} />
-      <ErrorComponent errors={state} touched={touched} show={["file"]} />
+      <ErrorComponent errors={errors} show={["file", "submit"]} />
 
       <Submit handleSubmit={handleSubmit} />
     </form>

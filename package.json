@@ -6,6 +6,7 @@
     "start": "next start",
     "test": "jest --watch",
     "test:ci": "jest --ci",
+    "transactions": "node -r dotenv/config ./scripts/transactions.js",
     "seed": "node -r dotenv/config ./scripts/seed.js"
   },
   "dependencies": {

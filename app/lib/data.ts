@@ -11,7 +11,7 @@ export async function fetchRoadtrips() {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    console.log("Fetching roadtrips data...");
+    //console.log("Fetching roadtrips data...");
     // await new Promise((resolve) => setTimeout(resolve, 3000));
     //so schreibt man also ein Promise!
 
@@ -35,13 +35,13 @@ export async function fetchRoadtrips() {
 export async function fetchRoadtripById(id: string) {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
-  noStore();
+  //noStore();
 
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
 
-    console.log("Fetching roadtrips data...");
+    //console.log("Fetching roadtrips data...");
     // await new Promise((resolve) => setTimeout(resolve, 3000));
     //so schreibt man also ein Promise!
 

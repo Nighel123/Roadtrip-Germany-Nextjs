@@ -17,18 +17,11 @@ const errorPaths = [
 ];
 
 export function Form() {
-  const {
-    touched,
-    formRef,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    dispatch,
-    state,
-  } = useTouched(errorPaths, register);
+  const { errors, formRef, handleBlur, handleChange, handleSubmit, dispatch } =
+    useTouched(errorPaths, register);
 
   return (
-    <form id="registerForm" action={dispatch} ref={formRef}>
+    <form id="registerForm" /* action={dispatch} */ ref={formRef}>
       <div>
         <label htmlFor="username">Nutzername</label>
         <div>
@@ -41,7 +34,7 @@ export function Form() {
             /* defaultValue={"Nighel123"} */
           />
         </div>
-        <ErrorComponent errors={state} touched={touched} show={["username"]} />
+        <ErrorComponent errors={errors} show={["username"]} />
       </div>
 
       <div>
@@ -56,7 +49,7 @@ export function Form() {
             /* defaultValue={"Nighel123@gmail.com"} */
           />
         </div>
-        <ErrorComponent errors={state} touched={touched} show={["email"]} />
+        <ErrorComponent errors={errors} show={["email"]} />
       </div>
 
       <div>
@@ -71,15 +64,14 @@ export function Form() {
             /* defaultValue={"Nighel123@gmail.com"} */
           />
         </div>
-        <ErrorComponent errors={state} touched={touched} show={["password"]} />
+        <ErrorComponent errors={errors} show={["password"]} />
       </div>
 
       <div>
         <label htmlFor="day">Geburtstag</label>
         <DateInput handleBlur={handleBlur} />
         <ErrorComponent
-          errors={state}
-          touched={touched}
+          errors={errors}
           show={["birthday", "day", "month", "year"]}
         />
       </div>
@@ -98,7 +90,7 @@ export function Form() {
             <option value="männlich">Männlich</option>
           </select>
         </div>
-        <ErrorComponent errors={state} touched={touched} show={["sex"]} />
+        <ErrorComponent errors={errors} show={["sex", "submit"]} />
       </div>
 
       <input

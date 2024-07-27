@@ -163,9 +163,6 @@ async function main() {
   const { sql } = client;
 
   try {
-    /* await client.sql`BEGIN`;
-    await client.sql`DELETE FROM users`;
-    await client.sql`COMMIT`; */
     await client.sql`DROP TABLE IF EXISTS roadtrips`;
     await client.sql`DROP TABLE IF EXISTS verification_token`;
     await client.sql`DROP TABLE IF EXISTS users`;

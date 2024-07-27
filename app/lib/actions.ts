@@ -1,12 +1,11 @@
 "use server";
 
-import { sql } from "@vercel/postgres";
+import { db, sql, VercelPoolClient } from "@vercel/postgres";
 import { put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodIssue, z } from "zod";
 import { RoadtripForm, RegisterForm, LoginForm } from "./definitions";
-import fs from "fs";
 import {
   FormDataErrors,
   formatErrors,
@@ -106,26 +105,34 @@ export async function register(
 
   const { username, email, password, birthday, sex } = resFormDataObj.data;
 
+  const client = await db.connect();
   try {
-    await sql`BEGIN`; // start a transaction
+    await client.sql`BEGIN`; // start a transaction
     const {
       rows: [{ id: user_id }],
-    } = await sql`
+    } = await client.sql`
         INSERT INTO users (name, email, password, birthday,sex)  
         VALUES (${username}, ${email}, ${password},${birthday.Date.toISOString()}, ${sex})
         RETURNING id`;
-    await sendVerificationEmail(username, email, user_id);
+
+    const token = randomUUID();
+    const expires = new Date(new Date().getTime() + 3600 * 1000).toISOString();
+    await client.sql`
+        INSERT INTO verification_token (identifier, expires, token, user_id)
+        VALUES (uuid_generate_v4(), ${expires}, ${token}, ${user_id})
+    `;
+    await sendVerificationEmail(username, email, token);
   } catch (error) {
     console.log(error);
-    await sql`ROLLBACK`; // rollback the transaction
+    await client.sql`ROLLBACK`; // rollback the transaction
     return [
       {
-        message: "Database Fehler: Benutzer konnte nicht erstellt werden.",
-        path: ["sex"],
+        message: `Der Nutzer konnte nicht erstellt werden: ${error}`,
+        path: ["submit"],
       },
     ];
   }
-
+  await client.sql`COMMIT`; // commit the transaction
   redirect("/register/success");
 }
 export async function insertRoadtrip(
@@ -164,29 +171,29 @@ export async function insertRoadtrip(
     return [
       {
         message: "",
-        path: ["file"],
+        path: [""],
       },
     ];
 
   const user_id = (await auth())?.user?.id;
-
+  const client = await db.connect();
   try {
-    await sql`BEGIN`; // start a transaction
+    await client.sql`BEGIN`; // start a transaction
     const {
       rows: [{ id: start_id }],
-    } = await sql`
+    } = await client.sql`
         INSERT INTO addresses (land, town)  
         VALUES (${start.land}, ${start.town})
         RETURNING id`;
     const {
       rows: [{ id: dest_id }],
-    } = await sql`
+    } = await client.sql`
         INSERT INTO addresses (land, town)  
         VALUES (${dest.land}, ${dest.town})
         RETURNING id`;
     var {
       rows: [{ id: imgName }],
-    } = await sql`
+    } = await client.sql`
         INSERT INTO roadtrips (user_id, start_id, dest_id, date, image_url, description)
         VALUES (${user_id},${start_id},${dest_id}, ${Date.toISOString()}, ${
       file.ext
@@ -200,12 +207,12 @@ export async function insertRoadtrip(
       /* await fs.mkdir("./uploads", { recursive: true }, (err) => {
         if (err) throw err;
       }); */
-
+      //throw new Error("error uploading file!");
       const blob = await put(`${imgName}.${file.ext}`, file.File, {
         access: "public",
       });
-      console.log(blob);
-      await sql`
+      // console.log(blob);
+      await client.sql`
         UPDATE roadtrips 
         SET image_url = ${blob.downloadUrl} 
         WHERE id = ${imgName};
@@ -221,37 +228,21 @@ export async function insertRoadtrip(
         //throw new Error(`Error writing file: ${err}`);
       }); */
     } else {
-      await sql`ROLLBACK`; // rollback the transaction
+      await client.sql`ROLLBACK`; // rollback the transaction
     }
-    await sql`COMMIT`; // commit the transaction
+    await client.sql`COMMIT`; // commit the transaction
   } catch (error) {
     console.log(error);
-    await sql`ROLLBACK`; // rollback the transaction
+    await client.sql`ROLLBACK`; // rollback the transaction
     return [
       {
         message: `Roadtrip konnte nicht eingetragen werden. ${error}`,
-        path: ["file"],
+        path: ["submit"],
       },
     ];
   }
   revalidatePath("/insertRoadtrip");
   redirect("/routesOverview");
-}
-
-export async function generateVerificationToken(user_id: string) {
-  const token = randomUUID();
-  console.log("token", token);
-  const expires = new Date(new Date().getTime() + 3600 * 1000).toISOString(); // expires in 1 hour
-
-  try {
-    await sql`
-        INSERT INTO verification_token (identifier, expires, token, user_id)
-        VALUES (uuid_generate_v4(), ${expires}, ${token}, ${user_id})
-    `;
-    return token;
-  } catch (error) {
-    console.error(error);
-  }
 }
 
 export async function getVerificationTokenByUserIdAndToken(

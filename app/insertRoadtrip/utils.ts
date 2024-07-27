@@ -176,9 +176,9 @@ const zFile = z
         .number({
           message: "Bitte lade ein Bild mit einer gültigen größe hoch.",
         })
-        .max(1000000, {
+        .max(7000000, {
           message:
-            "Bitte lade ein Bild mit einer maximalen größe von 1Mb hoch.",
+            "Bitte lade ein Bild mit einer maximalen größe von 7Mb hoch.",
         })
         .min(5000, {
           message:

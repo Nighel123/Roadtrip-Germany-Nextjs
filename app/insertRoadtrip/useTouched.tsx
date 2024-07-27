@@ -5,8 +5,8 @@ import {
   handleChangeType,
   handleClickType,
 } from "app/lib/definitions";
-import { arrSubset } from "app/lib/utils";
-import { useRef, useState } from "react";
+import { arrIntersection, arrSubset } from "app/lib/utils";
+import { useEffect, useRef, useState } from "react";
 import { useCallback } from "react";
 import { error } from "./utils";
 import { useFormState } from "react-dom";
@@ -15,18 +15,29 @@ export function useTouched(
   errorPaths: string[],
   action: (prevState: error[], formData: FormData) => Promise<error[]>
 ) {
-  const formRef = useRef(null);
-
+  const formRef = useRef(undefined);
   const [touched, setTouched_] = useState<string[]>([]);
   const initialState: error[] = [];
   const [state, dispatch] = useFormState(action, initialState);
+  const [errors, setErrors] = useState<error[]>([]);
 
-  const delayedSetToched = useCallback(
-    (newTouched: string[]) => {
-      setTimeout(() => setTouched(newTouched), 700);
-    },
-    [state]
-  );
+  useEffect(() => {
+    const newErrors = state.filter(
+      (error) => arrIntersection(touched, error.path).length
+    );
+    setErrors(newErrors);
+  }, [state]);
+
+  const Dispatch = (submit: boolean = false) => {
+    if (!formRef.current) return;
+    const formData = new FormData(formRef.current);
+    if (!submit) {
+      dispatch(formData);
+    } else {
+      formData.append("submit", "true");
+      dispatch(formData);
+    }
+  };
 
   const setTouched = (newTouched_: string[]) => {
     //make the entries unique inside newTouched
@@ -59,31 +70,22 @@ export function useTouched(
     setTouched_([...newTouched]);
   };
 
-  const Dispatch = async (submit?: boolean) => {
-    if (!formRef.current) return;
-    const formData = new FormData(formRef.current);
-    if (!submit) {
-      dispatch(formData);
-    } else {
-      formData.append("submit", "true");
-      dispatch(formData);
-    }
-  };
   const handleBlur: handleBlurType = async (event) => {
     const name = event.target.name;
     Dispatch();
-    delayedSetToched([...touched, name]);
+    setTouched([...touched, name]);
   };
 
   const handleChangeFile: handleChangeFileType = async (event) => {
     const name = event.target.name;
     Dispatch();
-    delayedSetToched([...touched, name]);
+    setTouched([...touched, name]);
   };
 
-  const handleSubmit: handleClickType = async () => {
+  const handleSubmit: handleClickType = async (e) => {
+    e.preventDefault();
+    setTouched([...touched, ...errorPaths, "submit"]);
     Dispatch(true);
-    delayedSetToched(errorPaths);
   };
 
   const handleChange: handleChangeType = async (event) => {
@@ -94,14 +96,12 @@ export function useTouched(
   };
 
   return {
-    touched,
-    setTouched,
+    errors,
     formRef,
     handleBlur,
     handleChange,
     handleSubmit,
     handleChangeFile,
     dispatch,
-    state,
   };
 }

@@ -1,4 +1,3 @@
-import { generateVerificationToken } from "app/lib/actions";
 import { Resend } from "resend";
 import { EmailTemplate } from "app/ui/emailTemplate";
 
@@ -8,11 +7,11 @@ const domain = process.env.NEXT_PUBLIC_APP_URL;
 export async function sendVerificationEmail(
   username: string,
   email: string,
-  user_id: string
+  token: `${string}-${string}-${string}-${string}-${string}`
 ) {
-  const token = await generateVerificationToken(user_id);
   const confirmLink = `${domain}/login/?verification_token=${token}`;
 
+  //throw new Error("mail error thrown");
   const { data, error } = await resend.emails.send({
     from: "validateEmail@roadtrip-germany.de",
     to: email,
@@ -22,6 +21,7 @@ export async function sendVerificationEmail(
 
   if (error) {
     console.error("Mail Error: ", error);
+    throw error;
   }
-  console.log(data);
+  //console.log(data);
 }
