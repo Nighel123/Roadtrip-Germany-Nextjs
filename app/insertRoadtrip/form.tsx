@@ -11,12 +11,9 @@ import TextInput from "./textInput";
 import ImageUpload from "./imageUpload";
 import Submit from "./submit";
 import { insertRoadtrip } from "app/lib/actions";
-import { useFormState } from "react-dom";
-import { error } from "./utils";
 import { useTouched } from "./useTouched";
 import ErrorComponent from "./errorMessage";
 
-const { log } = console;
 const errorPaths = [
   "day",
   "month",
@@ -29,10 +26,15 @@ const errorPaths = [
 ];
 
 export default function insertForm() {
-  const initialState: error[] = [];
-  const [state, dispatch] = useFormState(insertRoadtrip, initialState);
-  const { touched, formRef, handleBlur, handleChangeFile, handleSubmit } =
-    useTouched(dispatch, errorPaths);
+  const {
+    touched,
+    formRef,
+    handleBlur,
+    handleChangeFile,
+    handleSubmit,
+    dispatch,
+    state,
+  } = useTouched(errorPaths, insertRoadtrip);
 
   /* make the error-componet sammmler */
   /* do checks whether the start and destaddress are the same */

@@ -7,14 +7,26 @@ import {
 } from "app/lib/definitions";
 import { arrSubset } from "app/lib/utils";
 import { useRef, useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
+import { useCallback } from "react";
+import { error } from "./utils";
+import { useFormState } from "react-dom";
 
 export function useTouched(
-  dispatch: (payload: FormData) => void,
-  errorPaths: string[]
+  errorPaths: string[],
+  action: (prevState: error[], formData: FormData) => Promise<error[]>
 ) {
-  const [touched, setTouched_] = useState<string[]>([]);
   const formRef = useRef(null);
+
+  const [touched, setTouched_] = useState<string[]>([]);
+  const initialState: error[] = [];
+  const [state, dispatch] = useFormState(action, initialState);
+
+  const delayedSetToched = useCallback(
+    (newTouched: string[]) => {
+      setTimeout(() => setTouched(newTouched), 700);
+    },
+    [state]
+  );
 
   const setTouched = (newTouched_: string[]) => {
     //make the entries unique inside newTouched
@@ -47,8 +59,7 @@ export function useTouched(
     setTouched_([...newTouched]);
   };
 
-  const Dispatch = (submit?: boolean) => {
-    console.log(submit);
+  const Dispatch = async (submit?: boolean) => {
     if (!formRef.current) return;
     const formData = new FormData(formRef.current);
     if (!submit) {
@@ -58,29 +69,29 @@ export function useTouched(
       dispatch(formData);
     }
   };
-  const handleBlur: handleBlurType = useDebouncedCallback((event) => {
+  const handleBlur: handleBlurType = async (event) => {
     const name = event.target.name;
-    setTouched([...touched, name]);
     Dispatch();
-  }, 500);
-
-  const handleChangeFile: handleChangeFileType = (event) => {
-    const name = event.target.name;
-    setTouched([...touched, name]);
-    Dispatch();
+    delayedSetToched([...touched, name]);
   };
 
-  const handleSubmit: handleClickType = () => {
-    setTouched(errorPaths);
+  const handleChangeFile: handleChangeFileType = async (event) => {
+    const name = event.target.name;
+    Dispatch();
+    delayedSetToched([...touched, name]);
+  };
+
+  const handleSubmit: handleClickType = async () => {
     Dispatch(true);
+    delayedSetToched(errorPaths);
   };
 
-  const handleChange: handleChangeType = useDebouncedCallback((event) => {
+  const handleChange: handleChangeType = async (event) => {
     const name = event.target.name;
     if (touched.includes(name)) {
       Dispatch();
     }
-  }, 500);
+  };
 
   return {
     touched,
@@ -90,5 +101,7 @@ export function useTouched(
     handleChange,
     handleSubmit,
     handleChangeFile,
+    dispatch,
+    state,
   };
 }

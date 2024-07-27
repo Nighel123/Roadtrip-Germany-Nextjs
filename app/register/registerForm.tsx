@@ -3,10 +3,7 @@
 import DateInput from "app/insertRoadtrip/dateInput";
 import ErrorComponent from "app/insertRoadtrip/errorMessage";
 import { useTouched } from "app/insertRoadtrip/useTouched";
-import { error } from "app/insertRoadtrip/utils";
 import { register } from "app/lib/actions";
-
-import { useFormState } from "react-dom";
 
 const errorPaths = [
   "username",
@@ -20,10 +17,15 @@ const errorPaths = [
 ];
 
 export function Form() {
-  const initialState: error[] = [];
-  const [state, dispatch] = useFormState(register, initialState);
-  const { touched, formRef, handleBlur, handleChange, handleSubmit } =
-    useTouched(dispatch, errorPaths);
+  const {
+    touched,
+    formRef,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    dispatch,
+    state,
+  } = useTouched(errorPaths, register);
 
   return (
     <form id="registerForm" action={dispatch} ref={formRef}>

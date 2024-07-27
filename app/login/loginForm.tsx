@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { authenticate } from "app/lib/actions";
 import { useSearchParams } from "next/navigation";
 
