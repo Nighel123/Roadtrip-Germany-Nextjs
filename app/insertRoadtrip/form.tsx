@@ -33,6 +33,7 @@ export default function insertForm() {
     handleChangeFile,
     handleSubmit,
     dispatch,
+    loading,
   } = useTouched(errorPaths, insertRoadtrip);
 
   /* make the error-componet sammmler */
@@ -66,7 +67,7 @@ export default function insertForm() {
       <ImageUpload handleChangeFile={handleChangeFile} />
       <ErrorComponent errors={errors} show={["file", "submit"]} />
 
-      <Submit handleSubmit={handleSubmit} />
+      <Submit handleSubmit={handleSubmit} loading={loading} />
     </form>
   );
 }

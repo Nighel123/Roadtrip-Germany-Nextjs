@@ -7,7 +7,6 @@ import {
 } from "app/lib/definitions";
 import { arrIntersection, arrSubset } from "app/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import { useCallback } from "react";
 import { error } from "./utils";
 import { useFormState } from "react-dom";
 
@@ -20,12 +19,14 @@ export function useTouched(
   const initialState: error[] = [];
   const [state, dispatch] = useFormState(action, initialState);
   const [errors, setErrors] = useState<error[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const newErrors = state.filter(
       (error) => arrIntersection(touched, error.path).length
     );
     setErrors(newErrors);
+    setLoading(false);
   }, [state]);
 
   const Dispatch = (submit: boolean = false) => {
@@ -83,6 +84,7 @@ export function useTouched(
   };
 
   const handleSubmit: handleClickType = async (e) => {
+    setLoading(true);
     e.preventDefault();
     setTouched([...touched, ...errorPaths, "submit"]);
     Dispatch(true);
@@ -103,5 +105,6 @@ export function useTouched(
     handleSubmit,
     handleChangeFile,
     dispatch,
+    loading,
   };
 }

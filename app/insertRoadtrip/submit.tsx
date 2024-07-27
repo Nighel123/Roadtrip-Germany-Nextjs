@@ -1,6 +1,13 @@
 import { handleClickType } from "app/lib/definitions";
+import { useFormStatus } from "react-dom";
 
-const Submit = ({ handleSubmit }: { handleSubmit: handleClickType }) => {
+const Submit = ({
+  handleSubmit,
+  loading,
+}: {
+  handleSubmit: handleClickType;
+  loading: boolean;
+}) => {
   return (
     <div className="submit">
       <input
@@ -8,6 +15,7 @@ const Submit = ({ handleSubmit }: { handleSubmit: handleClickType }) => {
         src="/insertRoadtrip/roadtripEintragen.jpg"
         alt="submit"
         onClick={handleSubmit}
+        disabled={loading}
       />
     </div>
   );

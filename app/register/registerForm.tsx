@@ -17,8 +17,15 @@ const errorPaths = [
 ];
 
 export function Form() {
-  const { errors, formRef, handleBlur, handleChange, handleSubmit, dispatch } =
-    useTouched(errorPaths, register);
+  const {
+    errors,
+    formRef,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    dispatch,
+    loading,
+  } = useTouched(errorPaths, register);
 
   return (
     <form id="registerForm" /* action={dispatch} */ ref={formRef}>
@@ -98,6 +105,7 @@ export function Form() {
         id="registrieren"
         onClick={handleSubmit}
         src="/register/registrieren.jpg"
+        disabled={loading}
       />
     </form>
   );

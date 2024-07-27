@@ -1,13 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { MouseEventHandler, useState } from "react";
-import { useFormState } from "react-dom";
+import { MouseEventHandler, useEffect, useState } from "react";
+import { useFormState, useFormStatus } from "react-dom";
 import { authenticate } from "app/lib/actions";
 import { useSearchParams } from "next/navigation";
+import SubmitButton from "./submitButton";
 
 export function Form() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const { pending } = useFormStatus();
   const [swipe, setSwipe] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
@@ -70,12 +72,7 @@ export function Form() {
               placeholder="Passwort"
               /* defaultValue={"Nighel123@gmail.com"} */
             />
-            <input
-              type="submit"
-              id="logIn"
-              className="button"
-              value="einloggen"
-            />
+            <SubmitButton />
           </div>
         </div>
       </form>
