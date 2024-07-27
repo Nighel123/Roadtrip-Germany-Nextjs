@@ -4,6 +4,7 @@ import DateInput from "app/insertRoadtrip/dateInput";
 import ErrorComponent from "app/insertRoadtrip/errorMessage";
 import { useTouched } from "app/insertRoadtrip/useTouched";
 import { register } from "app/lib/actions";
+import Submit from "./submit";
 
 const errorPaths = [
   "username",
@@ -100,13 +101,7 @@ export function Form() {
         <ErrorComponent errors={errors} show={["sex", "submit"]} />
       </div>
 
-      <input
-        type="image"
-        id="registrieren"
-        onClick={handleSubmit}
-        src="/register/registrieren.jpg"
-        disabled={loading}
-      />
+      <Submit handleSubmit={handleSubmit} loading={loading} />
     </form>
   );
 }

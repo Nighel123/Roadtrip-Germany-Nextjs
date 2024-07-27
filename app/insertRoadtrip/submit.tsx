@@ -8,11 +8,15 @@ const Submit = ({
   handleSubmit: handleClickType;
   loading: boolean;
 }) => {
+  const img = loading
+    ? "roadtripEintragenLoading.jpg"
+    : "roadtripEintragen.jpg";
+  const src = `/insertRoadtrip/${img}`;
   return (
     <div className="submit">
       <input
         type="image"
-        src="/insertRoadtrip/roadtripEintragen.jpg"
+        src={src}
         alt="submit"
         onClick={handleSubmit}
         disabled={loading}
