@@ -12,7 +12,7 @@
   margin-top: 10%;
   display: grid;
   grid-template-rows: min-content;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 3fr min-content;
   gap: 5%;
 }
 
@@ -21,17 +21,32 @@
   grid-row: 1/2;
 }
 
-.viewRoadtrip .roadtripWrapper img {
+.viewRoadtrip label {
+  font-size: larger;
+}
+
+.viewRoadtrip .roadtripWrapper .image {
   grid-column: 2/3;
   grid-row: 1/2;
-  height: 300px;
-  width: auto;
+}
+
+.viewRoadtrip .roadtripWrapper .image img {
+  height: auto;
+  width: 20vw;
+}
+
+.viewRoadtrip {
+  font-size: larger;
 }
 
 @media screen and (max-width: 550px) {
-  .viewRoadtrip .roadtripWrapper img {
-    height: 100px;
-    width: auto;
+  .viewRoadtrip {
+    font-size: xx-small;
+  }
+
+  .viewRoadtrip .roadtripWrapper .image img {
+    height: auto;
+    width: 30vw;
   }
 }
 

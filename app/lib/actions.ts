@@ -194,8 +194,8 @@ export async function insertRoadtrip(
         RETURNING id`;
 
     if (file) {
-      const arrayBuffer = await file.File.arrayBuffer();
-      const buffer = new Uint8Array(arrayBuffer);
+      /* const arrayBuffer = await file.File.arrayBuffer();
+      const buffer = new Uint8Array(arrayBuffer); */
 
       /* await fs.mkdir("./uploads", { recursive: true }, (err) => {
         if (err) throw err;

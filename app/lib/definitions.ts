@@ -58,6 +58,7 @@ export type RoadtripDisplay = {
   username: string;
   startland: string;
   starttown: string;
+  sex: "männlich" | "weiblich";
 };
 
 export const months = [
