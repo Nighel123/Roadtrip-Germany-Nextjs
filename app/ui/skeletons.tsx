@@ -15,6 +15,7 @@ export function TableSkeleton() {
     username: "\n\n",
     startland: "",
     starttown: "",
+    sex: "männlich",
   };
   const roadtrips: RoadtripDisplay[] = new Array(10).fill(roadtrip);
   const lines = roadtrips.map((roadtrip: RoadtripDisplay) => {

@@ -18,9 +18,9 @@ import { formatRegisterData, zRegisterForm } from "app/register/utils";
 import { auth, signIn } from "auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { sendVerificationEmail } from "mail";
+
 import { randomUUID } from "node:crypto";
-import path from "path";
+import { sendVerificationEmail } from "app/utils/mail";
 
 const { log } = console;
 
@@ -112,16 +112,16 @@ export async function register(
       rows: [{ id: user_id }],
     } = await sql`
         INSERT INTO users (name, email, password, birthday,sex)  
-        VALUES (${username}, ${email}, ${password},${birthday.date}, ${sex})
+        VALUES (${username}, ${email}, ${password},${birthday.Date.toISOString()}, ${sex})
         RETURNING id`;
-    await sendVerificationEmail(email, user_id);
+    await sendVerificationEmail(username, email, user_id);
   } catch (error) {
     console.log(error);
     await sql`ROLLBACK`; // rollback the transaction
     return [
       {
         message: "Database Fehler: Benutzer konnte nicht erstellt werden.",
-        path: ["database"],
+        path: ["sex"],
       },
     ];
   }
