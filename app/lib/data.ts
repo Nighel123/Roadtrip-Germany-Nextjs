@@ -16,11 +16,13 @@ export async function fetchRoadtrips() {
     //so schreibt man also ein Promise!
 
     const data = await sql<RoadtripDisplay>`
-      SELECT roadtrips.id, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
+      SELECT roadtrips.id,roadtrips.created, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
       FROM roadtrips
       JOIN users ON user_id = users.id
       JOIN addresses dest ON dest_id = dest.id
       JOIN addresses start ON start_id = start.id
+      ORDER BY roadtrips.created DESC
+      LIMIT 20
     `;
 
     // console.log("Data fetch completed after 3 seconds.");
