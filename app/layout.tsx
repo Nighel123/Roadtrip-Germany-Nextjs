@@ -2,6 +2,7 @@ import "@/styles/global.css";
 import "@/styles/home.css";
 
 import { open_sans } from "@/styles/fonts";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({
   children,
@@ -11,6 +12,7 @@ export default function RootLayout({
   return (
     <html lang="de">
       <body className={`${open_sans.className} antialiased`}>{children}</body>
+      <SpeedInsights />
     </html>
   );
 }

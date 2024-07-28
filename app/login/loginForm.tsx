@@ -9,7 +9,6 @@ import SubmitButton from "./submitButton";
 
 export function Form() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-  const { pending } = useFormStatus();
   const [swipe, setSwipe] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";

@@ -27,13 +27,12 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
       async authorize(credentials) {
         /* this function will be called from the signIn-function */
         //const nextUrl: NextURL = request.nextUrl;
-        const { username, password, redirectTo, verificationToken } =
-          credentials as {
-            username: string;
-            password: string;
-            redirectTo: string;
-            verificationToken: string;
-          };
+        const { username, password, verificationToken } = credentials as {
+          username: string;
+          password: string;
+          redirectTo: string;
+          verificationToken: string;
+        };
         /* console.log(verificationToken); */
         const user = await getUser(username);
         if (!user) return null;
