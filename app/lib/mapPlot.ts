@@ -1,5 +1,6 @@
 import { linearRegression } from "app/ExtendedMath";
 import { RoadtripDisplay } from "./definitions";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 export function mapPlot(
   ref: React.RefObject<HTMLDivElement>,
@@ -8,7 +9,8 @@ export function mapPlot(
   fontSize: string,
   mapClickable: boolean,
   routesClickable: boolean,
-  roadtrips: RoadtripDisplay[]
+  roadtrips: RoadtripDisplay[],
+  router: AppRouterInstance
 ) {
   if (ref.current) {
     const map = new google.maps.Map(ref.current);
@@ -52,7 +54,8 @@ export function mapPlot(
     };
 
     const makeDrawnRoutelineClickable = function (
-      polylinePath: google.maps.LatLng[]
+      polylinePath: google.maps.LatLng[],
+      roadtrip: RoadtripDisplay
     ) {
       let polyline = new google.maps.Polyline({
         path: polylinePath,
@@ -72,6 +75,7 @@ export function mapPlot(
         polyline.addListener(
           "click",
           () => {
+            router.push("/viewRoadtrip/" + roadtrip.id);
             /* setSelectedRoadtrip(roadtrip);
             navigate("/viewRoadtrip"); */
           } /* TODO setState and navigate to viewRoadtrip */
@@ -215,7 +219,7 @@ export function mapPlot(
 
       routs.map((route, i) => {
         let polylinePathHR = getPolylinePathOfRoute(route);
-        makeDrawnRoutelineClickable(polylinePathHR);
+        makeDrawnRoutelineClickable(polylinePathHR, roadtrips[i]);
         let polylinePathLR = route.routes[0].overview_path;
         displayUsernameAboveEachRoute(polylinePathLR, roadtrips[i].username);
       });
