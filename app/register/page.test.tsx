@@ -3,12 +3,11 @@
  */
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import Page from "./page";
-jest.mock("../lib/actions");
 
-describe("image containers appear in the document", () => {
-  test("Title container", async () => {
+describe("register Form", () => {
+  test("First input", async () => {
     render(await Page());
-    screen.debug();
+    screen.getByRole("");
     //expect(screen.getByRole("img", { name: "Titel" })).toBeInTheDocument();
   });
 });

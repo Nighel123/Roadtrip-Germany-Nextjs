@@ -16,9 +16,7 @@
   grid-column: 1/2;
   grid-row: 2/3;
 }
-.routesOverview img[alt~="blueFrame"] {
-  height: 100%;
-}
+
 .routesOverview #tableContainer {
   position: relative;
   top: 15%;

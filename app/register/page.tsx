@@ -19,7 +19,6 @@ const Register = () => {
         <h1>Roadtrip-Konto erstellen</h1>
       </header>
       <Image
-        id="insertRoadtripImage"
         src="/register/registerSide.jpg"
         alt="australian roads"
         width={1005}

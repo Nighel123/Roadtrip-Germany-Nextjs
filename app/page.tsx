@@ -62,7 +62,7 @@ export default async function Page() {
           src="/home/beispielTrip.jpeg"
           width={2048}
           height={1376}
-          alt="insertRoadtrip"
+          alt="beispielTrip"
         />
       </div>
     </>
