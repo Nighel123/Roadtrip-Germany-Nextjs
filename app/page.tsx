@@ -56,6 +56,14 @@ export default async function Page() {
             alt="insertRoadtrip"
           />
         </Link>
+
+        <Image
+          id="beispielTrip"
+          src="/home/beispielTrip.jpeg"
+          width={2048}
+          height={1376}
+          alt="insertRoadtrip"
+        />
       </div>
     </>
   );

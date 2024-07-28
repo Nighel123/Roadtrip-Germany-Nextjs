@@ -9,6 +9,10 @@
   margin-bottom: var(--gap);
 }
 
+#beispielTrip {
+  margin-top: 20vw;
+}
+
 #register {
   width: 8%;
   float: left;
