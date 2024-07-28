@@ -261,6 +261,17 @@ export async function getVerificationTokenByUserIdAndToken(
     throw new Error("Falscher token.");
   }
 }
+export async function deleteVerificationTokenByUserId(userId: string) {
+  try {
+    await sql`
+            DELETE FROM verification_token 
+            WHERE user_id = ${userId}
+         `;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Error deleting token with userId: " + userId);
+  }
+}
 
 export async function verifyUserEmail(user_id: string) {
   try {

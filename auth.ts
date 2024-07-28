@@ -5,6 +5,7 @@ import { sql } from "@vercel/postgres";
 import type { User } from "app/lib/definitions";
 import bcrypt from "bcrypt";
 import {
+  deleteVerificationTokenByUserId,
   getVerificationTokenByUserIdAndToken,
   verifyUserEmail,
 } from "app/lib/actions";
@@ -50,6 +51,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                   verificationToken
                 );
                 await verifyUserEmail(user.id);
+                await deleteVerificationTokenByUserId(user.id);
                 return user;
               } catch (error) {
                 console.error(error);
