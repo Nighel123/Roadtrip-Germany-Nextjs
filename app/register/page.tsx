@@ -6,6 +6,12 @@ import "@/styles/registerForm.css";
 import Image from "next/image";
 import { Form } from "./registerForm";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Registrieren",
+};
+
 const Register = () => {
   return (
     <div className="register">

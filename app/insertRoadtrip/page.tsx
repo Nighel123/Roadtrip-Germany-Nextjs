@@ -5,6 +5,11 @@ import "@/styles/insertRoadtripForm.css";
 /* components */
 import Image from "next/image";
 import Form from "./form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Roadtrip eintragen",
+};
 
 const InsertRoadtrip = () => {
   return (

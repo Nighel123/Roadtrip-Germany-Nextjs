@@ -7,6 +7,12 @@ import Link from "next/link";
 import { Form } from "./loginForm";
 import { Suspense } from "react";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+};
+
 const Login = () => {
   return (
     <div className="login">

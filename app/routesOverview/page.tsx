@@ -7,6 +7,12 @@ import MapWrapper from "app/ui/mapWrapper";
 
 import "@/styles/routesOverview.css";
 
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Roadtrips übersicht",
+};
+
 export default async function RoutesOverview() {
   return (
     <div className="routesOverview" data-testid="routesOverview">

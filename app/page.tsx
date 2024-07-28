@@ -3,10 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignInButton } from "./ui/signInButton";
 
-export const metadata = {
-  title: "App Router",
-};
-
 export default async function Page() {
   const session = await auth();
   /* console.log(session); */

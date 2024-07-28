@@ -4,6 +4,11 @@ import { Suspense } from "react";
 
 import "@/styles/viewRoadtrip.css";
 import RoadtripWrapper from "./roadtripWrapper";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Roadtrip anschauen",
+};
 
 export default async function ViewRoadtrip({
   params,
