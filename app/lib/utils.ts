@@ -1,5 +1,6 @@
 import { MutableRefObject } from "react";
 import {
+  MessagesDisplay,
   Month,
   RoadtripForm,
   handleBlurType,
@@ -55,6 +56,59 @@ export function deleteEmptyKeys(u: { [key: string]: any }) {
     if (!o[key]) delete o[key];
   }
   return o;
+}
+
+export function nestMessageArrayByOtherUserId(
+  messages: MessagesDisplay[]
+): MessagesDisplay[][] {
+  let nestedArray: MessagesDisplay[][] = [];
+  let otherUserId = messages[0].otherUserId;
+  let rest = messages;
+  let part: MessagesDisplay[];
+  while (rest.length > 0) {
+    let pivot = rest.findIndex((el) => {
+      return el.otherUserId !== otherUserId;
+    });
+    if (pivot == -1) {
+      part = rest;
+      rest = [];
+    } else {
+      part = rest.slice(0, pivot);
+      otherUserId = rest[pivot].otherUserId;
+      rest = rest.slice(pivot);
+    }
+    nestedArray.push(part);
+  }
+  return nestedArray;
+}
+
+export function nestMessagesToOverviewMessages(
+  messages: MessagesDisplay[][]
+): MessagesDisplay[] {
+  let overviewMessages: MessagesDisplay[] = [];
+  messages.forEach((el) => {
+    overviewMessages.push(el[0]);
+  });
+  return overviewMessages;
+}
+
+export function sortMessages(messages: MessagesDisplay[]) {
+  /* A negative value indicates that a should come before b.
+A positive value indicates that a should come after b.
+Zero or NaN indicates that a and b are considered equal. */
+  const compareFn = (a: Date, b: Date) => {
+    if (a > b) {
+      return -1;
+    }
+    if (b > a) {
+      return 1;
+    }
+    return 0;
+  };
+
+  return messages.sort((a, b) => {
+    return compareFn(a.created, b.created);
+  });
 }
 
 export const monthToNumber = (month: Month) => months.indexOf(month) + 1;

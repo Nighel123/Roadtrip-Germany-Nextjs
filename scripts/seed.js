@@ -89,6 +89,7 @@ async function seedRoadtrips(client) {
       date DATE NOT NULL,
       image_url TEXT NOT NULL,
       description TEXT NOT NULL,
+      created TIMESTAMPTZ DEFAULT NOW(),
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
       FOREIGN KEY (start_id) REFERENCES addresses(id) ON DELETE CASCADE,
       FOREIGN KEY (dest_id) REFERENCES addresses(id) ON DELETE CASCADE

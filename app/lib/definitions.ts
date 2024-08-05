@@ -61,6 +61,25 @@ export type RoadtripDisplay = {
   sex: "männlich" | "weiblich";
 };
 
+export type MessagesDisplay = {
+  id: string;
+  text: string;
+  created: string;
+  from: number;
+  to: number;
+  read: Date | null;
+  roadtripCreatorId: number;
+  roadtripId: string;
+  roadtripImageURL: string;
+  roadtripDate: Date;
+  destLand: string;
+  destTown: string;
+  startLand: string;
+  startTown: string;
+  otherUserName: string;
+  otherUserId: number;
+};
+
 export const months = [
   "Januar",
   "Februar",

@@ -18,15 +18,8 @@ const errorPaths = [
 ];
 
 export function Form() {
-  const {
-    errors,
-    formRef,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    dispatch,
-    loading,
-  } = useTouched(errorPaths, register);
+  const { errors, formRef, handleBlur, handleChange, handleSubmit, loading } =
+    useTouched(errorPaths, register);
 
   return (
     <form id="registerForm" /* action={dispatch} */ ref={formRef}>

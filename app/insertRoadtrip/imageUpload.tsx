@@ -42,6 +42,7 @@ const ImageUpload = ({
       <input
         type="file"
         name="file"
+        data-testid="file"
         hidden
         ref={hiddenInputRef}
         onChange={onChangeFile}

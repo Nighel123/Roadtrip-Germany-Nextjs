@@ -1,0 +1,106 @@
+.chat #title {
+  width: 8%;
+  float: right;
+  margin: -1.5vw 0px 0px 2vw;
+  position: absolute;
+  padding-bottom: 3%;
+  top: 4vw;
+  right: 1vw;
+}
+
+.chat .frame {
+  margin-top: 10vw;
+}
+
+div.chat #messageContainer {
+  position: absolute;
+  top: 10vw;
+  left: 3.1vw;
+  width: 89.5%;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1.3fr 3fr;
+  margin: 1.7vw;
+  padding-bottom: 1.8vw;
+
+  /* appearance */
+  border: #65ace2 solid 2px;
+
+  background-color: white;
+  color: #231e38;
+}
+.chat #messageDisplay {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.chat #mapcontent {
+  position: relative;
+  height: 150px;
+  width: 500px;
+  background-color: white;
+  color: #231e38;
+  float: right;
+}
+
+.chat #routeInfo img {
+  height: auto;
+  width: 20vw;
+}
+
+#messageDisplay #routeInfo {
+  border-bottom: 1px solid #d3dbf8;
+  padding: 1vw;
+}
+
+#messageDisplay #messages {
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  height: 32%;
+}
+#messageDisplay .other {
+  text-align: right;
+  align-self: end;
+  background-color: #d3dbf8;
+}
+#messageDisplay .me {
+  background-color: rgb(190, 253, 253);
+}
+#messageDisplay .other,
+#messageDisplay .me {
+  width: 40%;
+  padding: 1vw;
+  border-radius: 1vw;
+}
+
+#messageDisplay textarea {
+  width: 100%;
+  height: 6vw;
+  padding: 0.5vw;
+}
+#messageDisplay input {
+  padding: 0;
+  float: right;
+}
+
+.chat .table .row {
+  font-size: 0.9vw;
+  border-bottom: 1px solid #d3dbf8;
+  padding: 0.5vw;
+}
+
+.chat .date {
+  float: right;
+  right: 0;
+  top: 0;
+}
+
+.chat .table .row:nth-of-type(even) {
+  background-color: #f9f5ff;
+}
+.chat .table {
+  width: 100%;
+  border-right: 1px solid #d3dbf8;
+}
