@@ -69,7 +69,7 @@ export async function fetchMessagesByUserId(/* userId: string */) {
       ORDER BY roadtrip DESC, messages.created DESC
     `;
 
-    return data.rows;
+    return data.rows as MessagesDisplay[];
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to fetch messages data.");

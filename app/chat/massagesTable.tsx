@@ -15,33 +15,48 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 
 export default function MessagesTable(
   {
     setSelected,
+    selectedIndex,
+    setHeadingInfo,
+    setSelectedIndex,
   }: {
     setSelected: (value: SetStateAction<MessagesDisplay[] | null>) => void;
+    setHeadingInfo: Dispatch<SetStateAction<MessagesDisplay | null>>;
+    selectedIndex: number | null;
+    setSelectedIndex: Dispatch<SetStateAction<number | null>>;
   } /* {
-  messagesOverview,
-}: {
-  messagesOverview: MessagesDisplay[];
-} */
+    messagesOverview,
+    handleClickFactory,
+  }: {
+    messagesOverview: MessagesDisplay[];
+    handleClickFactory: (index: number) => () => void;
+  } */
 ) {
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
     queryFn: async () => {
-      console.log("fetching messages 2");
       const response = await fetch("api/chat" /* +userId */);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      return response.json();
+      const { data: messages } = (await response.json()) as {
+        data: MessagesDisplay[];
+      };
+      const nestedMessages = nestMessageArrayByOtherUserId(messages);
+      const messagesOverview = nestMessagesToOverviewMessages(nestedMessages);
+      if (selectedIndex !== null) {
+        setSelected(nestedMessages[selectedIndex]);
+      }
+      return [messagesOverview, nestedMessages] as [
+        MessagesDisplay[],
+        MessagesDisplay[][]
+      ];
     },
   });
-  /*   useEffect(() => {
-    console.log("messages changed");
-  }, [data]); */
   if (isPending) {
     return <span>Loading...</span>;
   }
@@ -51,15 +66,14 @@ export default function MessagesTable(
   }
 
   if (!data) return <span>No messages yet to see.</span>;
-  const { data: messages } = data;
-
-  const nestedMessages = nestMessageArrayByOtherUserId(messages);
-  const messagesOverview = nestMessagesToOverviewMessages(nestedMessages);
-
   const handleClickFactory = (index: number) => {
-    return () => setSelected(nestedMessages[index]);
+    return () => {
+      setSelected(nestedMessages[index]);
+      setHeadingInfo(nestedMessages[index][0]);
+      setSelectedIndex(index);
+    };
   };
-
+  const [messagesOverview, nestedMessages] = data;
   const rows = messagesOverview.map((message, i) => {
     const { otherUserName, startLand, startTown, destLand, destTown, text } =
       message;

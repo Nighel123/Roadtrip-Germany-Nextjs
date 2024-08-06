@@ -8,8 +8,9 @@ import {
   useQueryClient,
   QueryClient,
   QueryClientProvider,
+  UseMutationResult,
 } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { FormEvent } from "react";
 
 export default function MessageDisplayer({
@@ -17,45 +18,8 @@ export default function MessageDisplayer({
 }: {
   selected: MessagesDisplay[] | null;
 }) {
-  if (!selected)
-    return (
-      <div id="messageDisplay">
-        <p>No Message yet selected.</p>
-      </div>
-    );
-  const {
-    otherUserName,
-    startLand,
-    startTown,
-    destLand,
-    destTown,
-    roadtripImageURL,
-    roadtripCreatorId,
-    otherUserId,
-    roadtripId,
-  } = selected[0];
-
-  const roadtripUserName =
-    roadtripCreatorId === 7 ? "Nighel1234" : otherUserName;
-  const roadtrip = {
-    startland: startLand,
-    starttown: startTown,
-    destland: destTown,
-    desttown: destTown,
-    username: roadtripUserName,
-  } as unknown as RoadtripDisplay;
-
-  let rows = selected.map((message) => {
-    return (
-      <div
-        key={`selected-${message.id}`}
-        className={message.from === 7 ? "me" : "other"}
-      >
-        {message.text}
-      </div>
-    );
-  });
   const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: (newMessage: {
       text: string;
@@ -71,24 +35,22 @@ export default function MessageDisplayer({
       queryClient.invalidateQueries({ queryKey: ["messages"] });
     },
   });
+  if (!selected) return null;
+  const { otherUserId, roadtripId } = selected[0];
+
+  let rows = selected.map((message) => {
+    return (
+      <div
+        key={`selected-${message.id}`}
+        className={message.from === 7 ? "me" : "other"}
+      >
+        {message.text}
+      </div>
+    );
+  });
 
   return (
-    <div id="messageDisplay">
-      <div id="routeInfo">
-        <MapLoader>
-          <MyMapComponent roadtrips={[roadtrip]} />
-        </MapLoader>
-        <Image
-          src={roadtripImageURL}
-          alt="roadtripPicture"
-          width={150}
-          height={300}
-        />
-        <h1 className="name">{otherUserName}</h1>
-        <p>
-          {startLand},{startTown} &#8594; {destLand},{destTown}
-        </p>
-      </div>
+    <>
       <div id="messages">{rows}</div>
       <form
         onSubmit={(event: FormEvent<HTMLFormElement>) => {
@@ -105,6 +67,6 @@ export default function MessageDisplayer({
         <textarea></textarea>
         <input type="image" src="chat/send.png" alt="submit" />
       </form>
-    </div>
+    </>
   );
 }

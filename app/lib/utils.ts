@@ -107,7 +107,7 @@ Zero or NaN indicates that a and b are considered equal. */
   };
 
   return messages.sort((a, b) => {
-    return compareFn(a.created, b.created);
+    return compareFn(new Date(a.created), new Date(b.created));
   });
 }
 
