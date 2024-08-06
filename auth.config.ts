@@ -9,7 +9,8 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const { pathname } = nextUrl;
       //console.log(auth);
-      if (pathname === "/insertRoadtrip") return !!auth;
+      const forbiddenURL = ["/insertRoadtrip", "/chat"];
+      if (forbiddenURL.includes(pathname)) return !!auth;
       return true;
     } /* ,
     async redirect({ url, baseUrl }) {

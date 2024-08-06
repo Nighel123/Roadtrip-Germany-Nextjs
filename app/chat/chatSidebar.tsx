@@ -1,7 +1,5 @@
 "use client";
 
-import { fetchMessagesByUserId } from "app/lib/data";
-
 import { MessagesDisplay } from "app/lib/definitions";
 import {
   formatDateToLocal,
@@ -11,6 +9,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useState } from "react";
 import ChatMessages from "./chatMessages";
+import { useSession } from "next-auth/react";
 
 export default function ChatSidebar({
   setHeading,
@@ -19,10 +18,11 @@ export default function ChatSidebar({
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selected, setSelected] = useState<MessagesDisplay[] | null>(null);
+  const { data: session } = useSession();
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
     queryFn: async () => {
-      const response = await fetch("api/chat" /* +userId */);
+      const response = await fetch(`api/chat?id=${session?.user?.id}`);
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }

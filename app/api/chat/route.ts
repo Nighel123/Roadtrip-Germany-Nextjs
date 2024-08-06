@@ -1,6 +1,7 @@
 import { fetchMessagesByUserId, insertMessage } from "app/lib/data";
+import { auth } from "auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   /* const res = await fetch("https://data.mongodb-api.com/...", {
     headers: {
       "Content-Type": "application/json",
@@ -9,8 +10,12 @@ export async function GET() {
   });
   
   const data = await res.json(); */
-
-  const data = await fetchMessagesByUserId();
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get("id");
+  if (!id) return null;
+  const session = await auth();
+  if (id !== session?.user?.id) return null;
+  const data = await fetchMessagesByUserId(id);
 
   return Response.json({ data });
 }

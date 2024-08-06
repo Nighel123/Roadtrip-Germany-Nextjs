@@ -12,6 +12,7 @@ import ChatSidebar from "./chatSidebar";
 import ChatForm from "./chatForm";
 import { head } from "@vercel/blob";
 import { formatDateToLocal } from "app/lib/utils";
+import { useSession } from "next-auth/react";
 
 export default function ChatHeading() {
   const [heading, setHeading] = useState<MessagesDisplay | null>(null);

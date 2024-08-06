@@ -37,6 +37,15 @@
   left: 0em;
 }
 
+#chatLink {
+  width: 5%;
+  margin: 10px 0px 0px 14px;
+  /* float: right; */
+  position: absolute;
+  top: 0vw;
+  right: 1vw;
+}
+
 #login {
   width: 13.5%;
   float: left;

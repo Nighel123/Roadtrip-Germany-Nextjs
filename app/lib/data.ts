@@ -54,18 +54,18 @@ export async function fetchRoadtripById(id: string) {
   }
 }
 
-export async function fetchMessagesByUserId(/* userId: string */) {
+export async function fetchMessagesByUserId(userId: string) {
   try {
     console.log("fetching messages");
 
     const data = await sql<MessagesDisplay>`
       SELECT messages.id, messages.text, messages.created, messages.from, messages.to, messages.read, roadtrips.user_id AS "roadtripCreatorId", roadtrip AS "roadtripId" , roadtrips.image_url AS "roadtripImageURL", roadtrips.date AS "roadtripDate", dest.land AS "destLand", dest.town AS "destTown", start.land AS "startLand", start.town AS "startTown", other.id AS "otherUserId", other.name AS "otherUserName"
       FROM messages
-      JOIN users AS other ON (messages.from <> '7' AND messages.from = other.id) OR (messages.to <> '7' AND messages.to = other.id)
+      JOIN users AS other ON (messages.from <> ${userId} AND messages.from = other.id) OR (messages.to <> ${userId} AND messages.to = other.id)
       JOIN roadtrips ON roadtrip = roadtrips.id
       JOIN addresses AS dest ON dest_id = dest.id
       JOIN addresses AS start ON start_id = start.id
-      WHERE messages.from = '7' OR messages.to = '7'
+      WHERE messages.from = ${userId} OR messages.to = ${userId}
       ORDER BY roadtrip DESC, messages.created DESC
     `;
 
