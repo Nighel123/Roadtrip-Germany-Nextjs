@@ -1,41 +1,24 @@
 "use client";
 
 import { fetchMessagesByUserId } from "app/lib/data";
-import { auth } from "auth";
+
 import { MessagesDisplay } from "app/lib/definitions";
 import {
   formatDateToLocal,
   nestMessageArrayByOtherUserId,
   nestMessagesToOverviewMessages,
 } from "app/lib/utils";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Dispatch, SetStateAction, useState } from "react";
+import ChatMessages from "./chatMessages";
 
-export default function MessagesTable(
-  {
-    setSelected,
-    selectedIndex,
-    setHeadingInfo,
-    setSelectedIndex,
-  }: {
-    setSelected: (value: SetStateAction<MessagesDisplay[] | null>) => void;
-    setHeadingInfo: Dispatch<SetStateAction<MessagesDisplay | null>>;
-    selectedIndex: number | null;
-    setSelectedIndex: Dispatch<SetStateAction<number | null>>;
-  } /* {
-    messagesOverview,
-    handleClickFactory,
-  }: {
-    messagesOverview: MessagesDisplay[];
-    handleClickFactory: (index: number) => () => void;
-  } */
-) {
+export default function ChatSidebar({
+  setHeading,
+}: {
+  setHeading: Dispatch<SetStateAction<MessagesDisplay | null>>;
+}) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selected, setSelected] = useState<MessagesDisplay[] | null>(null);
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
     queryFn: async () => {
@@ -68,9 +51,9 @@ export default function MessagesTable(
   if (!data) return <span>No messages yet to see.</span>;
   const handleClickFactory = (index: number) => {
     return () => {
-      setSelected(nestedMessages[index]);
-      setHeadingInfo(nestedMessages[index][0]);
+      setHeading(nestedMessages[index][0]);
       setSelectedIndex(index);
+      setSelected(nestedMessages[index]);
     };
   };
   const [messagesOverview, nestedMessages] = data;
@@ -79,7 +62,7 @@ export default function MessagesTable(
       message;
     return (
       <div
-        className="row"
+        className={selectedIndex === i ? "row selected" : "row"}
         onClick={handleClickFactory(i)}
         key={`line-${message.id}`}
       >
@@ -92,5 +75,10 @@ export default function MessagesTable(
       </div>
     );
   });
-  return <div id="table">{rows}</div>;
+  return (
+    <>
+      <div id="table">{rows}</div>
+      {selected ? <ChatMessages selected={selected} /> : null}
+    </>
+  );
 }
