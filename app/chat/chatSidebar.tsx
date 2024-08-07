@@ -10,29 +10,49 @@ import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useState } from "react";
 import ChatMessages from "./chatMessages";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 export default function ChatSidebar({
-  setHeading,
+  setRoadtripID,
+  setOtherUserID,
 }: {
-  setHeading: Dispatch<SetStateAction<MessagesDisplay | null>>;
+  setRoadtripID: Dispatch<SetStateAction<string | null>>;
+  setOtherUserID: Dispatch<SetStateAction<number | null>>;
 }) {
+  const searchParams = useSearchParams();
+  const search = searchParams.get("id");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selected, setSelected] = useState<MessagesDisplay[] | null>(null);
+
   const { data: session } = useSession();
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
     queryFn: async () => {
       const response = await fetch(`api/chat?id=${session?.user?.id}`);
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        throw new Error(
+          "Network response for fetching users messages was not ok"
+        );
       }
       const { data: messages } = (await response.json()) as {
         data: MessagesDisplay[];
       };
       const nestedMessages = nestMessageArrayByOtherUserId(messages);
       const messagesOverview = nestMessagesToOverviewMessages(nestedMessages);
-      if (selectedIndex !== null) {
-        setSelected(nestedMessages[selectedIndex]);
+      if (search && selectedIndex === null) {
+        const index = messagesOverview.findIndex(
+          (message) => message.roadtripId === search
+        );
+        setRoadtripID(search);
+        if (index !== -1) {
+          // roadtrip was found in messages
+          setSelectedIndex(index);
+          setSelected(nestedMessages[index]);
+        }
+      } else {
+        if (selectedIndex !== null) {
+          setSelected(nestedMessages[selectedIndex]);
+        }
       }
       return [messagesOverview, nestedMessages] as [
         MessagesDisplay[],
@@ -51,9 +71,13 @@ export default function ChatSidebar({
   if (!data) return <span>No messages yet to see.</span>;
   const handleClickFactory = (index: number) => {
     return () => {
-      setHeading(nestedMessages[index][0]);
       setSelectedIndex(index);
-      setSelected(nestedMessages[index]);
+      const messages = nestedMessages[index];
+      setSelected(messages);
+      const roadtripID = messages[0].roadtripId;
+      setRoadtripID(roadtripID);
+      const otherUserID = messages[0].otherUserId;
+      setOtherUserID(otherUserID);
     };
   };
   const [messagesOverview, nestedMessages] = data;

@@ -3,6 +3,7 @@ import MapLoader from "../../ui/mapLoader";
 import MyMapComponent from "../../ui/map";
 import Image from "next/image";
 import { formatDateToLocal } from "app/lib/utils";
+import Link from "next/link";
 
 export default async function RoadtripWrapper({ id }: { id: string }) {
   const roadtrips = await fetchRoadtripById(id);
@@ -34,6 +35,7 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
           {sex === "weiblich" ? "Sie" : "Er"} hat folgendes dazu geschrieben:
         </label>
         <p className="description">{description}</p>
+        <Link href={`/chat?id=${id}`}>Nachricht schreiben</Link>
       </div>
       <div className="image">
         <label htmlFor="Bild">

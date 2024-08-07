@@ -56,6 +56,7 @@ export type RoadtripDisplay = {
   desttown: string;
   image_url: string;
   username: string;
+  user_id: number;
   startland: string;
   starttown: string;
   sex: "männlich" | "weiblich";
@@ -71,7 +72,7 @@ export type MessagesDisplay = {
   roadtripCreatorId: number;
   roadtripId: string;
   roadtripImageURL: string;
-  roadtripDate: Date;
+  roadtripDate: string;
   destLand: string;
   destTown: string;
   startLand: string;

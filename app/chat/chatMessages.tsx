@@ -1,28 +1,21 @@
-import MapLoader from "app/ui/mapLoader";
-import MyMapComponent from "../ui/map";
 import { MessagesDisplay, RoadtripDisplay } from "app/lib/definitions";
-import Image from "next/image";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-  UseMutationResult,
-} from "@tanstack/react-query";
-import axios, { AxiosResponse } from "axios";
-import { FormEvent, useState } from "react";
+import { sortMessages } from "app/lib/utils";
+import { useSession } from "next-auth/react";
 
 export default function ChatMessages({
   selected,
 }: {
   selected: MessagesDisplay[];
 }) {
-  let rows = selected.map((message) => {
+  const session = useSession();
+  const userID = session.data?.user?.id;
+  if (!userID) return null;
+  const sorted = sortMessages(selected);
+  let rows = sorted.map((message) => {
     return (
       <div
-        key={`selected-${message.id}`}
-        className={message.from === 7 ? "me" : "other"}
+        key={`sorted-${message.id}`}
+        className={message.from === Number(userID) ? "me" : "other"}
       >
         {message.text}
       </div>
