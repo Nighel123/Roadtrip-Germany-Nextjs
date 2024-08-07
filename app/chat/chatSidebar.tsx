@@ -23,7 +23,21 @@ export default function ChatSidebar({
   const search = searchParams.get("id");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [selected, setSelected] = useState<MessagesDisplay[] | null>(null);
-
+  const [nestedMessages, setNestedMessages] = useState<
+    MessagesDisplay[][] | null
+  >(null);
+  const handleClickFactory = (index: number) => {
+    return (nestedMessages: MessagesDisplay[][] | null) => {
+      if (!nestedMessages) return;
+      setSelectedIndex(index);
+      const messages = nestedMessages[index];
+      setSelected(messages);
+      const roadtripID = messages[0].roadtripId;
+      setRoadtripID(roadtripID);
+      const otherUserID = messages[0].otherUserId;
+      setOtherUserID(otherUserID);
+    };
+  };
   const { data: session } = useSession();
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
@@ -39,6 +53,7 @@ export default function ChatSidebar({
       };
       const nestedMessages = nestMessageArrayByOtherUserId(messages);
       const messagesOverview = nestMessagesToOverviewMessages(nestedMessages);
+      setNestedMessages(nestedMessages);
       if (search && selectedIndex === null) {
         const index = messagesOverview.findIndex(
           (message) => message.roadtripId === search
@@ -50,14 +65,14 @@ export default function ChatSidebar({
           setSelected(nestedMessages[index]);
         }
       } else {
+        if (selectedIndex === null) {
+          handleClickFactory(0)(nestedMessages);
+        }
         if (selectedIndex !== null) {
           setSelected(nestedMessages[selectedIndex]);
         }
       }
-      return [messagesOverview, nestedMessages] as [
-        MessagesDisplay[],
-        MessagesDisplay[][]
-      ];
+      return messagesOverview;
     },
   });
   if (isPending) {
@@ -69,25 +84,16 @@ export default function ChatSidebar({
   }
 
   if (!data) return <span>No messages yet to see.</span>;
-  const handleClickFactory = (index: number) => {
-    return () => {
-      setSelectedIndex(index);
-      const messages = nestedMessages[index];
-      setSelected(messages);
-      const roadtripID = messages[0].roadtripId;
-      setRoadtripID(roadtripID);
-      const otherUserID = messages[0].otherUserId;
-      setOtherUserID(otherUserID);
-    };
-  };
-  const [messagesOverview, nestedMessages] = data;
+
+  const messagesOverview = data;
+
   const rows = messagesOverview.map((message, i) => {
     const { otherUserName, startLand, startTown, destLand, destTown, text } =
       message;
     return (
       <div
         className={selectedIndex === i ? "row selected" : "row"}
-        onClick={handleClickFactory(i)}
+        onClick={() => handleClickFactory(i)(nestedMessages)}
         key={`line-${message.id}`}
       >
         <h2>{otherUserName}</h2>
