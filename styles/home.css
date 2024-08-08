@@ -56,6 +56,18 @@
   left: 0em;
 }
 
+#newMessageCounter {
+  width: 1.5vw;
+  height: 1.5vw;
+  border-radius: 1vw;
+  position: absolute;
+  top: -1vw;
+  right: 0;
+  background-color: #ff2929;
+  color: white;
+  text-align: center;
+}
+
 .home a {
   width: 80%;
 }

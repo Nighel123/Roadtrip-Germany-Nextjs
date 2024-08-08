@@ -2,6 +2,7 @@ import { auth, signOut } from "auth";
 import Image from "next/image";
 import Link from "next/link";
 import { SignInButton } from "./ui/signInButton";
+import { fetchNewMessagesCountByUserId } from "./lib/data";
 
 export default async function Page() {
   const session = await auth();
@@ -33,6 +34,7 @@ export default async function Page() {
               height={400}
               alt="registrieren"
             />
+            <NewMessageCounter />
           </Link>
         </>
       ) : (
@@ -77,4 +79,12 @@ export default async function Page() {
       </div>
     </>
   );
+}
+
+async function NewMessageCounter() {
+  const session = await auth();
+  const userID = session?.user?.id;
+  if (!userID) return;
+  const count = (await fetchNewMessagesCountByUserId(userID)) as string;
+  return <>{Number(count) ? <p id="newMessageCounter">{count}</p> : null}</>;
 }

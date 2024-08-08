@@ -59,6 +59,8 @@ export type RoadtripDisplay = {
   user_id: number;
   startland: string;
   starttown: string;
+  start_id: string;
+  dest_id: string;
   sex: "männlich" | "weiblich";
 };
 

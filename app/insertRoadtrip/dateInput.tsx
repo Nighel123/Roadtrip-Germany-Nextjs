@@ -1,6 +1,12 @@
-import { handleBlurType, months } from "app/lib/definitions";
+import { handleBlurType, months, RoadtripDisplay } from "app/lib/definitions";
 
-const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
+const DateInput = ({
+  handleBlur,
+  roadtrip,
+}: {
+  handleBlur?: handleBlurType;
+  roadtrip: RoadtripDisplay | null;
+}) => {
   const options = months.map((month, i) => (
     <option key={month + i} value={month}>
       {month}
@@ -15,11 +21,13 @@ const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
           placeholder="Tag"
           name="day"
           onBlur={handleBlur}
-          /* defaultValue={"1"} */
+          defaultValue={roadtrip ? new Date(roadtrip.date).getDay() : ""}
         />
         <select
           id="month"
-          /* defaultValue="Januar" */
+          defaultValue={
+            roadtrip ? months[new Date(roadtrip.date).getMonth()] : ""
+          }
           name="month"
           onBlur={handleBlur}
         >
@@ -31,7 +39,7 @@ const DateInput = ({ handleBlur }: { handleBlur?: handleBlurType }) => {
           placeholder="Jahr"
           name="year"
           onBlur={handleBlur}
-          /* defaultValue={"2025"} */
+          defaultValue={roadtrip ? new Date(roadtrip.date).getFullYear() : ""}
         />
       </div>
     </>

@@ -35,7 +35,9 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
           {sex === "weiblich" ? "Sie" : "Er"} hat folgendes dazu geschrieben:
         </label>
         <p className="description">{description}</p>
-        <Link href={`/chat?id=${id}`}>Nachricht schreiben</Link>
+        <Link href={`/chat?id=${id}`}>
+          <input type="image" src="sendMessage.png" alt="send Message" />
+        </Link>
       </div>
       <div className="image">
         <label htmlFor="Bild">

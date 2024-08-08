@@ -1,11 +1,13 @@
-import { handleBlurType } from "app/lib/definitions";
+import { handleBlurType, RoadtripDisplay } from "app/lib/definitions";
 
 const AddressInput = ({
   name,
   handleBlur,
+  roadtrip,
 }: {
   name: "start" | "dest";
   handleBlur: handleBlurType;
+  roadtrip: RoadtripDisplay | null;
 }) => {
   return (
     <div className="address">
@@ -14,14 +16,14 @@ const AddressInput = ({
         placeholder="Land"
         name={name + "land"}
         onBlur={handleBlur}
-        /* defaultValue={"Mallorca"} */
+        defaultValue={roadtrip ? roadtrip[`${name}land`] : ""}
       />
       <input
         id={name + "town"}
         placeholder="Stadt"
         name={name + "town"}
         onBlur={handleBlur}
-        /* defaultValue={"Mallorcad"} */
+        defaultValue={roadtrip ? roadtrip[`${name}town`] : ""}
       />
     </div>
   );

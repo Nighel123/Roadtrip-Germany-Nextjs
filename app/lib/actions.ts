@@ -1,7 +1,7 @@
 "use server";
 
 import { db, sql, VercelPoolClient } from "@vercel/postgres";
-import { put } from "@vercel/blob";
+import { del, put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodIssue, z } from "zod";
@@ -20,6 +20,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { randomUUID } from "node:crypto";
 import { sendVerificationEmail } from "app/utils/mail";
+import { fetchRoadtripById } from "./data";
 
 const { log } = console;
 
@@ -201,13 +202,6 @@ export async function insertRoadtrip(
         RETURNING id`;
 
     if (file) {
-      /* const arrayBuffer = await file.File.arrayBuffer();
-      const buffer = new Uint8Array(arrayBuffer); */
-
-      /* await fs.mkdir("./uploads", { recursive: true }, (err) => {
-        if (err) throw err;
-      }); */
-      //throw new Error("error uploading file!");
       const blob = await put(`${imgName}.${file.ext}`, file.File, {
         access: "public",
       });
@@ -217,16 +211,6 @@ export async function insertRoadtrip(
         SET image_url = ${blob.downloadUrl} 
         WHERE id = ${imgName};
       `;
-
-      /* const filePath = path.join(
-        process.cwd(),
-        `public/uploads/${imgName}.${file.ext}`
-      );
-
-      await fs.writeFile(filePath, buffer, async (err) => {
-        console.log("fileupload: ", err);
-        //throw new Error(`Error writing file: ${err}`);
-      }); */
     } else {
       await client.sql`ROLLBACK`; // rollback the transaction
     }
@@ -243,6 +227,120 @@ export async function insertRoadtrip(
   }
   revalidatePath("/insertRoadtrip");
   redirect("/routesOverview");
+}
+
+export async function editRoadtrip(
+  prevState: error[],
+  formData: FormData
+): Promise<error[]> {
+  //throw new Error("Failed to insert Roadtrip");
+  const roadtripID = formData.get("roadtripId") as string;
+  if (!roadtripID)
+    return [
+      {
+        message: "das ist keine valide Roadtrip-id",
+        path: ["submit"],
+      },
+    ];
+  const roadtrip = (await fetchRoadtripById(roadtripID))[0];
+
+  if (!roadtrip)
+    return [
+      {
+        message: "das ist keine valide Roadtrip-id",
+        path: ["submit"],
+      },
+    ];
+
+  const user_id = (await auth())?.user?.id;
+  if (Number(user_id) !== roadtrip.user_id) {
+    return [
+      {
+        message: "Du kannst nur deine eigenen Roadtrips ändern!",
+        path: ["submit"],
+      },
+    ];
+  }
+  const submit = formData.get("submit");
+  const formDataObj = Object.fromEntries(
+    formData.entries()
+  ) as RoadtripForm<any>;
+
+  const formDataZObj = insertFormToZObj(formDataObj);
+  // we have a mocked async AddressCheck function inside our validation.
+  const resFormDataObj = await zFormDataObj.safeParseAsync(formDataZObj);
+
+  if (!resFormDataObj.success) {
+    //console.log(validatedFields);
+    return formatErrors(
+      resFormDataObj.error?.flatten((issue: ZodIssue) => ({
+        path: issue.path,
+        message: issue.message,
+      })) as FormDataErrors
+    );
+  }
+
+  const {
+    description,
+    file,
+    route: { start, dest },
+    date: { Date },
+  } = resFormDataObj.data;
+  // Test it out:
+
+  if (!submit)
+    return [
+      {
+        message: "",
+        path: [""],
+      },
+    ];
+
+  const client = await db.connect();
+  try {
+    await client.sql`BEGIN`; // start a transaction
+    await client.sql`
+        UPDATE addresses 
+          SET land = ${start.land}, town = ${start.town}
+          WHERE id = ${roadtrip.start_id}
+        `;
+    await client.sql`
+        UPDATE addresses 
+          SET land = ${dest.land}, town = ${dest.town}
+          WHERE id = ${roadtrip.dest_id}
+        `;
+    await client.sql`
+        UPDATE roadtrips 
+          SET (date, description) = (${Date.toISOString()}, ${description})
+          WHERE id = ${roadtrip.id}
+        `;
+
+    if (file) {
+      await del([roadtrip.image_url]);
+      const blob = await put(`${roadtrip.id}.${file.ext}`, file.File, {
+        access: "public",
+      });
+      const downloadURL = blob.downloadUrl;
+      await client.sql`
+        UPDATE roadtrips 
+          SET image_url = ${downloadURL} 
+          WHERE id = ${roadtrip.id};
+      `;
+    }
+
+    await client.sql`COMMIT`; // commit the transaction
+  } catch (error) {
+    console.log(error);
+    await client.sql`ROLLBACK`; // rollback the transaction
+    return [
+      {
+        message: `Update vom Roadtrip fehlgeschlagen. ${error}`,
+        path: ["submit"],
+      },
+    ];
+  }
+  revalidatePath("/insertRoadtrip");
+  redirect("/dashboard");
 }
 
 export async function getVerificationTokenByUserIdAndToken(

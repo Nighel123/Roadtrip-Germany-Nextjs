@@ -34,10 +34,33 @@ export async function fetchRoadtrips() {
   }
 }
 
+export async function fetchRoadtripsByUserID(userID: string) {
+  noStore();
+
+  try {
+    const data = await sql<RoadtripDisplay>`
+      SELECT roadtrips.id,roadtrips.created, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
+      FROM roadtrips
+      JOIN users ON user_id = users.id
+      JOIN addresses dest ON dest_id = dest.id
+      JOIN addresses start ON start_id = start.id
+      WHERE user_id = ${userID}
+      ORDER BY roadtrips.created DESC
+    `;
+
+    // console.log("Data fetch completed after 3 seconds.");
+
+    return data.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to fetch roadtrips data.");
+  }
+}
+
 export async function fetchRoadtripById(id: string) {
   try {
     const data = await sql<RoadtripDisplay>`
-      SELECT roadtrips.id, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, user_id, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
+      SELECT roadtrips.id, roadtrips.date, roadtrips.description, roadtrips.image_url, dest_id, start_id ,dest.land AS destLand, users.name AS username, user_id, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
       FROM roadtrips
       JOIN users ON user_id = users.id
       JOIN addresses dest ON dest_id = dest.id
@@ -91,5 +114,46 @@ export async function insertMessage(newMessage: {
     return res;
   } catch (error) {
     throw new Error("An Error occurred inserting the message: " + error);
+  }
+}
+
+export async function fetchNewMessagesCountByUserId(userId: string) {
+  noStore();
+  try {
+    if (!userId) return null;
+    console.log("fetching messages");
+
+    const data = await sql`
+      SELECT count(*)
+      FROM messages
+      WHERE messages.to = ${userId} AND "read" IS NULL 
+    `;
+
+    return data.rows[0].count;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to count unread messages.");
+  }
+}
+
+export async function updateReadStatus(o: {
+  from: number;
+  to: number;
+  roadtripId: string;
+}) {
+  const { to, from, roadtripId } = o;
+  try {
+    console.log("fetching messages");
+
+    const data = await sql`
+      UPDATE messages
+      SET read = ${new Date().toDateString()}
+      WHERE messages.to = ${to} AND messages.from = ${from} AND messages.roadtrip = ${roadtripId} AND "read" IS NULL
+    `;
+
+    return data.rows;
+  } catch (error) {
+    console.error("Database Error:", error);
+    throw new Error("Failed to update message data.");
   }
 }

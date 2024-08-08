@@ -1,17 +1,19 @@
 "use client";
 
-import { handleChangeFileType } from "app/lib/definitions";
+import { handleChangeFileType, RoadtripDisplay } from "app/lib/definitions";
 import Image from "next/image";
-import { ChangeEvent, MouseEvent, useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 const style = {
   width: "100%",
 };
 
 const ImageUpload = ({
+  roadtrip,
   handleChangeFile,
 }: {
   handleChangeFile: handleChangeFileType;
+  roadtrip: RoadtripDisplay | null;
 }) => {
   const [preview, setPreview] = useState("/profilePrev.jpg");
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
@@ -32,7 +34,7 @@ const ImageUpload = ({
   return (
     <div className="imageUpload">
       <Image
-        src={preview}
+        src={roadtrip ? roadtrip.image_url : preview}
         id="imagePreview"
         alt="preview"
         width={282}

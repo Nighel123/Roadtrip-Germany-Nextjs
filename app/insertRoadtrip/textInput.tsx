@@ -1,10 +1,16 @@
-import { handleBlurType } from "app/lib/definitions";
+import { handleBlurType, RoadtripDisplay } from "app/lib/definitions";
 
 const styleDesctription = {
   height: "100%",
 };
 
-const TextInput = ({ handleBlur }: { handleBlur: handleBlurType }) => {
+const TextInput = ({
+  handleBlur,
+  roadtrip,
+}: {
+  handleBlur: handleBlurType;
+  roadtrip: RoadtripDisplay | null;
+}) => {
   return (
     <div className="text">
       <textarea
@@ -12,6 +18,7 @@ const TextInput = ({ handleBlur }: { handleBlur: handleBlurType }) => {
         style={styleDesctription}
         name="description"
         onBlur={handleBlur}
+        defaultValue={roadtrip ? roadtrip.description : ""}
       ></textarea>
     </div>
   );

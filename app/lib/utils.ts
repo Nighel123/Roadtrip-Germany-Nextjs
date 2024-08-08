@@ -83,11 +83,22 @@ export function nestMessageArrayByOtherUserId(
 }
 
 export function nestMessagesToOverviewMessages(
-  messages: MessagesDisplay[][]
+  messages: MessagesDisplay[][],
+  userID: string
 ): MessagesDisplay[] {
   let overviewMessages: MessagesDisplay[] = [];
-  messages.forEach((el) => {
-    overviewMessages.push(el[0]);
+  messages.forEach((messages) => {
+    const sortMess = sortMessages(messages).reverse();
+    const unread = sortMess.some(
+      (message) => message.read === null && message.to === Number(userID)
+    );
+    const pivot = sortMess[0];
+    if (unread) {
+      pivot.read = null;
+    } else {
+      pivot.read = new Date();
+    }
+    overviewMessages.push(sortMess[0]);
   });
   return overviewMessages;
 }

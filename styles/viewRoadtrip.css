@@ -68,3 +68,8 @@
   background-color: white;
   color: #231e38;
 }
+
+.viewRoadtrip input {
+  padding: 0;
+  float: right;
+}

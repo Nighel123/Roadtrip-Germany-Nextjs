@@ -4,14 +4,27 @@ import "@/styles/insertRoadtripForm.css";
 
 /* components */
 import Image from "next/image";
-import Form from "./form";
+import InsertForm from "./insertForm";
 import { Metadata } from "next";
+import { fetchRoadtripById } from "app/lib/data";
 
 export const metadata: Metadata = {
   title: "Roadtrip eintragen",
 };
 
-const InsertRoadtrip = () => {
+const InsertRoadtrip = async ({
+  searchParams,
+}: {
+  searchParams?: {
+    id?: string;
+  };
+}) => {
+  let roadtrip = null;
+  const id = searchParams?.id;
+  if (id) {
+    roadtrip = (await fetchRoadtripById(id))[0];
+  }
+
   return (
     <div className="insertRoadtrip" data-testid="insertRoadtrip">
       <header>
@@ -25,7 +38,7 @@ const InsertRoadtrip = () => {
         width={1006}
         height={850}
       />
-      <Form />
+      <InsertForm roadtrip={roadtrip} />
     </div>
   );
 };

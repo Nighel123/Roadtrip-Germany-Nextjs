@@ -14,7 +14,6 @@ export default function ChatForm({
   const [text, setText] = useState<string | null>(null);
   const session = useSession();
   const userID = session.data?.user?.id;
-  if (!userID) return null;
 
   const mutation = useMutation({
     mutationFn: (newMessage: {
@@ -35,6 +34,7 @@ export default function ChatForm({
   const handleTextChange = (e: any) => {
     setText(e.target.value);
   };
+  if (!userID) return null;
 
   return (
     <form
