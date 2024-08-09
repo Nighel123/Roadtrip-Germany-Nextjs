@@ -15,7 +15,9 @@ const ImageUpload = ({
   handleChangeFile: handleChangeFileType;
   roadtrip: RoadtripDisplay | null;
 }) => {
-  const [preview, setPreview] = useState("/profilePrev.jpg");
+  const [preview, setPreview] = useState(
+    roadtrip ? roadtrip.image_url : "/profilePrev.jpg"
+  );
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 
   const onClickInput = () => {
@@ -34,7 +36,7 @@ const ImageUpload = ({
   return (
     <div className="imageUpload">
       <Image
-        src={roadtrip ? roadtrip.image_url : preview}
+        src={preview}
         id="imagePreview"
         alt="preview"
         width={282}

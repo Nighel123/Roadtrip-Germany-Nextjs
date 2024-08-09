@@ -4,8 +4,10 @@ import MyMapComponent from "../../ui/map";
 import Image from "next/image";
 import { formatDateToLocal } from "app/lib/utils";
 import Link from "next/link";
+import { auth } from "auth";
 
 export default async function RoadtripWrapper({ id }: { id: string }) {
+  const userId = (await auth())?.user?.id;
   const roadtrips = await fetchRoadtripById(id);
   const {
     description,
@@ -17,6 +19,7 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
     desttown,
     date,
     sex,
+    user_id,
   } = roadtrips[0];
 
   return (
@@ -35,9 +38,11 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
           {sex === "weiblich" ? "Sie" : "Er"} hat folgendes dazu geschrieben:
         </label>
         <p className="description">{description}</p>
-        <Link href={`/chat?id=${id}`}>
-          <input type="image" src="sendMessage.png" alt="send Message" />
-        </Link>
+        {Number(userId) === user_id || userId === undefined ? null : (
+          <Link href={`/chat?id=${id}`}>
+            <input type="image" src="sendMessage.png" alt="send Message" />
+          </Link>
+        )}
       </div>
       <div className="image">
         <label htmlFor="Bild">

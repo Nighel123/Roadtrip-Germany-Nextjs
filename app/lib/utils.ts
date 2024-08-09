@@ -61,6 +61,7 @@ export function deleteEmptyKeys(u: { [key: string]: any }) {
 export function nestMessageArrayByOtherUserId(
   messages: MessagesDisplay[]
 ): MessagesDisplay[][] {
+  if (messages.length === 0) return [];
   let nestedArray: MessagesDisplay[][] = [];
   let otherUserId = messages[0].otherUserId;
   let rest = messages;
@@ -86,6 +87,7 @@ export function nestMessagesToOverviewMessages(
   messages: MessagesDisplay[][],
   userID: string
 ): MessagesDisplay[] {
+  if (messages.length === 0) return [];
   let overviewMessages: MessagesDisplay[] = [];
   messages.forEach((messages) => {
     const sortMess = sortMessages(messages).reverse();

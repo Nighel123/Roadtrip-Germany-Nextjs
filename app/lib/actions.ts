@@ -5,13 +5,20 @@ import { del, put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodIssue, z } from "zod";
-import { RoadtripForm, RegisterForm, LoginForm } from "./definitions";
+import {
+  RoadtripForm,
+  RegisterForm,
+  LoginForm,
+  DeleteRoadtripForm,
+  RoadtripEditForm,
+} from "./definitions";
 import {
   FormDataErrors,
   formatErrors,
   insertFormToZObj,
   zFormDataObj,
   error,
+  zFormDataObjEdit,
 } from "app/insertRoadtrip/utils";
 import { formatRegisterData, zRegisterForm } from "app/register/utils";
 import { auth, signIn } from "auth";
@@ -21,6 +28,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { randomUUID } from "node:crypto";
 import { sendVerificationEmail } from "app/utils/mail";
 import { fetchRoadtripById } from "./data";
+import { zDeleteRoadtrip } from "app/utils/validateFormData";
 
 const { log } = console;
 
@@ -58,7 +66,7 @@ export async function authenticate(
         //log(error);
         switch (error.type) {
           case "CredentialsSignin":
-            return "Invalid credentials.";
+            return "Invalide Daten.";
           case "CallbackRouteError":
             return error.cause?.err?.message;
           default:
@@ -229,20 +237,65 @@ export async function insertRoadtrip(
   redirect("/routesOverview");
 }
 
+export async function deleteRoadtrip(
+  prevState: string | undefined,
+  formData: FormData
+): Promise<string | undefined> {
+  const DeleteObj = Object.fromEntries(
+    formData.entries()
+  ) as DeleteRoadtripForm<any>;
+
+  const parsedForm = zDeleteRoadtrip.safeParse(DeleteObj);
+
+  if (!parsedForm.success) {
+    return "Das hat leider nicht geklappt.";
+  }
+
+  const { id } = parsedForm.data;
+  const roadtrip = (await fetchRoadtripById(id))[0];
+  if (!roadtrip) return "Das hat leider nicht geklappt.";
+
+  try {
+    await del([roadtrip.image_url]);
+    await sql`DELETE FROM roadtrips
+                WHERE id = ${id}
+              `;
+  } catch (error) {
+    console.log(error);
+    return `Das hat leider nicht geklappt`;
+  }
+  revalidatePath("/dashboard");
+  return `Roadtrip erfolgreich gelöscht.`;
+}
+
 export async function editRoadtrip(
   prevState: error[],
   formData: FormData
 ): Promise<error[]> {
   //throw new Error("Failed to insert Roadtrip");
-  const roadtripID = formData.get("roadtripId") as string;
-  if (!roadtripID)
-    return [
-      {
-        message: "das ist keine valide Roadtrip-id",
-        path: ["submit"],
-      },
-    ];
-  const roadtrip = (await fetchRoadtripById(roadtripID))[0];
+  const submit = formData.get("submit");
+  const formDataObj = Object.fromEntries(
+    formData.entries()
+  ) as RoadtripEditForm<any>;
+  const formDataZObj = insertFormToZObj(formDataObj);
+  const resFormDataObj = await zFormDataObjEdit.safeParseAsync(formDataZObj);
+  if (!resFormDataObj.success) {
+    //console.log(validatedFields);
+    return formatErrors(
+      resFormDataObj.error?.flatten((issue: ZodIssue) => ({
+        path: issue.path,
+        message: issue.message,
+      })) as FormDataErrors
+    );
+  }
+  const {
+    description,
+    file,
+    route: { start, dest },
+    date: { Date },
+    roadtripId,
+  } = resFormDataObj.data;
+  const roadtrip = (await fetchRoadtripById(roadtripId))[0];
 
   if (!roadtrip)
     return [
@@ -261,31 +314,9 @@ export async function editRoadtrip(
       },
     ];
   }
-  const submit = formData.get("submit");
-  const formDataObj = Object.fromEntries(
-    formData.entries()
-  ) as RoadtripForm<any>;
 
-  const formDataZObj = insertFormToZObj(formDataObj);
   // we have a mocked async AddressCheck function inside our validation.
-  const resFormDataObj = await zFormDataObj.safeParseAsync(formDataZObj);
 
-  if (!resFormDataObj.success) {
-    //console.log(validatedFields);
-    return formatErrors(
-      resFormDataObj.error?.flatten((issue: ZodIssue) => ({
-        path: issue.path,
-        message: issue.message,
-      })) as FormDataErrors
-    );
-  }
-
-  const {
-    description,
-    file,
-    route: { start, dest },
-    date: { Date },
-  } = resFormDataObj.data;
   // Test it out:
 
   if (!submit)

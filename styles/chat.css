@@ -130,3 +130,29 @@ div.chat #messageContainer {
   float: right;
   margin-right: 1vw;
 }
+
+.chat span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /*   right: auto;
+  bottom: auto; */
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  color: #a8a8a8;
+  display: block;
+}
+
+.chat span h1,
+.chat span p {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.chat #table h1.nocontent,
+.chat #table p.nocontent {
+  margin: 1vw;
+  display: block;
+  color: #a8a8a8;
+}

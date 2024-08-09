@@ -171,3 +171,25 @@
     grid-row: 7/8;
   }
 }
+
+/* modal */
+
+.ReactModalPortal form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ReactModalPortal .yes {
+  background-color: red;
+  color: white;
+  width: 10vw;
+  height: 3vw;
+}
+
+.ReactModalPortal .no {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+}

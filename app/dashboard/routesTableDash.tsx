@@ -1,18 +1,24 @@
-import { fetchRoadtripsByUserID } from "app/lib/data";
-import { RoadtripDisplay } from "app/lib/definitions";
-import { auth } from "auth";
-import RoutesTableLineDash from "./routesTableLineDash";
+"use client";
 
-export default async function RoutesTableDash() {
-  const session = await auth();
-  const userID = session?.user?.id;
-  if (!userID) return null;
-  const roadtrips = await fetchRoadtripsByUserID(userID);
+import { RoadtripDisplay } from "app/lib/definitions";
+import RoutesTableLineDash from "./routesTableLineDash";
+import Modal from "react-modal";
+import { useState } from "react";
+
+export default async function RoutesTableDash({
+  roadtrips,
+}: {
+  roadtrips: RoadtripDisplay[];
+}) {
   //console.log(roadtrips);
   const lines = roadtrips.map((roadtrip: RoadtripDisplay) => {
     return (
       <RoutesTableLineDash key={`line-${roadtrip.id}`} roadtrip={roadtrip} />
     );
   });
-  return <div id="table">{lines}</div>;
+  return (
+    <>
+      <div id="table">{lines}</div>
+    </>
+  );
 }

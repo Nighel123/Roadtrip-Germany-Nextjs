@@ -1,7 +1,8 @@
-import { RoadtripForm, months } from "app/lib/definitions";
+import { RoadtripEditForm, RoadtripForm, months } from "app/lib/definitions";
 import { monthToNumber } from "app/lib/utils";
 import { z } from "zod";
 import { Client, GeocodeRequest } from "@googlemaps/google-maps-services-js";
+import { zRoadtripID } from "app/utils/validateFormData";
 export async function isAddressValid(a: string, b: string) {
   /* console.log(a, b); */
   return Promise.resolve(true);
@@ -19,8 +20,12 @@ async function validateAddress(town: string, land: string) {
   if (result.data.results.length > 0) return true;
   return false;
 }
-
-export function insertFormToZObj(o: RoadtripForm<any>) {
+function isEdit(
+  o: RoadtripForm<any> | RoadtripEditForm<any>
+): o is RoadtripEditForm<any> {
+  return (o as RoadtripEditForm<any>).roadtripId !== undefined;
+}
+export function insertFormToZObj(o: RoadtripForm<any> | RoadtripEditForm<any>) {
   const {
     startland,
     starttown,
@@ -32,6 +37,7 @@ export function insertFormToZObj(o: RoadtripForm<any>) {
     description,
     file,
   } = o;
+
   const dest = { land: destland, town: desttown };
   const start = { land: startland, town: starttown };
   const date = { day, month, year };
@@ -39,12 +45,31 @@ export function insertFormToZObj(o: RoadtripForm<any>) {
     start: start,
     dest: dest,
   };
+  //console.log(file);
+  let File;
+  if (file.size === 0) {
+    File = undefined;
+  } else {
+    File = file;
+  }
   const formattedObj = {
     route: route,
     date: date,
     description,
     file,
   };
+  if (isEdit(o)) {
+    return {
+      formattedObj: formattedObj,
+      route: route,
+      date: date,
+      start: start,
+      dest: dest,
+      description: description,
+      file: File,
+      roadtripId: o.roadtripId,
+    };
+  }
   return {
     formattedObj: formattedObj,
     route: route,
@@ -52,7 +77,7 @@ export function insertFormToZObj(o: RoadtripForm<any>) {
     start: start,
     dest: dest,
     description: description,
-    file: file,
+    file: File,
   };
 }
 
@@ -78,9 +103,8 @@ export const zDate = z
       })
       .max(new Date().getFullYear() + 5, {
         message:
-          "Bitte wähle ein Jahr, dass wenigeer als fünf Jahre in der Zukunft liegt aus, also vor " +
-          new Date().getFullYear() +
-          1,
+          "Bitte wähle ein Jahr, dass weniger als fünf Jahre in der Zukunft liegt aus, also vor " +
+          (new Date().getFullYear() + 5),
       }),
   })
   .transform(({ day, month, year }) => {
@@ -195,6 +219,14 @@ export const zFormDataObj = z.object({
   date: zDate,
   route: zRoute,
   file: zFile,
+});
+
+export const zFormDataObjEdit = z.object({
+  description: zDescription,
+  date: zDate,
+  route: zRoute,
+  file: z.optional(zFile),
+  roadtripId: zRoadtripID,
 });
 
 export type FormDataErrors = z.inferFlattenedErrors<

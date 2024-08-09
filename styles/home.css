@@ -46,6 +46,15 @@
   right: 1vw;
 }
 
+#settings {
+  width: 6%;
+  margin: 10px 0px 0px 14px;
+  /* float: right; */
+  position: absolute;
+  top: 0vw;
+  right: 7vw;
+}
+
 #login {
   width: 13.5%;
   float: left;

@@ -34,8 +34,8 @@ export default function ChatSidebar({
       nestedMessages: MessagesDisplay[][] | null,
       messagesOverview: MessagesDisplay[] | null
     ) => {
-      if (!nestedMessages) return;
-      if (!messagesOverview) return;
+      if (!nestedMessages || nestedMessages.length === 0) return;
+      if (!messagesOverview || messagesOverview.length === 0) return;
       const newOverview = [...messagesOverview];
       newOverview[index].read = new Date();
       setMessagesOverview(newOverview);
@@ -78,6 +78,8 @@ export default function ChatSidebar({
         if (index !== -1) {
           // roadtrip was found in messages
           handleClickFactory(index)(nestedMessages, messagesOverview);
+        } else {
+          return nestedMessages;
         }
       } else {
         if (selectedIndex === null) {
@@ -98,7 +100,16 @@ export default function ChatSidebar({
     return <span>Error: {error.message}</span>;
   }
 
-  if (!data || data.length === 0) return <span>No messages yet to see.</span>;
+  if (!data)
+    return (
+      <span>
+        <h1>Noch keine Nachrichten zu sehen.</h1>
+        <p>
+          Schreibe jemandem indem du auf einen Roadtrip klickst und dann auf
+          "Nachricht senden".
+        </p>
+      </span>
+    );
 
   if (!messagesOverview) return null;
   const rows = messagesOverview.map((message, i) => {
@@ -129,7 +140,18 @@ export default function ChatSidebar({
   });
   return (
     <>
-      <div id="table">{rows}</div>
+      {rows.length === 0 ? (
+        <div id="table">
+          <h1 className="nocontent">
+            Du hast noch keine Nachrichten geschrieben
+          </h1>
+          <p className="nocontent">
+            Gebe eine Nachricht unten in das Textfeld ein.
+          </p>
+        </div>
+      ) : (
+        <div id="table">{rows}</div>
+      )}
       {selected ? <ChatMessages selected={selected} /> : null}
     </>
   );

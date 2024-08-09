@@ -36,6 +36,15 @@ export default async function Page() {
             />
             <NewMessageCounter />
           </Link>
+          <Link href={"/dashboard"} id="settings">
+            <Image
+              src="/home/settings.png"
+              width={400}
+              height={400}
+              alt="registrieren"
+            />
+            <NewMessageCounter />
+          </Link>
         </>
       ) : (
         <>

@@ -106,6 +106,10 @@ export type LoginForm<T> = {
   password: T;
 };
 
+export type DeleteRoadtripForm<T> = {
+  roadtripId: T;
+};
+
 export type RegisterForm<T> = {
   username: T;
   email: T;
@@ -126,6 +130,10 @@ export type RoadtripForm<T> = {
   year: T;
   description: T;
   file: T;
+};
+
+export type RoadtripEditForm<T> = RoadtripForm<T> & {
+  roadtripId: T;
 };
 
 export type Address = {

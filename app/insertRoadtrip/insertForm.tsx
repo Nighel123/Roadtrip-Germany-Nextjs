@@ -24,6 +24,7 @@ const errorPaths = [
   "dest",
   "file",
   "description",
+  "roadtripId",
 ];
 
 export default function InsertForm({
@@ -69,7 +70,7 @@ export default function InsertForm({
       <ErrorComponent errors={errors} show={["description"]} />
 
       <ImageUpload handleChangeFile={handleChangeFile} roadtrip={roadtrip} />
-      <ErrorComponent errors={errors} show={["file", "submit"]} />
+      <ErrorComponent errors={errors} show={["file", "submit", "roadtripId"]} />
       {roadtrip ? <input hidden name="roadtripId" value={roadtrip.id} /> : null}
 
       <Submit handleSubmit={handleSubmit} loading={loading} />
