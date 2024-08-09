@@ -9,6 +9,9 @@ import {
   getVerificationTokenByUserIdAndToken,
   verifyUserEmail,
 } from "app/lib/actions";
+import google from "next-auth/providers/google";
+import PostgresAdapter from "@auth/pg-adapter";
+import { Pool } from "pg";
 
 async function getUser(username: string): Promise<User | undefined> {
   try {
@@ -20,9 +23,22 @@ async function getUser(username: string): Promise<User | undefined> {
   }
 }
 
+const pool = new Pool({
+  host: process.env.POSTGRES_HOST,
+  user: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DATABASE,
+  ssl: true,
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
+
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
+  adapter: PostgresAdapter(pool),
   providers: [
+    google,
     Credentials({
       async authorize(credentials) {
         /* this function will be called from the signIn-function */

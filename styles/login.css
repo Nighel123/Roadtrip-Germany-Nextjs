@@ -20,13 +20,13 @@
 .login #swipeContainer {
   display: flex;
   justify-content: space-around;
-  width: 200%;
+  width: 208%;
   position: relative;
   top: 0;
   left: 0;
   transition: left 200ms;
   height: 100px;
-  margin-bottom: 4em;
+  margin-bottom: 2em;
 }
 .login #swipeContainer.right {
   left: -100%;
@@ -135,4 +135,33 @@
 
 .login #arrowBack.show {
   opacity: initial;
+}
+
+/* Google Button */
+
+.login .gsi-material-button-icon {
+  width: 2vw;
+  margin-right: 1vw;
+  display: inline-block;
+}
+.login .gsi-material-button-content-wrapper {
+  padding: 0.9vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.login .gsi-material-button {
+  border-radius: 0.6vw;
+  width: 19vw;
+  background-color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.login #googleLogin {
+  margin-bottom: 8em;
 }

@@ -43,6 +43,7 @@ export default async function Page() {
               height={400}
               alt="registrieren"
             />
+            <NewMessageCounter />
           </Link>
         </>
       ) : (

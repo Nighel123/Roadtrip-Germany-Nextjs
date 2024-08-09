@@ -10,6 +10,7 @@
     "seed": "node -r dotenv/config ./scripts/seed.js"
   },
   "dependencies": {
+    "@auth/pg-adapter": "^1.4.2",
     "@googlemaps/google-maps-services-js": "^3.4.0",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@heroicons/react": "^2.1.5",

@@ -39,6 +39,7 @@ export const authConfig = {
       return session;
     },
   },
+  session: { strategy: "jwt" },
   providers: [], // Add providers with an empty array for now
   //debug: process.env.NODE_ENV !== "production" ? true : false,
 } satisfies NextAuthConfig;

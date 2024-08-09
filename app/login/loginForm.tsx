@@ -1,11 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { MouseEventHandler, useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { MouseEventHandler, useState } from "react";
+import { useFormState } from "react-dom";
 import { authenticate } from "app/lib/actions";
 import { useSearchParams } from "next/navigation";
 import SubmitButton from "./submitButton";
+import GoogleLogin from "./googleLogin";
 
 export function Form() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
@@ -47,8 +48,13 @@ export function Form() {
       </div>
 
       <form id="logInForm" action={dispatch}>
-        <input hidden name="callbackUrl" value={callbackUrl} />
-        <input hidden name="verificationToken" value={verificationToken} />
+        <input hidden name="callbackUrl" value={callbackUrl} readOnly />
+        <input
+          hidden
+          name="verificationToken"
+          value={verificationToken}
+          readOnly
+        />
         <div id="swipeContainer" className={swipe ? "right" : "left"}>
           <div id="usernamePage">
             <input
@@ -75,7 +81,7 @@ export function Form() {
           </div>
         </div>
       </form>
-
+      <GoogleLogin callbackUrl={callbackUrl} />
       {errorMessage && (
         <>
           <p className="errorMssg">{errorMessage}</p>

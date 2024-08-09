@@ -33,6 +33,10 @@ import { zDeleteRoadtrip, zDeleteUser } from "app/utils/validateFormData";
 
 const { log } = console;
 
+export async function SignIn(callbackUrl: string) {
+  await signIn("google", { redirectTo: callbackUrl || "/" });
+}
+
 export async function authenticate(
   prevState: string | undefined,
   formData: FormData
