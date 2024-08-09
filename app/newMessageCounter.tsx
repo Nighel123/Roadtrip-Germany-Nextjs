@@ -1,22 +1,28 @@
 "use client";
 
-
-import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import { useState } from "react";
 
 //TODO: make Message counter client side, to update it more frequently.
 
 export default function NewMessageCounter() {
-    const queryClient = new QueryClient();
+  const queryClient = new QueryClient();
   return (
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
       <Counter />
-      </QueryClientProvider>
+    </QueryClientProvider>
   );
 }
 
 function Counter() {
-  const { isPending, isError, data, error } = useQuery({
+  const [count, setCount] = useState<string>("0");
+  const { isPending, isError, data } = useQuery({
     queryKey: ["counter"],
+    staleTime: 1000,
     queryFn: async () => {
       const response = await fetch(`api/chat/count`);
       if (!response.ok) {
@@ -24,17 +30,21 @@ function Counter() {
           "Network response for fetching the messages-count not ok"
         );
       }
-      const { data: count } = (await response.json()) as {
-        data: string;
-      };
+      const count = (await response.json()) as string;
 
-    }
-}
+      setCount(count);
+      return count;
+    },
+  });
+  if (isPending) {
+    return null;
+  }
 
-/* export async function NewMessageCounter() {
-  const session = await auth();
-  const userID = session?.user?.id;
-  if (!userID) return;
-  const count = (await fetchNewMessagesCountByUserId(userID)) as string;
+  if (isError) {
+    return null;
+  }
+
+  if (!data) return null;
+
   return <>{Number(count) ? <p id="newMessageCounter">{count}</p> : null}</>;
-} */
+}
