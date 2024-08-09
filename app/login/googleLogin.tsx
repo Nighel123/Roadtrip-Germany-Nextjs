@@ -1,10 +1,6 @@
 import { SignIn } from "app/lib/actions";
 
-export default async function GoogleLogin({
-  callbackUrl,
-}: {
-  callbackUrl: string;
-}) {
+export default function GoogleLogin({ callbackUrl }: { callbackUrl: string }) {
   return (
     <form
       id="googleLogin"

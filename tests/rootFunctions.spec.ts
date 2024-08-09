@@ -5,7 +5,7 @@ const { db, sql } = require("@vercel/postgres");
 
 const registerTestData = {
   username: "testUser",
-  email: "test@email.com",
+  email: "nickel.paulsen@googlemail.com",
   password: "testPass123",
   day: "31",
   month: "Februar",
@@ -47,7 +47,7 @@ test.describe("rootFunctions", () => {
     await expect(page).toHaveURL("/register/success");
   });
 
-  test("login", async ({ page }) => {
+  test("email-validation and login", async ({ page }) => {
     const {
       rows: [{ id: userId }],
     } = await sql`

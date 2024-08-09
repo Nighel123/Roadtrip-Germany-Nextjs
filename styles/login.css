@@ -20,14 +20,19 @@
 .login #swipeContainer {
   display: flex;
   justify-content: space-around;
-  width: 208%;
-  position: relative;
-  top: 0;
-  left: 0;
+  width: 200%;
   transition: left 200ms;
   height: 100px;
   margin-bottom: 2em;
+  position: relative;
+  left: 0;
 }
+
+.login #usernamePage,
+.login #passwordPage {
+  width: 25%;
+}
+
 .login #swipeContainer.right {
   left: -100%;
 }

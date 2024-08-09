@@ -34,9 +34,9 @@ export async function fetchRoadtrips() {
   }
 }
 
-export async function fetchRoadtripsByUserID(userID: string) {
+export async function fetchRoadtripsByUserID(userID: string | undefined) {
   noStore();
-
+  if (userID === undefined) return [];
   try {
     const data = await sql<RoadtripDisplay>`
       SELECT roadtrips.id,roadtrips.created, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
@@ -117,10 +117,12 @@ export async function insertMessage(newMessage: {
   }
 }
 
-export async function fetchNewMessagesCountByUserId(userId: string) {
+export async function fetchNewMessagesCountByUserId(
+  userId: string
+): Promise<string> {
   noStore();
   try {
-    if (!userId) return null;
+    if (!userId) return "0";
     console.log("fetching messages");
 
     const data = await sql`
@@ -129,7 +131,7 @@ export async function fetchNewMessagesCountByUserId(userId: string) {
       WHERE messages.to = ${userId} AND "read" IS NULL 
     `;
 
-    return data.rows[0].count;
+    return data.rows[0].count as string;
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to count unread messages.");

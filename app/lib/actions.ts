@@ -291,8 +291,11 @@ export async function deleteUser(
     const { rows } = await sql<{
       image_url: string;
     }>`SELECT image_url FROM roadtrips WHERE user_id = ${userId}`;
-    const flat = rows.flatMap((obj) => obj.image_url);
-    await del(flat);
+    if (rows.length !== 0) {
+      const flat = rows.flatMap((obj) => obj.image_url);
+      await del(flat);
+    }
+    await sql`DELETE FROM messages WHERE "from" = ${userId} OR "to" = ${userId}`;
     await sql`DELETE FROM users
                 WHERE id = ${userId}
               `;

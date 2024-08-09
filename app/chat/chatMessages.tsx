@@ -12,7 +12,6 @@ export default function ChatMessages({
 }) {
   const session = useSession();
   const userID = session.data?.user?.id;
-  if (!userID) return null;
 
   const mutation = useMutation({
     mutationFn: (o: { from: number; to: number; roadtripId: string }) => {
@@ -24,6 +23,7 @@ export default function ChatMessages({
     },
   });
   useEffect(() => {
+    if (!userID) return;
     const message = selected[0];
     const otherUserID =
       Number(userID) === message.from ? message.to : message.from;
@@ -32,7 +32,7 @@ export default function ChatMessages({
       to: Number(userID),
       roadtripId: message.roadtripId,
     });
-  }, [selected]);
+  }, [selected, userID]);
 
   const sorted = sortMessages(selected);
   let rows = sorted.map((message) => {

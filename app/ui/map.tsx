@@ -9,6 +9,10 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
+  useEffect(() => {
+    mapPlot(ref, 4, 10, "11", true, true, roadtrips, router);
+  });
+
   if (roadtrips.length === 0)
     return (
       <>
@@ -21,10 +25,6 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
         </p>
       </>
     );
-
-  useEffect(() => {
-    mapPlot(ref, 4, 10, "11", true, true, roadtrips, router);
-  });
 
   return <div ref={ref} id="mapcontent" />;
 }

@@ -16,16 +16,28 @@ export const metadata: Metadata = {
   title: "Roadtrips übersicht",
 };
 
-export default async function dashboard() {
+export default async function Dashboard() {
   const session = await auth();
   const userID = session?.user?.id;
-  if (!userID) return null;
   const roadtrips = await fetchRoadtripsByUserID(userID);
+
   return (
     <div className="dashboard" id="dashboard" data-testid="routesOverview">
       <Link href="/" id="title">
         <Image src="/title.jpg" alt="title" width={1374} height={567} />
       </Link>
+      <div id="userInfo">
+        <div id="image">
+          {session?.user?.image ? (
+            <img src={session?.user?.image} alt="title" />
+          ) : null}
+        </div>
+        <div>
+          <p id="heading">Logged in as:</p>
+          <h2>{session?.user?.name}</h2>
+          <p id="email">{session?.user?.email}</p>
+        </div>
+      </div>
 
       <Image
         src="/routesOverview/blueFrame.jpg"

@@ -15,6 +15,8 @@ export async function sendVerificationEmail(
   const { data, error } = await resend.emails.send({
     from: "validateEmail@roadtrip-germany.de",
     to: email,
+    /* from: "onboarding@resend.dev",
+    to: "nickel.paulsen@googlemail.com", */
     subject: `Hello ${username}, confirm existance of ${email}`,
     react: EmailTemplate({ username, email, confirmLink }),
   });
