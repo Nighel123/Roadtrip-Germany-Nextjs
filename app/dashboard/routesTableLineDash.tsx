@@ -1,9 +1,9 @@
 "use client";
-import { Roadtrip, RoadtripDisplay } from "app/lib/definitions";
+import { RoadtripDisplay } from "app/lib/definitions";
 import { formatDateToLocal } from "app/lib/utils";
 import Link from "next/link";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useFormState } from "react-dom";
 import { deleteRoadtrip } from "app/lib/actions";
@@ -14,8 +14,8 @@ export default function routesTableLineDash({
   roadtrip: RoadtripDisplay;
 }) {
   const [errorMessage, dispatch] = useFormState(deleteRoadtrip, undefined);
-  Modal.setAppElement("#dashboard");
   const [modalIsOpen, setIsOpen] = useState(false);
+  useEffect(() => Modal.setAppElement("#dashboard"));
   function openModal() {
     setIsOpen(true);
   }
@@ -49,10 +49,11 @@ export default function routesTableLineDash({
           {roadtrip.desttown}
         </div>
         <div className="tableItem">{formatDateToLocal(roadtrip.date)}</div>
-        <Link href={`/insertRoadtrip?id=${roadtrip.id}`}>
-          <div className="tableItem edit">
-            <PencilIcon />
-          </div>
+        <Link
+          className="tableItem edit"
+          href={`/insertRoadtrip?id=${roadtrip.id}`}
+        >
+          <PencilIcon />
         </Link>
         <div className="tableItem edit" onClick={openModal}>
           <TrashIcon />

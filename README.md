@@ -32,6 +32,7 @@ pnpm create next-app --example with-jest with-jest-app
 
 ```bash
 npm test
+
 ```
 
 ## Debug Tests
@@ -43,6 +44,22 @@ Open the command palette and start Debug: JavaScript Debug Terminal:
 ```bash
 npm test -- --watch
 ```
+
+# Playwright
+
+Record a test:
+
+```bash
+npx playwright codegen
+```
+
+Excecute test that includes "root" in file name. Only in Chromium:
+
+```bash
+npx playwright test root --project chromium
+```
+
+Edit Playwright Enviroment in `playwright.config.ts`
 
 # Roadtrip-Germany-Nextjs
 

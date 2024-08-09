@@ -11,6 +11,7 @@ import {
   LoginForm,
   DeleteRoadtripForm,
   RoadtripEditForm,
+  DeleteUserForm,
 } from "./definitions";
 import {
   FormDataErrors,
@@ -21,14 +22,14 @@ import {
   zFormDataObjEdit,
 } from "app/insertRoadtrip/utils";
 import { formatRegisterData, zRegisterForm } from "app/register/utils";
-import { auth, signIn } from "auth";
+import { auth, signIn, signOut } from "auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { randomUUID } from "node:crypto";
 import { sendVerificationEmail } from "app/utils/mail";
 import { fetchRoadtripById } from "./data";
-import { zDeleteRoadtrip } from "app/utils/validateFormData";
+import { zDeleteRoadtrip, zDeleteUser } from "app/utils/validateFormData";
 
 const { log } = console;
 
@@ -266,6 +267,37 @@ export async function deleteRoadtrip(
   }
   revalidatePath("/dashboard");
   return `Roadtrip erfolgreich gelöscht.`;
+}
+
+export async function deleteUser(
+  prevState: string | undefined,
+  formData: FormData
+): Promise<string | undefined> {
+  const DeleteObj = Object.fromEntries(
+    formData.entries()
+  ) as DeleteUserForm<any>;
+
+  const parsedForm = zDeleteUser.safeParse(DeleteObj);
+  if (!parsedForm.success) {
+    return parsedForm.error?.flatten().fieldErrors.delete?.join();
+  }
+
+  const userId = (await auth())?.user?.id;
+  try {
+    const { rows } = await sql<{
+      image_url: string;
+    }>`SELECT image_url FROM roadtrips WHERE user_id = ${userId}`;
+    const flat = rows.flatMap((obj) => obj.image_url);
+    await del(flat);
+    await sql`DELETE FROM users
+                WHERE id = ${userId}
+              `;
+  } catch (error) {
+    console.log(error);
+    return `Das hat leider nicht geklappt`;
+  }
+  await signOut();
+  revalidatePath("/dashboard");
 }
 
 export async function editRoadtrip(

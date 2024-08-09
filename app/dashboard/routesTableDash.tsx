@@ -16,9 +16,18 @@ export default async function RoutesTableDash({
       <RoutesTableLineDash key={`line-${roadtrip.id}`} roadtrip={roadtrip} />
     );
   });
-  return (
-    <>
-      <div id="table">{lines}</div>
-    </>
-  );
+  if (lines.length === 0) {
+    return (
+      <>
+        <h1 className="noContent">
+          Hier werden deine eigenen Roadtrips angezeigt.
+        </h1>
+        <p className="noContent">
+          Du hast noch keine Roadtrips eingestellt. Klicke auf "eigenen Roadtrip
+          machen" um einen eigenen Roadtrip einzustellen.
+        </p>
+      </>
+    );
+  }
+  return <div id="table">{lines}</div>;
 }

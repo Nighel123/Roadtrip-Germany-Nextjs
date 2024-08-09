@@ -9,6 +9,19 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
+  if (roadtrips.length === 0)
+    return (
+      <>
+        <h1 className="noContent">
+          Hier wird eine Karte mit deinen Routen angezeigt.
+        </h1>
+        <p className="noContent">
+          Du hast noch keine Roadtrips eingestellt. Klicke auf "eigenen Roadtrip
+          machen" um einen eigenen Roadtrip einzustellen.
+        </p>
+      </>
+    );
+
   useEffect(() => {
     mapPlot(ref, 4, 10, "11", true, true, roadtrips, router);
   });

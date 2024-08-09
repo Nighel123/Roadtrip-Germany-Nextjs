@@ -110,6 +110,10 @@ export type DeleteRoadtripForm<T> = {
   roadtripId: T;
 };
 
+export type DeleteUserForm<T> = {
+  delete: T;
+};
+
 export type RegisterForm<T> = {
   username: T;
   email: T;

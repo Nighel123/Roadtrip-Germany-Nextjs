@@ -39,7 +39,7 @@
 
 #chatLink {
   width: 5%;
-  margin: 10px 0px 0px 14px;
+  margin: 0.6vw 0px 0px 0;
   /* float: right; */
   position: absolute;
   top: 0vw;
@@ -47,12 +47,12 @@
 }
 
 #settings {
-  width: 6%;
-  margin: 10px 0px 0px 14px;
+  width: 5.8%;
+  margin: 0.5vw 0px 0px 0;
   /* float: right; */
   position: absolute;
   top: 0vw;
-  right: 7vw;
+  right: 6.5vw;
 }
 
 #login {

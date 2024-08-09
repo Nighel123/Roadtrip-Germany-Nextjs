@@ -10,6 +10,7 @@ import MapWrapperDash from "./mapWrapperDash";
 import RoutesTableDash from "./routesTableDash";
 import { fetchRoadtripsByUserID } from "app/lib/data";
 import { auth } from "auth";
+import DeleteAccount from "./deleteAccount";
 
 export const metadata: Metadata = {
   title: "Roadtrips übersicht",
@@ -21,11 +22,7 @@ export default async function dashboard() {
   if (!userID) return null;
   const roadtrips = await fetchRoadtripsByUserID(userID);
   return (
-    <div
-      className="routesOverview dashboard"
-      id="dashboard"
-      data-testid="routesOverview"
-    >
+    <div className="dashboard" id="dashboard" data-testid="routesOverview">
       <Link href="/" id="title">
         <Image src="/title.jpg" alt="title" width={1374} height={567} />
       </Link>
@@ -54,22 +51,9 @@ export default async function dashboard() {
         </Suspense>
       </div>
 
-      <Link href="/insertRoadtrip">
-        <Image
-          src="/routesOverview/eigeneReiseMachen.jpg"
-          alt="insertRoadtrip"
-          width={662}
-          height={147}
-        />
-      </Link>
-      <Link href="/routesDetailed">
-        <Image
-          src="/routesOverview/reiseAnsehen.jpg"
-          alt="routesDetailed"
-          width={662}
-          height={145}
-        />
-      </Link>
+      <div id="deleteAccount">
+        <DeleteAccount />
+      </div>
 
       <Image
         src="/routesOverview/img1.jpg"

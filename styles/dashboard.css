@@ -5,10 +5,11 @@
   grid-template-columns: repeat(2, 1fr);
   gap: var(--gap);
 }
-.routesOverview img[alt~="title"] {
-  grid-column: 1/2;
+.dashboard a#title {
+  grid-column: 1/3;
   grid-row: 1/2;
-  width: 20%;
+  width: 30%;
+  justify-self: center;
 }
 
 .dashboard .edit.tableItem {
@@ -95,14 +96,17 @@
   margin: 0;
 }
 
-.dashboard a[href="/insertRoadtrip"] {
-  grid-column: 1/2;
+.dashboard #deleteAccount {
+  grid-column: 1/3;
   grid-row: 3/4;
+  justify-self: center;
+  width: 50%;
 }
-
-.dashboard a[href="/routesDetailed"] {
-  grid-column: 2/3;
-  grid-row: 3/4;
+.dashboard #deleteAccount button {
+  width: 100%;
+  height: 5vw;
+  background-color: red;
+  color: white;
 }
 
 .dashboard img[alt~="img1"] {
@@ -172,12 +176,34 @@
   }
 }
 
+.dashboard #tableContainer h1.noContent,
+.dashboard #tableContainer p.noContent,
+.dashboard #map h1.noContent,
+.dashboard #map p.noContent {
+  margin: 1vw;
+  display: block;
+  color: #a8a8a8;
+  text-align: center;
+}
+
 /* modal */
 
 .ReactModalPortal form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.ReactModalPortal p {
+  text-align: center;
+}
+.ReactModalPortal button.yes.delete {
+  width: 16vw;
+}
+
+.ReactModalPortal form#deleteUser {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
 }
 
 .ReactModalPortal .yes {

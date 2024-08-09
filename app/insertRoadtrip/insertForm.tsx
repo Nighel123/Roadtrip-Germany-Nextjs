@@ -71,7 +71,9 @@ export default function InsertForm({
 
       <ImageUpload handleChangeFile={handleChangeFile} roadtrip={roadtrip} />
       <ErrorComponent errors={errors} show={["file", "submit", "roadtripId"]} />
-      {roadtrip ? <input hidden name="roadtripId" value={roadtrip.id} /> : null}
+      {roadtrip ? (
+        <input hidden name="roadtripId" value={roadtrip.id} readOnly />
+      ) : null}
 
       <Submit handleSubmit={handleSubmit} loading={loading} />
     </form>
