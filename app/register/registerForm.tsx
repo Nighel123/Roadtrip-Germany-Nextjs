@@ -5,6 +5,7 @@ import ErrorComponent from "app/insertRoadtrip/errorMessage";
 import { useTouched } from "app/insertRoadtrip/useTouched";
 import { register } from "app/lib/actions";
 import Submit from "./submit";
+import { roadtrips } from "app/lib/__mocks__/data";
 
 const errorPaths = [
   "username",
@@ -70,7 +71,7 @@ export function Form() {
 
       <div>
         <label htmlFor="day">Geburtstag</label>
-        <DateInput handleBlur={handleBlur} />
+        <DateInput handleBlur={handleBlur} roadtrip={null} />
         <ErrorComponent
           errors={errors}
           show={["birthday", "day", "month", "year"]}

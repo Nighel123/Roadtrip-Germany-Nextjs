@@ -12,9 +12,9 @@ export async function GET(request: Request) {
   const data = await res.json(); */
   const { searchParams } = new URL(request.url);
   const id = searchParams.get("id");
-  if (!id) return null;
+  if (!id) return Response.json({ data: [] });
   const session = await auth();
-  if (id !== session?.user?.id) return null;
+  if (id !== session?.user?.id) return Response.json({ data: [] });
   const data = await fetchMessagesByUserId(id);
 
   return Response.json({ data });

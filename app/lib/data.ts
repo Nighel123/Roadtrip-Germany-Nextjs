@@ -57,7 +57,8 @@ export async function fetchRoadtripsByUserID(userID: string | undefined) {
   }
 }
 
-export async function fetchRoadtripById(id: string) {
+export async function fetchRoadtripById(id: string | null) {
+  if (!id) return [];
   try {
     const data = await sql<RoadtripDisplay>`
       SELECT roadtrips.id, roadtrips.date, roadtrips.description, roadtrips.image_url, dest_id, start_id ,dest.land AS destLand, users.name AS username, user_id, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
@@ -118,7 +119,7 @@ export async function insertMessage(newMessage: {
 }
 
 export async function fetchNewMessagesCountByUserId(
-  userId: string
+  userId: string | undefined
 ): Promise<string> {
   noStore();
   try {

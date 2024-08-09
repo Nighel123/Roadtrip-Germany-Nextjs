@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, Suspense, useState } from "react";
 import MyMapComponent from "../ui/map";
 import { RoadtripDisplay } from "app/lib/definitions";
 import MapLoader from "app/ui/mapLoader";
@@ -19,16 +19,20 @@ export default function ChatHeading() {
 
   return (
     <div id="messageContainer">
-      <ChatSidebar
-        setRoadtripID={setRoadtripID}
-        setOtherUserID={setOtherUserID}
-      />
-      {roadtripID ? (
-        <Heading
-          roadtripID={roadtripID}
+      <Suspense>
+        <ChatSidebar
+          setRoadtripID={setRoadtripID}
           setOtherUserID={setOtherUserID}
-          otherUserID={otherUserID}
         />
+      </Suspense>
+      {roadtripID ? (
+        <Suspense>
+          <Heading
+            roadtripID={roadtripID}
+            setOtherUserID={setOtherUserID}
+            otherUserID={otherUserID}
+          />
+        </Suspense>
       ) : null}
       {roadtripID && otherUserID ? (
         <ChatForm roadtripID={roadtripID} otherUserID={otherUserID} />

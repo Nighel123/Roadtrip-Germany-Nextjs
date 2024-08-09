@@ -15,6 +15,9 @@ export function TableSkeleton() {
     username: "\n\n",
     startland: "",
     starttown: "",
+    user_id: 0,
+    start_id: "",
+    dest_id: "",
     sex: "männlich",
   };
   const roadtrips: RoadtripDisplay[] = new Array(10).fill(roadtrip);
