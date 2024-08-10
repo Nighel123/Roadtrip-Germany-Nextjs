@@ -15,7 +15,7 @@ export default function Page() {
   //const messages = await fetchMessagesByUserId(/* userId */);
 
   return (
-    <div className="chat" data-testid="routesOverview">
+    <div className="chat" data-testid="chat">
       <Link href="/" id="title">
         <Image src="/title.jpg" alt="title" width={1374} height={567} />
       </Link>

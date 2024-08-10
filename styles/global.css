@@ -20,7 +20,7 @@ img {
 input,
 textarea,
 select {
-  border: 2px #3c6cb9 solid;
+  border: 0.2vw #3c6cb9 solid;
   padding: 2%;
 }
 
