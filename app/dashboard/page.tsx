@@ -66,19 +66,6 @@ export default async function Dashboard() {
       <div id="deleteAccount">
         <DeleteAccount />
       </div>
-
-      <Image
-        src="/routesOverview/img1.jpg"
-        alt="img1"
-        width={2048}
-        height={783}
-      />
-      <Image
-        src="/routesOverview/img2.jpg"
-        alt="img2"
-        width={1536}
-        height={345}
-      />
     </div>
   );
 }

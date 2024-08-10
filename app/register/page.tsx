@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Form } from "./registerForm";
 
 import { Metadata } from "next";
+import Title from "app/ui/components/title";
 
 export const metadata: Metadata = {
   title: "Registrieren",
@@ -18,6 +19,7 @@ const Register = () => {
       <header>
         <h1>Roadtrip-Konto erstellen</h1>
       </header>
+      <Title />
       <Image
         src="/register/registerSide.jpg"
         alt="australian roads"
