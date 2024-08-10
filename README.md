@@ -47,7 +47,7 @@ npm test -- --watch
 
 # Playwright
 
-Run tests with ui:
+Run Tests with ui:
 
 ```bash
 npx playwright test --ui
