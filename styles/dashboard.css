@@ -132,6 +132,10 @@
 .dashboard #userInfo #image {
   margin-right: 1vw;
   height: 6vw;
+}
+.dashboard #userInfo img {
+  margin-right: 1vw;
+  height: 100%;
   width: auto;
 }
 .dashboard #userInfo p,
