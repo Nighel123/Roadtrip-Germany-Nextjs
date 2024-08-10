@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import RoutesTable from "../routesOverview/routesTable";
 import { Suspense } from "react";
-import { MapSkeleton, TableSkeleton } from "app/ui/skeletons";
-import MapWrapper from "app/ui/mapWrapper";
+import { MapSkeleton, TableSkeleton } from "ui/skeletons";
+import MapWrapper from "ui/mapWrapper";
 
 import "@/styles/routesDetailed.css";
 
 import { Metadata } from "next";
-import Title from "app/ui/components/title";
+import Title from "ui/components/title";
 
 export const metadata: Metadata = {
   title: "Roadtrips detailliert",

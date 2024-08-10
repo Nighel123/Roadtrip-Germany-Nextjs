@@ -1,8 +1,8 @@
-import { fetchRoadtripById } from "app/lib/data";
-import MapLoader from "../../ui/mapLoader";
-import MyMapComponent from "../../ui/map";
+import { fetchRoadtripById } from "lib/data";
+import MapLoader from "../../../ui/mapLoader";
+import MyMapComponent from "../../../ui/map";
 import Image from "next/image";
-import { formatDateToLocal } from "app/lib/utils";
+import { formatDateToLocal } from "lib/utils";
 import Link from "next/link";
 import { auth } from "auth";
 

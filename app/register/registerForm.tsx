@@ -3,9 +3,9 @@
 import DateInput from "app/insertRoadtrip/dateInput";
 import ErrorComponent from "app/insertRoadtrip/errorMessage";
 import { useTouched } from "app/insertRoadtrip/useTouched";
-import { register } from "app/lib/actions";
+import { register } from "lib/actions";
 import Submit from "./submit";
-import { roadtrips } from "app/lib/__mocks__/data";
+import { roadtrips } from "lib/__mocks__/data";
 
 const errorPaths = [
   "username",

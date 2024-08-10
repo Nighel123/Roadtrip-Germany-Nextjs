@@ -1,4 +1,4 @@
-import { handleClickType } from "app/lib/definitions";
+import { handleClickType } from "lib/definitions";
 
 const Submit = ({
   handleSubmit,

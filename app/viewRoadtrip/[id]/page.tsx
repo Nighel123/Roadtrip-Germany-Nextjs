@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import "@/styles/viewRoadtrip.css";
 import RoadtripWrapper from "./roadtripWrapper";
 import { Metadata } from "next";
-import Title from "app/ui/components/title";
+import Title from "ui/components/title";
 
 export const metadata: Metadata = {
   title: "Roadtrip anschauen",

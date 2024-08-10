@@ -1,9 +1,9 @@
-import { fetchMessagesByUserId, insertMessage } from "app/lib/data";
-import { MessagesDisplay } from "app/lib/definitions";
+import { fetchMessagesByUserId, insertMessage } from "lib/data";
+import { MessagesDisplay } from "lib/definitions";
 import {
   nestMessageArrayByOtherUserId,
   nestMessagesToOverviewMessages,
-} from "app/lib/utils";
+} from "lib/utils";
 import { auth } from "auth";
 
 export async function GET(request: Request) {

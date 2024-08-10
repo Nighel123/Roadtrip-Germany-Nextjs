@@ -1,4 +1,4 @@
-import { linearRegression } from "app/ExtendedMath";
+import { linearRegression } from "lib/ExtendedMath";
 import { RoadtripDisplay } from "./definitions";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 

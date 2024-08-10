@@ -2,7 +2,7 @@
 import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
-import { deleteRoadtrip, deleteUser } from "app/lib/actions";
+import { deleteRoadtrip, deleteUser } from "lib/actions";
 
 export default function DeleteAccount() {
   const [errorMessage, dispatch] = useFormState(deleteUser, undefined);

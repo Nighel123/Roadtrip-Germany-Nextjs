@@ -1,4 +1,4 @@
-import Title from "app/ui/components/title";
+import Title from "ui/components/title";
 
 export default function Impressum() {
   return (

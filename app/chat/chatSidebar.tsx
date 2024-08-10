@@ -1,11 +1,11 @@
 "use client";
 
-import { MessagesDisplay } from "app/lib/definitions";
+import { MessagesDisplay } from "lib/definitions";
 import {
   formatDateToLocal,
   nestMessageArrayByOtherUserId,
   nestMessagesToOverviewMessages,
-} from "app/lib/utils";
+} from "lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ChatMessages from "./chatMessages";

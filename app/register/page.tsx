@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Form } from "./registerForm";
 
 import { Metadata } from "next";
-import Title from "app/ui/components/title";
+import Title from "ui/components/title";
 
 export const metadata: Metadata = {
   title: "Registrieren",

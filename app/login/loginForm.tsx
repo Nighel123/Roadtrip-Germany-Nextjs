@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
 import { useFormState } from "react-dom";
-import { authenticate } from "app/lib/actions";
+import { authenticate } from "lib/actions";
 import { useSearchParams } from "next/navigation";
 import SubmitButton from "./submitButton";
 import GoogleLogin from "./googleLogin";

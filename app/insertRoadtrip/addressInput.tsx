@@ -1,4 +1,4 @@
-import { handleBlurType, RoadtripDisplay } from "app/lib/definitions";
+import { handleBlurType, RoadtripDisplay } from "lib/definitions";
 
 const AddressInput = ({
   name,

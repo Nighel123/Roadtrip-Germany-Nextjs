@@ -1,6 +1,6 @@
-import { fetchRoadtripsByUserID } from "app/lib/data";
-import MapLoader from "app/ui/mapLoader";
-import MyMapComponent from "app/ui/map";
+import { fetchRoadtripsByUserID } from "lib/data";
+import MapLoader from "ui/mapLoader";
+import MyMapComponent from "ui/map";
 import { auth } from "auth";
 
 export default async function MapWrapper() {

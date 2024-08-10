@@ -1,6 +1,6 @@
 "use client";
 
-import { handleChangeFileType, RoadtripDisplay } from "app/lib/definitions";
+import { handleChangeFileType, RoadtripDisplay } from "lib/definitions";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 

@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import RoutesTable from "./routesTable";
 import { Suspense } from "react";
-import { MapSkeleton, TableSkeleton } from "app/ui/skeletons";
-import MapWrapper from "app/ui/mapWrapper";
+import { MapSkeleton, TableSkeleton } from "ui/skeletons";
+import MapWrapper from "ui/mapWrapper";
 
 import "@/styles/routesOverview.css";
 

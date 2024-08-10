@@ -1,7 +1,7 @@
-import { RegisterForm, months, sex } from "app/lib/definitions";
+import { RegisterForm, months, sex } from "lib/definitions";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { monthToNumber } from "app/lib/utils";
+import { monthToNumber } from "lib/utils";
 import { sql } from "@vercel/postgres";
 
 async function checkUserNameExists(a: string) {

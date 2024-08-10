@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense, useState } from "react";
-import { MapSkeleton, TableSkeleton } from "app/ui/skeletons";
+import { MapSkeleton, TableSkeleton } from "ui/skeletons";
 
 import "@/styles/dashboard.css";
 
 import { Metadata } from "next";
 import MapWrapperDash from "./mapWrapperDash";
 import RoutesTableDash from "./routesTableDash";
-import { fetchRoadtripsByUserID } from "app/lib/data";
+import { fetchRoadtripsByUserID } from "lib/data";
 import { auth } from "auth";
 import DeleteAccount from "./deleteAccount";
 

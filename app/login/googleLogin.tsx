@@ -1,4 +1,4 @@
-import { SignIn } from "app/lib/actions";
+import { SignIn } from "lib/actions";
 
 export default function GoogleLogin({ callbackUrl }: { callbackUrl: string }) {
   return (

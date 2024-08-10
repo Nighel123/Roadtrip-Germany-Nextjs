@@ -1,12 +1,12 @@
 "use client";
-import { RoadtripDisplay } from "app/lib/definitions";
-import { formatDateToLocal } from "app/lib/utils";
+import { RoadtripDisplay } from "lib/definitions";
+import { formatDateToLocal } from "lib/utils";
 import Link from "next/link";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useFormState } from "react-dom";
-import { deleteRoadtrip } from "app/lib/actions";
+import { deleteRoadtrip } from "lib/actions";
 
 export default function routesTableLineDash({
   roadtrip,

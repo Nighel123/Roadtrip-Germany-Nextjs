@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import { Dispatch, SetStateAction, Suspense, useState } from "react";
-import MyMapComponent from "../ui/map";
-import { RoadtripDisplay } from "app/lib/definitions";
-import MapLoader from "app/ui/mapLoader";
+import MyMapComponent from "../../ui/map";
+import { RoadtripDisplay } from "lib/definitions";
+import MapLoader from "ui/mapLoader";
 import ChatSidebar from "./chatSidebar";
-import { formatDateToLocal } from "app/lib/utils";
+import { formatDateToLocal } from "lib/utils";
 import { useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 

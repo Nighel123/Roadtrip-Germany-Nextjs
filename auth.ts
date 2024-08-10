@@ -2,13 +2,13 @@ import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { sql } from "@vercel/postgres";
-import type { User } from "app/lib/definitions";
+import type { User } from "lib/definitions";
 import bcrypt from "bcrypt";
 import {
   deleteVerificationTokenByUserId,
   getVerificationTokenByUserIdAndToken,
   verifyUserEmail,
-} from "app/lib/actions";
+} from "lib/data";
 import google from "next-auth/providers/google";
 import PostgresAdapter from "@auth/pg-adapter";
 import { Pool } from "pg";

@@ -1,5 +1,5 @@
-import { fetchRoadtrips } from "app/lib/data";
-import { RoadtripDisplay } from "app/lib/definitions";
+import { fetchRoadtrips } from "lib/data";
+import { RoadtripDisplay } from "lib/definitions";
 import RoutesTableLine from "./routesTableLine";
 
 export default async function RoutesTable() {

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MessagesDisplay, RoadtripDisplay } from "app/lib/definitions";
-import { sortMessages } from "app/lib/utils";
+import { MessagesDisplay, RoadtripDisplay } from "lib/definitions";
+import { sortMessages } from "lib/utils";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";

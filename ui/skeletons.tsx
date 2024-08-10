@@ -1,4 +1,4 @@
-import { RoadtripDisplay } from "app/lib/definitions";
+import { RoadtripDisplay } from "lib/definitions";
 import RoutesTableLine from "app/routesOverview/routesTableLine";
 import Image from "next/image";
 
@@ -41,6 +41,7 @@ export function MapSkeleton() {
         height={360}
         alt="loading map"
         id="mapSkeleton"
+        unoptimized
       />
     </div>
   );

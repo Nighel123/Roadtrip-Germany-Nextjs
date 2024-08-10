@@ -4,8 +4,8 @@ import {
   handleChangeFileType,
   handleChangeType,
   handleClickType,
-} from "app/lib/definitions";
-import { arrIntersection, arrSubset } from "app/lib/utils";
+} from "lib/definitions";
+import { arrIntersection, arrSubset } from "lib/utils";
 import { useEffect, useRef, useState } from "react";
 import { error } from "./utils";
 import { useFormState } from "react-dom";

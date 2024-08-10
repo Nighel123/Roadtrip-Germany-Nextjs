@@ -6,7 +6,7 @@ import "@/styles/chat.css";
 import { Metadata } from "next";
 
 import Chat from "./chat";
-import Title from "app/ui/components/title";
+import Title from "ui/components/title";
 
 export const metadata: Metadata = {
   title: "Roadtrip Chat",

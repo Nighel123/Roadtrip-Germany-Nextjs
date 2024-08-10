@@ -1,4 +1,4 @@
-import { handleBlurType, months, RoadtripDisplay } from "app/lib/definitions";
+import { handleBlurType, months, RoadtripDisplay } from "lib/definitions";
 
 const DateInput = ({
   handleBlur,

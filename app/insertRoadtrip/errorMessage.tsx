@@ -1,4 +1,4 @@
-import { arrIntersection } from "app/lib/utils";
+import { arrIntersection } from "lib/utils";
 import { error } from "./utils";
 
 export default function ErrorComponent({

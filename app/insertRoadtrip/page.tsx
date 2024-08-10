@@ -6,7 +6,7 @@ import "@/styles/insertRoadtripForm.css";
 import Image from "next/image";
 import InsertForm from "./insertForm";
 import { Metadata } from "next";
-import { fetchRoadtripById } from "app/lib/data";
+import { fetchRoadtripById } from "lib/data";
 
 export const metadata: Metadata = {
   title: "Roadtrip eintragen",

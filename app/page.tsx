@@ -1,10 +1,10 @@
 import { auth, signOut } from "auth";
 import Image from "next/image";
 import Link from "next/link";
-import { SignInButton } from "./ui/signInButton";
-import { fetchNewMessagesCountByUserId } from "./lib/data";
+import { SignInButton } from "../ui/signInButton";
+import { fetchNewMessagesCountByUserId } from "../lib/data";
 import NewMessageCounter from "./newMessageCounter";
-import Register from "./ui/components/register";
+import Register from "../ui/components/register";
 
 export default async function Page() {
   const session = await auth();

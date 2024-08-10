@@ -27,9 +27,9 @@ import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { randomUUID } from "node:crypto";
-import { sendVerificationEmail } from "app/utils/mail";
+import { sendVerificationEmail } from "lib/mail";
 import { fetchRoadtripById } from "./data";
-import { zDeleteRoadtrip, zDeleteUser } from "app/utils/validateFormData";
+import { zDeleteRoadtrip, zDeleteUser } from "lib/validateFormData";
 
 const { log } = console;
 
@@ -411,45 +411,4 @@ export async function editRoadtrip(
   }
   revalidatePath("/insertRoadtrip");
   redirect("/dashboard");
-}
-
-export async function getVerificationTokenByUserIdAndToken(
-  userId: string,
-  token: string
-) {
-  try {
-    return (
-      await sql`
-            SELECT * FROM verification_token 
-            WHERE user_id = ${userId} AND token = ${token}
-         `
-    ).rows[0];
-  } catch (error) {
-    console.error(error);
-    throw new Error("Falscher token.");
-  }
-}
-export async function deleteVerificationTokenByUserId(userId: string) {
-  try {
-    await sql`
-            DELETE FROM verification_token 
-            WHERE user_id = ${userId}
-         `;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Error deleting token with userId: " + userId);
-  }
-}
-
-export async function verifyUserEmail(user_id: string) {
-  try {
-    const res = await sql`
-      UPDATE users 
-      SET "emailVerified" = ${new Date().toISOString()} 
-      WHERE id = ${user_id}`;
-    return res.rowCount;
-  } catch (error) {
-    console.error(error);
-    throw new Error("Die Email konnte nicht auf verifiziert gesetzt werden.");
-  }
 }

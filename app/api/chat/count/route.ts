@@ -2,7 +2,7 @@ import {
   fetchMessagesByUserId,
   fetchNewMessagesCountByUserId,
   insertMessage,
-} from "app/lib/data";
+} from "lib/data";
 import { auth } from "auth";
 
 export async function GET(request: Request) {

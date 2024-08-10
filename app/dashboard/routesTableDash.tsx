@@ -1,6 +1,6 @@
 "use client";
 
-import { RoadtripDisplay } from "app/lib/definitions";
+import { RoadtripDisplay } from "lib/definitions";
 import RoutesTableLineDash from "./routesTableLineDash";
 import Modal from "react-modal";
 import { useState } from "react";

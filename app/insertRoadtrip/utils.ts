@@ -1,8 +1,8 @@
-import { RoadtripEditForm, RoadtripForm, months } from "app/lib/definitions";
-import { monthToNumber } from "app/lib/utils";
+import { RoadtripEditForm, RoadtripForm, months } from "lib/definitions";
+import { monthToNumber } from "lib/utils";
 import { z } from "zod";
 import { Client, GeocodeRequest } from "@googlemaps/google-maps-services-js";
-import { zRoadtripID } from "app/utils/validateFormData";
+import { zRoadtripID } from "lib/validateFormData";
 export async function isAddressValid(a: string, b: string) {
   /* console.log(a, b); */
   return Promise.resolve(true);
