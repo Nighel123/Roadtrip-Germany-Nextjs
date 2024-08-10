@@ -33,7 +33,7 @@ export default async function Dashboard() {
           ) : null}
         </div>
         <div>
-          <p id="heading">Logged in as:</p>
+          <p id="heading">Eingelogged als:</p>
           <h2>{session?.user?.name}</h2>
           <p id="email">{session?.user?.email}</p>
         </div>

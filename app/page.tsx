@@ -78,22 +78,14 @@ export default async function Page() {
           />
         </Link>
 
-        {/* <Image
+        <Image
           id="beispielTrip"
           src="/home/beispielTrip.jpeg"
           width={2048}
           height={1376}
           alt="beispielTrip"
-        /> */}
+        />
       </div>
     </>
   );
 }
-
-/* async function NewMessageCounter() {
-  const session = await auth();
-  const userID = session?.user?.id;
-  if (!userID) return;
-  const count = (await fetchNewMessagesCountByUserId(userID)) as string;
-  return <>{Number(count) ? <p id="newMessageCounter">{count}</p> : null}</>;
-} */

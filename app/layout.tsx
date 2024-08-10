@@ -28,7 +28,7 @@ export default function RootLayout({
       <Analytics />
       <body className={`${open_sans.className} antialiased`}>
         {children}
-        {/* <Footer /> */}
+        <Footer />
       </body>
     </html>
   );
