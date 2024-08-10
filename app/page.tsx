@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SignInButton } from "./ui/signInButton";
 import { fetchNewMessagesCountByUserId } from "./lib/data";
 import NewMessageCounter from "./newMessageCounter";
+import Register from "./ui/components/register";
 
 export default async function Page() {
   const session = await auth();
@@ -49,14 +50,7 @@ export default async function Page() {
       ) : (
         <>
           <SignInButton />
-          <Link href="/register" id="register">
-            <Image
-              src="/home/registrierenBlack.jpg"
-              width={468}
-              height={149}
-              alt="registrieren"
-            />
-          </Link>
+          <Register />
         </>
       )}
       <div className="home" data-testid="home">

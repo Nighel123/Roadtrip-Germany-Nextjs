@@ -1,13 +1,3 @@
-.routesDetailed #title {
-  width: 8%;
-  float: right;
-  margin: -1.5vw 0px 0px 2vw;
-  position: absolute;
-  padding-bottom: 3%;
-  top: 4vw;
-  right: 1vw;
-}
-
 div.routesDetailed .grid {
   margin-top: 10%;
   display: grid;

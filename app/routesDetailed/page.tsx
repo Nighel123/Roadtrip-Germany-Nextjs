@@ -8,6 +8,7 @@ import MapWrapper from "app/ui/mapWrapper";
 import "@/styles/routesDetailed.css";
 
 import { Metadata } from "next";
+import Title from "app/ui/components/title";
 
 export const metadata: Metadata = {
   title: "Roadtrips detailliert",
@@ -16,9 +17,7 @@ export const metadata: Metadata = {
 export default async function RoutesDetailed() {
   return (
     <div className="routesDetailed" data-testid="routesOverview">
-      <Link href="/" id="title">
-        <Image src="/title.jpg" alt="title" width={1374} height={567} />
-      </Link>
+      <Title />
 
       <div className="grid">
         <Image

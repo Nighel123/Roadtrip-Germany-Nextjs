@@ -4,14 +4,18 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 export function mapPlot(
   ref: React.RefObject<HTMLDivElement>,
-  zoom: number,
-  strokeWeight: number,
-  fontSize: string,
-  mapClickable: boolean,
-  routesClickable: boolean,
   roadtrips: RoadtripDisplay[],
+  options: {
+    zoom: number;
+    strokeWeight: number;
+    fontSize: string;
+    mapClickable: boolean;
+    routesClickable: boolean;
+  },
   router: AppRouterInstance
 ) {
+  const { zoom, strokeWeight, fontSize, mapClickable, routesClickable } =
+    options;
   if (ref.current) {
     const map = new google.maps.Map(ref.current, { gestureHandling: "greedy" });
     map.setOptions(mapOptions);
@@ -20,7 +24,7 @@ export function mapPlot(
     let mapBounds = new google.maps.LatLngBounds();
     if (mapClickable) {
       map.addListener("click", function () {
-        /* href = "/routsDetailed"; */
+        router.push("/routsDetailed");
       });
     }
 
@@ -238,6 +242,7 @@ const mapOptions: google.maps.MapOptions = {
   zoomControl: false,
   streetViewControl: false,
   minZoom: 2,
+  controlSize: 0.1,
 
   /*specify styles for the map e.g. not to show little village names*/
   styles: [

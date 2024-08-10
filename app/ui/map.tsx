@@ -10,7 +10,14 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
   const router = useRouter();
 
   useEffect(() => {
-    mapPlot(ref, 4, 10, "11", true, true, roadtrips, router);
+    const options = {
+      zoom: 4,
+      strokeWeight: 10,
+      fontSize: "1vw",
+      mapClickable: true,
+      routesClickable: true,
+    };
+    mapPlot(ref, roadtrips, options, router);
   });
 
   if (roadtrips.length === 0)

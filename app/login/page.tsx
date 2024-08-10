@@ -8,6 +8,8 @@ import { Form } from "./loginForm";
 import { Suspense } from "react";
 
 import { Metadata } from "next";
+import Title from "app/ui/components/title";
+import Register from "app/ui/components/register";
 
 export const metadata: Metadata = {
   title: "Login",
@@ -17,18 +19,8 @@ const Login = () => {
   return (
     <div className="login">
       <header>
-        <Link href="/" id="title">
-          <Image src="/title.jpg" width={1374} height={567} alt="Titel" />
-        </Link>
-
-        <Link href="/register" id="register">
-          <Image
-            src="/home/registrierenBlack.jpg"
-            width={468}
-            height={149}
-            alt="registrieren"
-          />
-        </Link>
+        <Title />
+        <Register />
       </header>
       <Suspense>
         <Form />

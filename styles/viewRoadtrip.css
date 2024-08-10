@@ -1,13 +1,3 @@
-.viewRoadtrip #title {
-  width: 8%;
-  float: right;
-  margin: -10px 0px 0px 14px;
-  position: absolute;
-  padding-bottom: 3%;
-  top: 1.5em;
-  right: 1em;
-}
-
 .viewRoadtrip div.roadtripWrapper {
   margin-top: 10%;
   display: grid;

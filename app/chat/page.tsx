@@ -6,6 +6,7 @@ import "@/styles/chat.css";
 import { Metadata } from "next";
 
 import Chat from "./chat";
+import Title from "app/ui/components/title";
 
 export const metadata: Metadata = {
   title: "Roadtrip Chat",
@@ -16,9 +17,7 @@ export default function Page() {
 
   return (
     <div className="chat" data-testid="chat">
-      <Link href="/" id="title">
-        <Image src="/title.jpg" alt="title" width={1374} height={567} />
-      </Link>
+      <Title />
 
       <div className="frame">
         <Image
