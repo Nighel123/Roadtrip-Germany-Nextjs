@@ -8,7 +8,6 @@
 
 #registerComponent {
   width: 8%;
-  float: left;
   margin: -0.8vw 0px 0px 1vw;
   position: absolute;
   top: 1.5em;
@@ -92,7 +91,10 @@ code {
 }
 
 @media only screen and (max-width: 500px) {
-  * {
+  .login *,
+  .insertRoadtrip *,
+  .register *,
+  footer a {
     font-size: 3vw;
   }
 }

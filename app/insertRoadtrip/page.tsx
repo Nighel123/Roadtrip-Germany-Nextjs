@@ -7,6 +7,7 @@ import Image from "next/image";
 import InsertForm from "./insertForm";
 import { Metadata } from "next";
 import { fetchRoadtripById } from "lib/data";
+import Title from "ui/components/title";
 
 export const metadata: Metadata = {
   title: "Roadtrip eintragen",
@@ -29,6 +30,7 @@ const InsertRoadtrip = async ({
     <div className="insertRoadtrip" data-testid="insertRoadtrip">
       <header>
         <h1 id="heading">erstelle deinen eigenen Roadtrip</h1>
+        <Title />
       </header>
 
       <Image

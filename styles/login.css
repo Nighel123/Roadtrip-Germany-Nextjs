@@ -84,7 +84,7 @@
 
 .login .button {
   margin: 0px;
-  font-size: 20px;
+  font-size: 1.5vw;
   width: 100%;
   font-weight: 400;
   padding: 10px;
@@ -133,6 +133,8 @@
 }
 .login .gsi-material-button {
   border-radius: 0.6vw;
+
+  border-color: #94949a;
   width: 19vw;
   background-color: white;
   position: absolute;
@@ -162,6 +164,11 @@
     width: 50vw;
     border-radius: 3vw;
     padding: 3vw;
+    border-width: 0.6vw;
+  }
+  .login .gsi-material-button-icon {
+    width: 8vw;
+    margin-right: 3vw;
   }
   .login #registerComponent {
     width: 30vw;
@@ -169,5 +176,8 @@
   }
   .login #titleComponent {
     width: 30vw;
+  }
+  .login .button {
+    font-size: 4vw;
   }
 }

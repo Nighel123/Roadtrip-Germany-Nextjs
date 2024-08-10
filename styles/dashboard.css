@@ -201,7 +201,7 @@
 @media screen and (max-width: 500px) {
   .dashboard {
     display: grid;
-    grid-template-rows: min-content;
+    grid-template-rows: 0.2fr 1fr 1fr 0.1fr;
     grid-template-columns: 1fr;
     gap: var(--gap);
   }
@@ -217,36 +217,54 @@
     grid-column: 1/2;
     grid-row: 2/3;
   }
-  .dashboard a[href="/insertRoadtrip"] {
-    grid-column: 1/2;
-    grid-row: 3/4;
-  }
   .dashboard img[alt~="redFrame"],
   .dashboard #map {
     grid-column: 1/2;
+    grid-row: 3/4;
+  }
+
+  .dashboard #deleteAccount {
+    grid-column: 1/2;
     grid-row: 4/5;
+    margin-bottom: 14vw;
+  }
+  .dashboard .edit.tableItem {
+    width: 4vw;
   }
 
-  .dashboard a[href="/routesDetailed"] {
-    grid-column: 1/2;
-    grid-row: 5/6;
-  }
-
-  .dashboard img[alt~="img1"] {
-    grid-column: 1/2;
-    grid-row: 6/7;
-  }
-
-  .dashboard img[alt~="img2"] {
-    grid-column: 1/2;
-    grid-row: 7/8;
-  }
-
-  #dashboard *:not(.tableItem) {
-    font-size: 1.5vw;
-  }
-
-  #dashboard .routesOverview .tableItem {
+  #dashboard .tableItem {
     font-size: 2.5vw;
+  }
+  #dashboard #deleteAccount {
+    width: 70vw;
+  }
+  #dashboard #deleteAccount button {
+    height: 10vw;
+  }
+  #dashboard #deleteAccount button h2 {
+    font-size: 3vw;
+  }
+  .ReactModalPortal h2 {
+    font-size: 3vw;
+  }
+  .ReactModalPortal * {
+    font-size: 2vw;
+  }
+  .ReactModalPortal .yes {
+    width: 16vw;
+    height: 7vw;
+    font-size: 3vw;
+  }
+  .ReactModalPortal .yes.delete {
+    margin-top: 3vw;
+    width: 30vw !important;
+    height: 10vw;
+    font-size: 3vw;
+  }
+
+  .ReactModalPortal .no {
+    width: 10vw;
+    height: 4vw;
+    font-size: 2vw;
   }
 }
