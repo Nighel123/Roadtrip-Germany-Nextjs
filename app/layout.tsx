@@ -5,6 +5,7 @@ import { open_sans } from "@/styles/fonts";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: {
@@ -25,7 +26,18 @@ export default function RootLayout({
     <html lang="de">
       <SpeedInsights />
       <Analytics />
-      <body className={`${open_sans.className} antialiased`}>{children}</body>
+      <body className={`${open_sans.className} antialiased`}>
+        {children}
+        {/* <Footer /> */}
+      </body>
     </html>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <Link href={"/impressum"}>Impressum</Link>
+    </footer>
   );
 }

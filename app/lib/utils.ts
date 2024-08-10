@@ -92,7 +92,7 @@ export function nestMessageArrayByOtherUserId(
         otherUserId = partRoadID[pivot].otherUserId;
         partRoadID = partRoadID.slice(pivot);
       }
-      nestedArray.push(partOtherUserID);
+      if (partOtherUserID.length !== 0) nestedArray.push(partOtherUserID);
     }
   }
   return nestedArray;
