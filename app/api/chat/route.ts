@@ -1,23 +1,25 @@
 import { fetchMessagesByUserId, insertMessage } from "app/lib/data";
+import { MessagesDisplay } from "app/lib/definitions";
+import {
+  nestMessageArrayByOtherUserId,
+  nestMessagesToOverviewMessages,
+} from "app/lib/utils";
 import { auth } from "auth";
 
 export async function GET(request: Request) {
-  /* const res = await fetch("https://data.mongodb-api.com/...", {
-    headers: {
-      "Content-Type": "application/json",
-      "API-Key": process.env.DATA_API_KEY,
-    },
-  });
-  
-  const data = await res.json(); */
-  const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");
-  if (!id) return Response.json({ data: [] });
-  const session = await auth();
-  if (id !== session?.user?.id) return Response.json({ data: [] });
-  const data = await fetchMessagesByUserId(id);
+  const userId = (await auth())?.user?.id;
+  if (!userId) return Response.json([[], []]);
+  const messages = await fetchMessagesByUserId(userId);
+  const nestedMessages = nestMessageArrayByOtherUserId(messages);
+  const messagesOverview = nestMessagesToOverviewMessages(
+    nestedMessages,
+    userId
+  );
 
-  return Response.json({ data });
+  return Response.json([messagesOverview, nestedMessages] as [
+    MessagesDisplay[],
+    MessagesDisplay[][]
+  ]);
 }
 
 export async function POST(req: Request) {

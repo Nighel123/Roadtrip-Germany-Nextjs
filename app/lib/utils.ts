@@ -63,22 +63,37 @@ export function nestMessageArrayByOtherUserId(
 ): MessagesDisplay[][] {
   if (messages.length === 0) return [];
   let nestedArray: MessagesDisplay[][] = [];
+  let roadtripId = messages[0].roadtripId;
   let otherUserId = messages[0].otherUserId;
   let rest = messages;
-  let part: MessagesDisplay[];
+  let partRoadID: MessagesDisplay[];
+  let partOtherUserID: MessagesDisplay[];
   while (rest.length > 0) {
     let pivot = rest.findIndex((el) => {
-      return el.otherUserId !== otherUserId;
+      return el.roadtripId !== roadtripId;
     });
     if (pivot == -1) {
-      part = rest;
+      partRoadID = rest;
       rest = [];
     } else {
-      part = rest.slice(0, pivot);
-      otherUserId = rest[pivot].otherUserId;
+      partRoadID = rest.slice(0, pivot);
+      roadtripId = rest[pivot].roadtripId;
       rest = rest.slice(pivot);
     }
-    nestedArray.push(part);
+    while (partRoadID.length > 0) {
+      let pivot = partRoadID.findIndex((el) => {
+        return el.otherUserId !== otherUserId;
+      });
+      if (pivot == -1) {
+        partOtherUserID = partRoadID;
+        partRoadID = [];
+      } else {
+        partOtherUserID = partRoadID.slice(0, pivot);
+        otherUserId = partRoadID[pivot].otherUserId;
+        partRoadID = partRoadID.slice(pivot);
+      }
+      nestedArray.push(partOtherUserID);
+    }
   }
   return nestedArray;
 }

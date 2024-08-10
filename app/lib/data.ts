@@ -79,6 +79,7 @@ export async function fetchRoadtripById(id: string | null) {
 }
 
 export async function fetchMessagesByUserId(userId: string) {
+  noStore();
   try {
     console.log("fetching messages");
 
@@ -90,7 +91,7 @@ export async function fetchMessagesByUserId(userId: string) {
       JOIN addresses AS dest ON dest_id = dest.id
       JOIN addresses AS start ON start_id = start.id
       WHERE messages.from = ${userId} OR messages.to = ${userId}
-      ORDER BY roadtrip DESC, messages.created DESC
+      ORDER BY roadtrip DESC, "otherUserId" DESC
     `;
 
     return data.rows as MessagesDisplay[];

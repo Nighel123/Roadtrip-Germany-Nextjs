@@ -48,26 +48,21 @@ export default function ChatSidebar({
       setOtherUserID(otherUserID);
     };
   };
-  const session = useSession();
-  const userID = session.data?.user?.id;
+
   const { isPending, isError, data, error } = useQuery({
-    queryKey: ["messages", userID],
+    queryKey: ["messages"],
     queryFn: async () => {
-      if (!userID) return [];
-      const response = await fetch(`api/chat?id=${userID}`);
+      const response = await fetch(`api/chat`);
       if (!response.ok) {
         throw new Error(
           "Network response for fetching users messages was not ok"
         );
       }
-      const { data: messages } = (await response.json()) as {
-        data: MessagesDisplay[];
-      };
-      const nestedMessages = nestMessageArrayByOtherUserId(messages);
-      const messagesOverview = nestMessagesToOverviewMessages(
-        nestedMessages,
-        userID
-      );
+      const [messagesOverview, nestedMessages] = (await response.json()) as [
+        MessagesDisplay[],
+        MessagesDisplay[][]
+      ];
+
       setNestedMessages(nestedMessages);
       setMessagesOverview(messagesOverview);
       if (search && selectedIndex === null) {
