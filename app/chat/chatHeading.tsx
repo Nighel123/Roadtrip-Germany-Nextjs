@@ -98,11 +98,13 @@ function Heading({
           <MyMapComponent roadtrips={[roadtrip]} />
         </MapLoader>
         <Image src={image_url} alt="roadtripPicture" width={150} height={300} />
-        <h1 className="name">{username}</h1>
-        <div className="date">{formatDateToLocal(date)}</div>
-        <p>
-          {startland},{starttown} &#8594; {destland},{desttown}
-        </p>
+        <div>
+          <h1 className="name">{username}</h1>
+          <div className="date">{formatDateToLocal(date)}</div>
+          <p>
+            {startland},{starttown} &#8594; {destland},{desttown}
+          </p>
+        </div>
       </div>
     </>
   );

@@ -13,21 +13,54 @@ const registerTestData = {
   sex: "männlich",
 };
 
-const roadtripTestData = {
-  startland: "Ukraine",
-  starttown: "Kiew",
-  destland: "Finnland",
-  desttown: "Kopenhagen",
-  day: "1",
-  month: "September",
-  year: "2024",
-  description:
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-};
+const roadtripTestData = [
+  {
+    startland: "Ukraine",
+    starttown: "Kiew",
+    destland: "Finnland",
+    desttown: "Kopenhagen",
+    day: "1",
+    month: "September",
+    year: "2024",
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+  {
+    startland: "Deutschland",
+    starttown: "Würzburg",
+    destland: "Holland",
+    desttown: "Amsterdam",
+    day: "3",
+    month: "Oktober",
+    year: "2024",
+    description:
+      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  },
+];
+
+const loginData = [
+  {
+    username: "testUser",
+    password: "testPass123",
+  },
+  {
+    username: "Nighel1234",
+    password: "9yvVn5JPGw7CvEv",
+  },
+];
 
 const { username, email, password, sex } = registerTestData;
-const { startland, starttown, destland, desttown, description } =
-  roadtripTestData;
+const {
+  startland,
+  starttown,
+  destland,
+  desttown,
+  description,
+  day,
+  month,
+  year,
+} = roadtripTestData[1];
+const { username: loginName, password: loginPassword } = loginData[1];
 let user_id: string;
 test.describe("rootFunctions", () => {
   test("register", async ({ page }) => {
@@ -70,9 +103,10 @@ test.describe("rootFunctions", () => {
   });
   test("insertRoadtrip", async ({ page }) => {
     /* login */
+
     await page.goto(`/login`);
-    await page.getByPlaceholder("Benutzername").fill(username);
-    await page.getByPlaceholder("Passwort").fill(password);
+    await page.getByPlaceholder("Benutzername").fill(loginName);
+    await page.getByPlaceholder("Passwort").fill(loginPassword);
     await page.getByRole("button", { name: "einloggen" }).click();
     await page.waitForURL("/");
     await expect(page).toHaveURL("/");
@@ -82,9 +116,9 @@ test.describe("rootFunctions", () => {
     await page.locator("#starttown").fill(starttown);
     await page.locator("#destland").fill(destland);
     await page.locator("#desttown").fill(desttown);
-    await page.locator("#day").fill(roadtripTestData.day);
-    await page.locator("#month").selectOption(roadtripTestData.month);
-    await page.getByPlaceholder("Jahr").fill(roadtripTestData.year);
+    await page.locator("#day").fill(day);
+    await page.locator("#month").selectOption(month);
+    await page.getByPlaceholder("Jahr").fill(year);
     await page.locator("#description").fill(description);
     await page
       .getByTestId("file")

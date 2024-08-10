@@ -13,7 +13,7 @@ export function mapPlot(
   router: AppRouterInstance
 ) {
   if (ref.current) {
-    const map = new google.maps.Map(ref.current);
+    const map = new google.maps.Map(ref.current, { gestureHandling: "greedy" });
     map.setOptions(mapOptions);
 
     const directionsService = new google.maps.DirectionsService();
