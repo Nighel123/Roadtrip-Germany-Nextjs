@@ -15,7 +15,7 @@
     "@googlemaps/google-maps-services-js": "^3.4.0",
     "@googlemaps/react-wrapper": "^1.1.35",
     "@heroicons/react": "^2.1.5",
-    "@next/third-parties": "^14.2.3",
+    "@next/third-parties": "^14.2.5",
     "@react-email/components": "^0.0.22",
     "@tanstack/react-query": "^5.51.16",
     "@tanstack/react-query-devtools": "^5.51.21",
