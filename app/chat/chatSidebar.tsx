@@ -110,6 +110,11 @@ export default function ChatSidebar({
   const rows = messagesOverview.map((message, i) => {
     const { otherUserName, startLand, startTown, destLand, destTown, text } =
       message;
+    let customText = text;
+    const cutLength = 100;
+    if (customText.length > cutLength) {
+      customText = text.substring(0, cutLength) + " ...";
+    }
     return (
       <div
         className={selectedIndex === i ? "row selected" : "row"}
@@ -129,7 +134,7 @@ export default function ChatSidebar({
           {startLand},{startTown} &#8594; {destLand},{destTown}
         </p>
 
-        <p>{text}</p>
+        <p>{customText}</p>
       </div>
     );
   });

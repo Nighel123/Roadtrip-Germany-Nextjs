@@ -109,12 +109,7 @@ export function nestMessagesToOverviewMessages(
       pivot.read = new Date();
     }
     const pivotMessage = sortMess[0];
-    let text = pivotMessage.text;
-    const cutLength = 100;
-    if (text.length > cutLength) {
-      text = text.substring(0, cutLength) + " ...";
-    }
-    pivotMessage.text = text;
+
     overviewMessages.push(pivotMessage);
   });
   return overviewMessages;
