@@ -114,6 +114,7 @@ div.chat #messageContainer {
 .chat #table {
   width: 100%;
   border-right: 1px solid #d3dbf8;
+  overflow: scroll;
 }
 
 .chat #table .dot {

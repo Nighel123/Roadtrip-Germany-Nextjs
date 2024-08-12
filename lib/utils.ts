@@ -8,13 +8,6 @@ import {
   months,
 } from "./definitions";
 
-export const formatCurrency = (amount: number) => {
-  return (amount / 100).toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-};
-
 export const formatDateToLocal = (
   dateStr: string,
   locale: string = "de-DE"
@@ -115,7 +108,14 @@ export function nestMessagesToOverviewMessages(
     } else {
       pivot.read = new Date();
     }
-    overviewMessages.push(sortMess[0]);
+    const pivotMessage = sortMess[0];
+    let text = pivotMessage.text;
+    const cutLength = 100;
+    if (text.length > cutLength) {
+      text = text.substring(0, cutLength) + " ...";
+    }
+    pivotMessage.text = text;
+    overviewMessages.push(pivotMessage);
   });
   return overviewMessages;
 }
