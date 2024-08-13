@@ -1,58 +1,14 @@
-import { auth, signOut } from "auth";
 import Image from "next/image";
 import Link from "next/link";
-import { SignInButton } from "../ui/signInButton";
-import { fetchNewMessagesCountByUserId } from "../lib/data";
-import NewMessageCounter from "./newMessageCounter";
-import Register from "../ui/components/register";
+import AuthButtons from "./authButtons";
+import { Suspense } from "react";
 
 export default async function Page() {
-  const session = await auth();
-  /* console.log(session); */
-
   return (
     <>
-      {session?.user ? (
-        <>
-          <form
-            id="ausloggen"
-            action={async () => {
-              "use server";
-              await signOut();
-            }}
-          >
-            <input
-              type="image"
-              src="/home/ausloggen.jpg"
-              width={408}
-              height={145}
-              alt="ausloggen"
-            />
-          </form>
-          <Link href={"/chat"} id="chatLink">
-            <Image
-              src="/chat/messages.jpg"
-              width={400}
-              height={400}
-              alt="registrieren"
-            />
-            <NewMessageCounter />
-          </Link>
-          <Link href={"/dashboard"} id="settings">
-            <Image
-              src="/home/settings.png"
-              width={400}
-              height={400}
-              alt="registrieren"
-            />
-          </Link>
-        </>
-      ) : (
-        <>
-          <SignInButton />
-          <Register />
-        </>
-      )}
+      <Suspense>
+        <AuthButtons />
+      </Suspense>
       <div className="home" data-testid="home">
         <Image src="/title.jpg" width={1374} height={567} alt="Titel" />
         <Link href="/routesOverview">
