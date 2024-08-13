@@ -102,7 +102,7 @@ function Heading({
           <h1 className="name">{username}</h1>
           <div className="date">{formatDateToLocal(date)}</div>
           <p>
-            {startland},{starttown} &#8594; {destland},{desttown}
+            {startland}, {starttown} &#8594; {destland}, {desttown}
           </p>
         </div>
       </div>

@@ -140,7 +140,7 @@ export default function ChatSidebar({
   });
   return (
     <>
-      {rows.length === 0 ? (
+      {rows.length === 0 && !search ? (
         <span className="queryStatus">
           <h1>Noch keine Nachrichten zu sehen.</h1>
           <p>

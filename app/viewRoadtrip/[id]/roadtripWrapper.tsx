@@ -25,19 +25,21 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
   return (
     <div className="roadtripWrapper">
       <div className="description">
-        <label htmlFor="description">
-          <b>{username}</b> möchte einen Roadtrip von{" "}
-          <b>
-            {starttown}, {startland}
-          </b>{" "}
-          nach{" "}
-          <b>
-            {desttown}, {destland}
-          </b>{" "}
-          machen. Es soll am <b>{formatDateToLocal(date)}</b> losgehen.{" "}
-          {sex === "weiblich" ? "Sie" : "Er"} hat folgendes dazu geschrieben:
-        </label>
-        <p className="description">{description}</p>
+        <div>
+          <label htmlFor="description">
+            <b>{username}</b> möchte einen Roadtrip von{" "}
+            <b>
+              {starttown}, {startland}
+            </b>{" "}
+            nach{" "}
+            <b>
+              {desttown}, {destland}
+            </b>{" "}
+            machen. Es soll am <b>{formatDateToLocal(date)}</b> losgehen.{" "}
+            {sex === "weiblich" ? "Sie" : "Er"} hat folgendes dazu geschrieben:
+          </label>
+          <p className="description">{description}</p>
+        </div>
         {Number(userId) === user_id || userId === undefined ? null : (
           <Link href={`/chat?id=${id}`}>
             <input type="image" src="sendMessage.png" alt="send Message" />

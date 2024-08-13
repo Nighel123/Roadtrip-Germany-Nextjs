@@ -60,7 +60,6 @@ div.chat #messageContainer {
   overflow: scroll;
 }
 #messages .other {
-  text-align: right;
   align-self: end;
   background-color: #d3dbf8;
 }

@@ -267,4 +267,11 @@
     height: 4vw;
     font-size: 2vw;
   }
+
+  .dashboard #tableContainer h1,
+  .dashboard #tableContainer p,
+  .dashboard #map h1,
+  .dashboard #map p {
+    font-size: 2.5vw;
+  }
 }
