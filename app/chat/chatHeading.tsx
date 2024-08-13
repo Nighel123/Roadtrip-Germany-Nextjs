@@ -72,14 +72,14 @@ function Heading({
     },
   });
   if (isPending) {
-    return <span>Loading...</span>;
+    return <span className="queryStatus">Loading...</span>;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return <span className="queryStatus">Error: {error.message}</span>;
   }
   if (!data) {
-    return <span>No messages yet to see.</span>;
+    return <span className="queryStatus">No messages yet to see.</span>;
   }
   const roadtrip = data as RoadtripDisplay;
   const {

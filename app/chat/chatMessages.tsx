@@ -3,7 +3,7 @@ import { MessagesDisplay, RoadtripDisplay } from "lib/definitions";
 import { sortMessages } from "lib/utils";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function ChatMessages({
   selected,
@@ -11,28 +11,34 @@ export default function ChatMessages({
   selected: MessagesDisplay[];
 }) {
   const session = useSession();
+  const queryClient = useQueryClient();
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const userID = session.data?.user?.id;
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({
+      block: "nearest",
+    });
+  };
+
   const mutation = useMutation({
-    mutationFn: (o: { from: number; to: number; roadtripId: string }) => {
+    mutationFn: (o: { from: number; roadtripId: string }) => {
       return axios.post("api/chat/update", o);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       // Invalidate and refetch
-      //queryClient.invalidateQueries({ queryKey: ["messages"] });
+      if (data.data) queryClient.invalidateQueries({ queryKey: ["messages"] });
+      scrollToBottom();
     },
   });
   useEffect(() => {
-    if (!userID) return;
     const message = selected[0];
-    const otherUserID =
-      Number(userID) === message.from ? message.to : message.from;
+    const otherUserID = message.otherUserId;
     mutation.mutate({
       from: otherUserID,
-      to: Number(userID),
       roadtripId: message.roadtripId,
     });
-  }, [selected, userID]);
+  }, [selected]);
 
   const sorted = sortMessages(selected);
   let rows = sorted.map((message) => {
@@ -48,7 +54,10 @@ export default function ChatMessages({
 
   return (
     <>
-      <div id="messages">{rows}</div>
+      <div id="messages">
+        {rows}
+        <div ref={messagesEndRef} id="scrollElement" />
+      </div>
     </>
   );
 }

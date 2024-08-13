@@ -117,6 +117,12 @@ div.chat #messageContainer {
   overflow: scroll;
 }
 
+.chat #scrollElement {
+  position: relative;
+  bottom: -3em;
+  left: 0;
+}
+
 .chat #table .dot {
   height: 1vw;
   width: 1vw;
@@ -128,7 +134,7 @@ div.chat #messageContainer {
   margin-right: 1vw;
 }
 
-.chat span {
+.chat span.queryStatus {
   position: absolute;
   top: 50%;
   left: 50%;

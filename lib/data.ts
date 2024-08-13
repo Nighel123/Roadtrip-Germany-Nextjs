@@ -1,6 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { MessagesDisplay, RoadtripDisplay } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
+import { auth } from "auth";
 
 export async function fetchRoadtrips() {
   // Add noStore() here to prevent the response from being cached.
@@ -142,20 +143,19 @@ export async function fetchNewMessagesCountByUserId(
 
 export async function updateReadStatus(o: {
   from: number;
-  to: number;
   roadtripId: string;
 }) {
-  const { to, from, roadtripId } = o;
+  const userId = (await auth())?.user?.id;
+  if (!userId) return 0;
+  const { from, roadtripId } = o;
   try {
-    console.log("fetching messages");
-
     const data = await sql`
       UPDATE messages
       SET read = ${new Date().toDateString()}
-      WHERE messages.to = ${to} AND messages.from = ${from} AND messages.roadtrip = ${roadtripId} AND "read" IS NULL
+      WHERE messages.to = ${userId} AND messages.from = ${from} AND messages.roadtrip = ${roadtripId} AND "read" IS NULL
     `;
 
-    return data.rows;
+    return data.rowCount;
   } catch (error) {
     console.error("Database Error:", error);
     throw new Error("Failed to update message data.");

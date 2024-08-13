@@ -9,7 +9,6 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ChatMessages from "./chatMessages";
-import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 
 export default function ChatSidebar({
