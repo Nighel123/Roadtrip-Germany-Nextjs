@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useFormState } from "react-dom";
 import { deleteRoadtrip } from "lib/actions";
+import SubmitButton from "./submitButton";
 
 export default function routesTableLineDash({
   roadtrip,
@@ -72,9 +73,7 @@ export default function routesTableLineDash({
         </button>
         <form action={dispatch}>
           <input hidden name={"id"} value={roadtrip.id} />
-          <button type="submit" className="yes">
-            Ja
-          </button>
+          <SubmitButton />
         </form>
         {errorMessage && (
           <>

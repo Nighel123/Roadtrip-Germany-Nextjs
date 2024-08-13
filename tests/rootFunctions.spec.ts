@@ -40,16 +40,24 @@ const roadtripTestData = [
 
 const loginData = [
   {
-    username: "testUser",
-    password: "testPass123",
+    username: process.env.USER_NAME_1,
+    password: process.env.PASS_1,
+    email: process.env.EMAIL_1,
   },
   {
-    username: "Nighel1234",
-    password: "9yvVn5JPGw7CvEv",
+    username: process.env.USER_NAME_2,
+    password: process.env.PASS_2,
+    email: process.env.EMAIL_2,
+  },
+  {
+    username: process.env.USER_NAME_3,
+    password: process.env.PASS_3,
+    email: process.env.EMAIL_3,
   },
 ];
 
-const { username, email, password, sex } = registerTestData;
+const { username, password, email } = loginData[2];
+const { sex } = registerTestData;
 const {
   startland,
   starttown,
@@ -60,7 +68,7 @@ const {
   month,
   year,
 } = roadtripTestData[1];
-const { username: loginName, password: loginPassword } = loginData[1];
+
 let user_id: string;
 test.describe("rootFunctions", () => {
   test("register", async ({ page }) => {
@@ -68,9 +76,9 @@ test.describe("rootFunctions", () => {
       DELETE FROM users WHERE name = ${username}
     `;
     await page.goto("/register");
-    await page.getByLabel("Nutzername").fill(username);
-    await page.getByLabel("E-Mail-Adresse").fill(email);
-    await page.getByLabel("Passwort").fill(password);
+    await page.getByLabel("Nutzername").fill(username || "");
+    await page.getByLabel("E-Mail-Adresse").fill(email || "");
+    await page.getByLabel("Passwort").fill(password || "");
     await page.getByPlaceholder("Tag").fill(registerTestData.day);
     await page.locator("#month").selectOption(registerTestData.month);
     await page.getByPlaceholder("Jahr").fill(registerTestData.year);
@@ -95,8 +103,8 @@ test.describe("rootFunctions", () => {
             WHERE user_id = ${userId}
          `;
     await page.goto(`/login/?verification_token=${token}`);
-    await page.getByPlaceholder("Benutzername").fill(username);
-    await page.getByPlaceholder("Passwort").fill(password);
+    await page.getByPlaceholder("Benutzername").fill(username || "");
+    await page.getByPlaceholder("Passwort").fill(password || "");
     await page.getByRole("button", { name: "einloggen" }).click();
     await page.waitForURL("/");
     await expect(page).toHaveURL("/");
@@ -105,8 +113,8 @@ test.describe("rootFunctions", () => {
     /* login */
 
     await page.goto(`/login`);
-    await page.getByPlaceholder("Benutzername").fill(loginName);
-    await page.getByPlaceholder("Passwort").fill(loginPassword);
+    await page.getByPlaceholder("Benutzername").fill(username || "");
+    await page.getByPlaceholder("Passwort").fill(password || "");
     await page.getByRole("button", { name: "einloggen" }).click();
     await page.waitForURL("/");
     await expect(page).toHaveURL("/");

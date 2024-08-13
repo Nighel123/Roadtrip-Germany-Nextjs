@@ -50,6 +50,7 @@ export default function ChatSidebar({
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
+    refetchInterval: 1000,
     queryFn: async () => {
       const response = await fetch(`api/chat`);
       if (!response.ok) {
@@ -140,14 +141,13 @@ export default function ChatSidebar({
   return (
     <>
       {rows.length === 0 ? (
-        <div id="table">
-          <h1 className="nocontent">
-            Du hast noch keine Nachrichten geschrieben
-          </h1>
-          <p className="nocontent">
-            Gebe eine Nachricht unten in das Textfeld ein.
+        <span className="queryStatus">
+          <h1>Noch keine Nachrichten zu sehen.</h1>
+          <p>
+            Schreibe jemandem indem du auf einen Roadtrip klickst und dann auf
+            "Nachricht senden".
           </p>
-        </div>
+        </span>
       ) : (
         <div id="table">{rows}</div>
       )}

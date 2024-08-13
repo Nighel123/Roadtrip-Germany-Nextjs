@@ -97,4 +97,11 @@ code {
   footer a {
     font-size: 3vw;
   }
+  /* test if the this makes round things dissapeaer on iphone safari */
+  button,
+  input,
+  textarea,
+  select {
+    border-radius: 0;
+  }
 }

@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import { deleteRoadtrip, deleteUser } from "lib/actions";
+import SubmitButtonDeleteAcc from "./submitButtonDeleteAcc";
 
 export default function DeleteAccount() {
   const [errorMessage, dispatch] = useFormState(deleteUser, undefined);
@@ -44,9 +45,7 @@ export default function DeleteAccount() {
         <p>Tippe "Löschen" ein, um den Account zu löschen.</p>
         <form action={dispatch} id="deleteUser">
           <input type="text" name="delete" />
-          <button type="submit" className="yes delete">
-            Account Löschen
-          </button>
+          <SubmitButtonDeleteAcc />
         </form>
         {errorMessage && (
           <>
