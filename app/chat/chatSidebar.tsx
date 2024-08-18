@@ -2,14 +2,18 @@
 
 import { MessagesDisplay } from "lib/definitions";
 import {
+  displayNestedArray,
   formatDateToLocal,
-  nestMessageArrayByOtherUserId,
+  getConversationHash,
+  getHashArray,
   nestMessagesToOverviewMessages,
 } from "lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ChatMessages from "./chatMessages";
 import { useSearchParams } from "next/navigation";
+
+import { useSession } from "next-auth/react";
 
 export default function ChatSidebar({
   setRoadtripID,
@@ -21,6 +25,8 @@ export default function ChatSidebar({
   const searchParams = useSearchParams();
   const search = searchParams.get("id");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [conversationHash, setHash] = useState<string | null>(null);
+  const [hashArray, setHashArray] = useState<string[] | null>(null);
   const [selected, setSelected] = useState<MessagesDisplay[] | null>(null);
   const [nestedMessages, setNestedMessages] = useState<
     MessagesDisplay[][] | null
@@ -39,6 +45,8 @@ export default function ChatSidebar({
       newOverview[index].read = new Date();
       setMessagesOverview(newOverview);
       setSelectedIndex(index);
+      const hash = getConversationHash(messagesOverview[index]);
+      setHash(hash);
       const messages = nestedMessages[index];
       setSelected(messages);
       const roadtripID = messages[0].roadtripId;
@@ -47,10 +55,11 @@ export default function ChatSidebar({
       setOtherUserID(otherUserID);
     };
   };
+  const userId = useSession().data?.user?.id;
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["messages"],
-    refetchInterval: 1000,
+    refetchInterval: 3000,
     queryFn: async () => {
       const response = await fetch(`api/chat`);
       if (!response.ok) {
@@ -58,12 +67,18 @@ export default function ChatSidebar({
           "Network response for fetching users messages was not ok"
         );
       }
-      const [messagesOverview, nestedMessages] = (await response.json()) as [
-        MessagesDisplay[],
-        MessagesDisplay[][]
-      ];
+      const nestedMessages = (await response.json()) as MessagesDisplay[][];
 
-      setNestedMessages(nestedMessages);
+      if (!userId) throw Error("no user defined");
+      const messagesOverview = nestMessagesToOverviewMessages(
+        nestedMessages,
+        userId
+      );
+      const displayNestedMss = displayNestedArray(nestedMessages);
+      const hashArray = getHashArray(messagesOverview);
+
+      setHashArray(hashArray);
+      setNestedMessages(displayNestedMss);
       setMessagesOverview(messagesOverview);
       if (search && selectedIndex === null) {
         const index = messagesOverview.findIndex(
@@ -81,18 +96,30 @@ export default function ChatSidebar({
           handleClickFactory(0)(nestedMessages, messagesOverview);
         }
         if (selectedIndex !== null) {
-          setSelected(nestedMessages[selectedIndex]);
+          let index: number;
+          if (hashArray === null) {
+            index = 0;
+          } else {
+            index = hashArray.findIndex((hash) => hash === conversationHash);
+            if (index === -1) index = 0;
+          }
+          handleClickFactory(index)(nestedMessages, messagesOverview);
         }
       }
       return nestedMessages;
     },
   });
   if (isPending) {
-    return <span>Loading...</span>;
+    return <span className="queryStatus">Loading...</span>;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    console.log(error);
+    return (
+      <span className="queryStatus">
+        Miste irgendwas ist schief gelaufen...
+      </span>
+    );
   }
 
   if (!data)
@@ -118,7 +145,9 @@ export default function ChatSidebar({
     return (
       <div
         className={selectedIndex === i ? "row selected" : "row"}
-        onClick={() => handleClickFactory(i)(nestedMessages, messagesOverview)}
+        onClick={() => {
+          handleClickFactory(i)(nestedMessages, messagesOverview);
+        }}
         key={`line-${message.id}`}
       >
         <h2>{otherUserName}</h2>

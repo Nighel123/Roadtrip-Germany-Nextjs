@@ -1,9 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { MessagesDisplay, RoadtripDisplay } from "lib/definitions";
-import { sortMessages } from "lib/utils";
+import { MessagesDisplay } from "lib/definitions";
 import axios from "axios";
 import { useSession } from "next-auth/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ChatMessages({
   selected,
@@ -14,11 +13,12 @@ export default function ChatMessages({
   const queryClient = useQueryClient();
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const userID = session.data?.user?.id;
+  //const [scroll, setScroll] = useState(true);
+
+  /* const [isVisible, setIsVisible] = useState(false); */
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({
-      block: "nearest",
-    });
+    messagesEndRef.current?.scrollIntoView({ block: "end", inline: "nearest" });
   };
 
   const mutation = useMutation({
@@ -27,8 +27,9 @@ export default function ChatMessages({
     },
     onSuccess: (data) => {
       // Invalidate and refetch
-      if (data.data) queryClient.invalidateQueries({ queryKey: ["messages"] });
-      scrollToBottom();
+      if (data.data) {
+        queryClient.invalidateQueries({ queryKey: ["messages"] });
+      }
     },
   });
   useEffect(() => {
@@ -40,24 +41,66 @@ export default function ChatMessages({
     });
   }, [selected]);
 
-  const sorted = sortMessages(selected);
-  let rows = sorted.map((message) => {
+  useEffect(() => {
+    if (messagesEndRef.current) scrollToBottom();
+  }, [messagesEndRef.current]);
+
+  /*   useEffect(() => {
+    const handleScroll = () => {
+      if (messagesEndRef.current) {
+        const rect = messagesEndRef.current.getBoundingClientRect();
+        const isVisible =
+          rect.top >= 0 &&
+          rect.left >= 0 &&
+          rect.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+          rect.right <=
+            (window.innerWidth || document.documentElement.clientWidth);
+        setIsVisible(isVisible);
+      } 
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Initial check on component mount
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);*/
+
+  /*   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    console.log(event.currentTarget.scrollTop);
+    console.log(event.currentTarget);
+    //console.log(event.currentTarget.scrollBy({ top: 900 }));
+    //setScroll(false);
+  }; */
+
+  //const sorted = sortMessages(selected);
+  const endIndex = selected.length - 1;
+  const rows = selected.map((message, index) => {
     return (
-      <div
-        key={`sorted-${message.id}`}
-        className={message.from === Number(userID) ? "me" : "other"}
-      >
-        {message.text}
-      </div>
+      <>
+        <div
+          key={`sorted-${message.id}`}
+          className={message.from === Number(userID) ? "me" : "other"}
+        >
+          {message.text}
+        </div>
+        {index === endIndex ? (
+          <div
+            ref={messagesEndRef}
+            id="scrollElement"
+            key={`scrollIntoViewElement-${message.id}`}
+          ></div>
+        ) : null}
+      </>
     );
   });
 
   return (
     <>
-      <div id="messages">
-        {rows}
-        <div ref={messagesEndRef} id="scrollElement" />
-      </div>
+      <div id="messages" /* onScroll={handleScroll} */>{rows}</div>
     </>
   );
 }

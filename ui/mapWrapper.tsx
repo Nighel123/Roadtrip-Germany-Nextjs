@@ -4,9 +4,10 @@ import MyMapComponent from "./map";
 
 export default async function MapWrapper() {
   const roadtrips = await fetchRoadtrips();
+  const cutRoadArr = roadtrips.slice(0, 5);
   return (
     <MapLoader>
-      <MyMapComponent roadtrips={roadtrips} />
+      <MyMapComponent roadtrips={cutRoadArr} />
     </MapLoader>
   );
 }

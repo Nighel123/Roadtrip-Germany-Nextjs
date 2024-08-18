@@ -1,8 +1,10 @@
 import { fetchMessagesByUserId, insertMessage } from "lib/data";
 import { MessagesDisplay } from "lib/definitions";
 import {
+  hashedArrayFromOverview,
   nestMessageArrayByOtherUserId,
   nestMessagesToOverviewMessages,
+  sortNestedMessages,
 } from "lib/utils";
 import { auth } from "auth";
 
@@ -11,15 +13,9 @@ export async function GET(request: Request) {
   if (!userId) return Response.json([[], []]);
   const messages = await fetchMessagesByUserId(userId);
   const nestedMessages = nestMessageArrayByOtherUserId(messages);
-  const messagesOverview = nestMessagesToOverviewMessages(
-    nestedMessages,
-    userId
-  );
+  const nestedMessagesSorted = sortNestedMessages(nestedMessages);
 
-  return Response.json([messagesOverview, nestedMessages] as [
-    MessagesDisplay[],
-    MessagesDisplay[][]
-  ]);
+  return Response.json(nestedMessagesSorted as MessagesDisplay[][]);
 }
 
 export async function POST(req: Request) {

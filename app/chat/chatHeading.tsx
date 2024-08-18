@@ -99,7 +99,7 @@ function Heading({
         </MapLoader>
         <Image src={image_url} alt="roadtripPicture" width={150} height={300} />
         <div>
-          <h1 className="name">{username}</h1>
+          <h1 className="name">Roadtrip von: {username}</h1>
           <div className="date">{formatDateToLocal(date)}</div>
           <p>
             {startland}, {starttown} &#8594; {destland}, {desttown}

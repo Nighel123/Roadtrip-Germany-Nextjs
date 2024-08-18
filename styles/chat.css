@@ -27,6 +27,8 @@ div.chat #messageContainer {
 .chat #sendForm {
   grid-column: 2/3;
   grid-row: 3/4;
+  display: flex;
+  flex-direction: column;
 }
 
 .chat #table {
@@ -79,9 +81,9 @@ div.chat #messageContainer {
   padding: 0.5vw;
 }
 #sendForm input {
-  height: 4vw;
+  width: 14vw;
   padding: 0;
-  float: right;
+  align-self: end;
 }
 
 .chat #table .row {

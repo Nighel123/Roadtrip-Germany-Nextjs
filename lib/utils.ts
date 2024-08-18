@@ -85,10 +85,42 @@ export function nestMessageArrayByOtherUserId(
         otherUserId = partRoadID[pivot].otherUserId;
         partRoadID = partRoadID.slice(pivot);
       }
-      if (partOtherUserID.length !== 0) nestedArray.push(partOtherUserID);
+      if (partOtherUserID.length !== 0)
+        nestedArray.push(sortMessages(partOtherUserID));
     }
   }
   return nestedArray;
+}
+
+export function sortNestedMessages(nestedMessages: MessagesDisplay[][]) {
+  nestedMessages.map((messages) => sortMessages(messages));
+  const compareFn = (a: Date, b: Date) => {
+    if (a > b) {
+      return -1;
+    }
+    if (b > a) {
+      return 1;
+    }
+    return 0;
+  };
+
+  return nestedMessages.sort((a, b) => {
+    return compareFn(new Date(a[0].created), new Date(b[0].created));
+  });
+}
+
+export function getConversationHash(message: MessagesDisplay) {
+  const { from, to } = message;
+  const end = from < to ? from + to : to + from;
+  return message.roadtripId + end;
+}
+
+export function getHashArray(messagesOverview: MessagesDisplay[]) {
+  return messagesOverview.map((message) => getConversationHash(message));
+}
+
+export function displayNestedArray(nestedMessages: MessagesDisplay[][]) {
+  return nestedMessages.map((messages) => messages.reverse());
 }
 
 export function nestMessagesToOverviewMessages(
@@ -98,7 +130,7 @@ export function nestMessagesToOverviewMessages(
   if (messages.length === 0) return [];
   let overviewMessages: MessagesDisplay[] = [];
   messages.forEach((messages) => {
-    const sortMess = sortMessages(messages).reverse();
+    const sortMess = messages;
     const unread = sortMess.some(
       (message) => message.read === null && message.to === Number(userID)
     );
@@ -119,12 +151,13 @@ export function sortMessages(messages: MessagesDisplay[]) {
   /* A negative value indicates that a should come before b.
 A positive value indicates that a should come after b.
 Zero or NaN indicates that a and b are considered equal. */
+  if (messages.length === 0) return [];
   const compareFn = (a: Date, b: Date) => {
     if (a > b) {
-      return 1;
+      return -1;
     }
     if (b > a) {
-      return -1;
+      return 1;
     }
     return 0;
   };
