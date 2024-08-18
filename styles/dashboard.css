@@ -49,6 +49,11 @@
   width: 100%;
   border-bottom: 1px solid #d3dbf8;
 }
+.dashboard .tableRow a.tableLink {
+  display: flex;
+  width: 90%;
+}
+
 .dashboard .tableItem {
   padding: 5px 0px 5px 0px;
   width: 25%;

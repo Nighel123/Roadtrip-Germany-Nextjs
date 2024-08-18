@@ -38,18 +38,20 @@ export default function routesTableLineDash({
   return (
     <>
       <div className="tableRow">
-        <div className="tableItem">{roadtrip.username}</div>
-        <div className="tableItem">
-          {roadtrip.startland}
-          <br />
-          {roadtrip.starttown}
-        </div>
-        <div className="tableItem">
-          {roadtrip.destland}
-          <br />
-          {roadtrip.desttown}
-        </div>
-        <div className="tableItem">{formatDateToLocal(roadtrip.date)}</div>
+        <Link href={link} className="tableLink">
+          <div className="tableItem">{roadtrip.username}</div>
+          <div className="tableItem">
+            {roadtrip.startland}
+            <br />
+            {roadtrip.starttown}
+          </div>
+          <div className="tableItem">
+            {roadtrip.destland}
+            <br />
+            {roadtrip.desttown}
+          </div>
+          <div className="tableItem">{formatDateToLocal(roadtrip.date)}</div>
+        </Link>
         <Link
           className="tableItem edit"
           href={`/insertRoadtrip?id=${roadtrip.id}`}
