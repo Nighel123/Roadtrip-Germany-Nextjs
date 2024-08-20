@@ -21,13 +21,18 @@
   text-align: center;
 }
 
+.login p.errorMssg {
+  text-align: center;
+  margin-bottom: 2em;
+}
+
 .login #swipeContainer {
   display: flex;
   justify-content: space-around;
   width: 200%;
   transition: left 200ms;
   height: 100px;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
   position: relative;
   left: 0;
 }

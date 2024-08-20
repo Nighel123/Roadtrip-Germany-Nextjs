@@ -1,0 +1,107 @@
+{
+  "home": {
+    "actualRoutes": "/home/aktuelleRouten.jpg",
+    "makeYourTrip": "/home/eigenenRoadtripMachen.jpg",
+    "logIn": "/home/einloggenBlack.jpg",
+    "register": "/home/registrierenBlack.jpg",
+    "logOut": "/home/ausloggen.jpg"
+  },
+  "logIn": {
+    "verifyText": "Log dich ein, um deine Email zu verifizieren.",
+    "username": "Benutzername",
+    "password": "Passwort",
+    "continueButton": "Weiter",
+    "loginButton": "einloggen",
+    "loginLoading": "laden...",
+    "error": {
+      "IVALID_CREDENTIALS": "Fehlerhafte Eingabe",
+      "SERVER_ERROR": "Ohhh, irgendwas haben wir verkehrt gemacht..."
+    }
+  },
+  "routesOverview": {
+    "createTrip": "/routesOverview/eigeneReiseMachen.jpg",
+    "viewTrips": "/routesOverview/reiseAnsehen.jpg"
+  },
+  "imprint": {
+    "headline": "Impressum",
+    "provider": "Anbieter",
+    "location": "Stuttgart",
+    "contact": "Kontakt: E-Mail: ",
+    "editorialContent": "Bei redaktionellen Inhalten:",
+    "responsible": "Verantwortlich nach "
+  },
+  "insertRoadtrip": {
+    "heading": "erstelle deinen eigenen Roadtrip",
+    "startText": "Wo wollt ihr losfahren?",
+    "destText": "Wo wollt ihr hin?",
+    "dateText": "Wann wollt ihr losfahren?",
+    "descriptionText": "Beschreibe in einem Text wer du bist und was du auf deiner Reise vorhast:",
+    "land": "Land",
+    "town": "Stadt",
+    "day": "Tag",
+    "month": "Monat",
+    "year": "Jahr",
+    "uploadImageButton": "/insertRoadtrip/BilderHochladen.jpg",
+    "insertRoadtripButton": "/insertRoadtrip/roadtripEintragen.jpg",
+    "insertRoadtripButtonLoading": "/insertRoadtrip/roadtripEintragenLoading.jpg",
+    "error": {
+      "day": {
+        "WRONG_DATA": "Bitte gebe eine Nummer für den Tag ein.",
+        "TOO_LOW": "Bitte gebe einen Tag gößer eins ein.",
+        "TOO_HIGH": "Bitte gebe einen Tag der kleiner als 32 ist ein."
+      }
+    }
+  },
+  "register": {
+    "heading": "create roadtrip-account",
+    "username": "Nutzername",
+    "email": "E-Mail-Adresse",
+    "password": "Passwort",
+    "birthday": "Geburtstag",
+    "sex": "Geschlecht",
+    "or": "oder",
+    "sexOptions": "[\"weiblich\", \"männlich\"]",
+    "registerButton": "/register/registrieren.jpg",
+    "registerButtonLoading": "/register/registrierenLoading.jpg",
+    "monthsLang": "[\"Januar\", \"Februar\", \"März\", \"April\", \"Mai\", \"Juni\", \"Juli\", \"August\", \"September\", \"Oktober\", \"November\", \"Dezember\"]",
+    "error": {
+      "username": {
+        "WRONG_CHARACTERS": "Bitte gebe nur Buchstaben ein.",
+        "TOO_SHORT": "Bitte gebe mindestes zwei Zeichen ein.",
+        "TOO_LONG": "Bitte gebe maximal 60 Zeichen ein.",
+        "ALREADY_EXISTS": "Dieser Nutzerame existiert bereits."
+      },
+      "email": {
+        "WRONG_CHARACTERS": "Bitte gebe nur Buchstaben ein.",
+        "WRONG_FORMAT": "Das ist keine valide Email-Addresse.",
+        "ALREADY_EXISTS": "Diese Email existiert bereits."
+      },
+      "password": {
+        "WRONG_DATA": "Nur Zeichenreihen sind valide Passwörter.",
+        "TOO_SHORT": "Bitte gebe mindestens acht Zeichen als Passwort ein.",
+        "TOO_LONG": "Bitte gebe maximal 100 Zeichen als Passwort ein.",
+        "WRONG_FORMAT": "Das Passwort sollte mindestens jeweils einen großen, einen kleinen Buchstaben und eine Zahl enthalten."
+      },
+      "day": {
+        "WRONG_DATA": "Bitte gebe eine Nummer für den Tag ein.",
+        "TOO_LOW": "Bitte gebe einen Tag gößer eins ein.",
+        "TOO_HIGH": "Bitte gebe einen Tag der kleiner als 32 ist ein."
+      },
+      "month": {
+        "WRONG_DATA": "Bitte wähle einen der folgneden Monate aus: "
+      },
+      "year": {
+        "WRONG_DATA": "Bitte gebe eine Nummer für das Jahr ein.",
+        "TOO_HIGH": "Mit 201 Jahren, kann man doch keinen Roadtrip mehr machen!:).",
+        "TOO_LOW": "Du solltest mindestens 12 Jahre alt sein."
+      },
+      "date": {
+        "INVALID": "Invalides Datum."
+      },
+      "sex": {
+        "WRONG_DATA": "Für dein Geschelcht wähle bitte entweder",
+        "WRONG_DATA_END": "aus."
+      }
+    }
+  }
+}

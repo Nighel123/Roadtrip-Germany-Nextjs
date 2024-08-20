@@ -1,0 +1,99 @@
+{
+  "home": {
+    "actualRoutes": "/home/routesOverview.jpg",
+    "makeYourTrip": "/home/makeYourTrip.jpg",
+    "logIn": "/home/logInBlack.jpg",
+    "register": "/home/signUpBlack.jpg",
+    "logOut": "/home/logOut.jpg"
+  },
+  "logIn": {
+    "verifyText": "log in to verify your Email",
+    "username": "username",
+    "password": "password",
+    "continueButton": "continue",
+    "loginButton": "log in",
+    "loginLoading": "loading...",
+    "error": {
+      "IVALID_CREDENTIALS": "Ivalid credentials",
+      "SERVER_ERROR": "Uuups, there was an error at the server!"
+    }
+  },
+  "routesOverview": {
+    "createTrip": "/routesOverview/createTrip.jpg",
+    "viewTrips": "/routesOverview/viewTrips.jpg"
+  },
+  "imprint": {
+    "headline": "Imprint",
+    "provider": "Provider:",
+    "contact": "Contact: ",
+    "editorialContent": "Editorial Content: ",
+    "responsible": "Responsible for "
+  },
+  "insertRoadtrip": {
+    "heading": "make your own Roadtrip",
+    "startText": "Where do you want to start?",
+    "destText": "Where do you want to go?",
+    "dateText": "When do you want to start?",
+    "descriptionText": "Describe in a text who you are and what you want to do:",
+    "land": "land",
+    "town": "town",
+    "day": "day",
+    "month": "month",
+    "year": "year",
+    "uploadImageButton": "/insertRoadtrip/uploadImage.jpg",
+    "insertRoadtripButton": "/insertRoadtrip/insertRoadtrip.jpg",
+    "insertRoadtripButtonLoading": "/insertRoadtrip/insertRoadtripLoading.jpg"
+  },
+  "register": {
+    "heading": "Roadtrip-Konto erstellen",
+    "username": "username",
+    "email": "e-mail-address",
+    "password": "password",
+    "birthday": "birthday",
+    "sex": "sex",
+    "sexOptions": "[\"female\", \"male\"]",
+    "or": "or",
+    "registerButton": "/register/register.jpg",
+    "registerButtonLoading": "/register/registerLoading.jpg",
+    "monthsLang": "[\"January\", \"Febuary\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"]",
+    "error": {
+      "username": {
+        "WRONG_CHARACTERS": "Please only enter characters.",
+        "TOO_SHORT": "Please enter minimum two characters.",
+        "TOO_LONG": "Please enter maximum 60 characters.",
+        "ALREADY_EXISTS": "This username already exists."
+      },
+      "email": {
+        "WRONG_CHARACTERS": "Please only enter characters.",
+        "WRONG_FORMAT": "This sequence of characters is not formatted like an email is.",
+        "ALREADY_EXISTS": "This email already exists."
+      },
+      "password": {
+        "WRONG_DATA": "Wrong data type.",
+        "TOO_SHORT": "Plase enter minimum eight characters.",
+        "TOO_LONG": "Please enter maximum 100 characters.",
+        "WRONG_FORMAT": "The password should contain a small letter, a capital letter and number."
+      },
+      "day": {
+        "WRONG_DATA": "Please enter a number for the day.",
+        "TOO_LOW": "Plase enter a day bigger than one.",
+        "TOO_HIGH": "Plase enter a day smaller than 32."
+      },
+      "month": {
+        "WRONG_DATA": "Please enter one of the following months: "
+      },
+      "year": {
+        "WRONG_DATA": "Please enter a number for the year.",
+        "TOO_HIGH": "With 201 you can't do roadtrips anymore!:).",
+        "TOO_LOW": "You should be at least 12 years old!."
+      },
+      "date": {
+        "INVALID": "Invalides date."
+      },
+      "sex": {
+        "WRONG_DATA": "Plase enter .",
+        "WRONG_DATA_END": ""
+      }
+    }
+  }
+}

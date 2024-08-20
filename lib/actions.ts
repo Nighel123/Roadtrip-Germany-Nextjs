@@ -12,6 +12,7 @@ import {
   DeleteRoadtripForm,
   RoadtripEditForm,
   DeleteUserForm,
+  Lang,
 } from "./definitions";
 import {
   FormDataErrors,
@@ -20,8 +21,11 @@ import {
   zFormDataObj,
   error,
   zFormDataObjEdit,
-} from "app/insertRoadtrip/utils";
-import { formatRegisterData, zRegisterForm } from "app/register/utils";
+} from "app/[lang]/insertRoadtrip/utils";
+import {
+  formatRegisterData,
+  validateRegisterForm,
+} from "app/[lang]/register/utils";
 import { auth, signIn, signOut } from "auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
@@ -30,6 +34,8 @@ import { randomUUID } from "node:crypto";
 import { sendVerificationEmail } from "lib/mail";
 import { fetchRoadtripById } from "./data";
 import { zDeleteRoadtrip, zDeleteUser } from "lib/validateFormData";
+import { getLang } from "./context";
+import { getDictionary } from "app/[lang]/dictionaries";
 
 const { log } = console;
 
@@ -41,6 +47,8 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData
 ) {
+  const lang = formData.get("lang") as Lang;
+  const { logIn } = await getDictionary(lang);
   const LoginObj = Object.fromEntries(formData.entries()) as LoginForm<any>;
 
   const parsedCredentials = z
@@ -52,40 +60,38 @@ export async function authenticate(
     })
     .safeParse(LoginObj);
 
-  if (parsedCredentials.success) {
-    const { username, password, callbackUrl, verificationToken } =
-      parsedCredentials.data;
+  if (!parsedCredentials.success) return logIn.error.IVALID_CREDENTIALS;
 
-    try {
-      /* const { url, status, ok, error } =  */ await signIn("credentials", {
-        username: username,
-        password: password,
-        redirectTo: callbackUrl, // digested by the redirect callback in the
-        verificationToken: verificationToken,
-      });
-      //redirect(url);
-      //console.log(url);
-      log("no errors");
-    } catch (error) {
-      if (error instanceof AuthError) {
-        //log(error);
-        switch (error.type) {
-          case "CredentialsSignin":
-            return "Invalide Daten.";
-          case "CallbackRouteError":
-            return error.cause?.err?.message;
-          default:
-            return "Something went wrong.";
-        }
-      }
+  const { username, password, callbackUrl, verificationToken } =
+    parsedCredentials.data;
 
-      if (isRedirectError(error)) {
-        // I guess it is not possible to prevet this error since it also happens in the tutorial!
-        throw error;
+  try {
+    await signIn("credentials", {
+      username: username,
+      password: password,
+      redirectTo: callbackUrl, // digested by the redirect callback in the
+      verificationToken: verificationToken,
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      //log(error);
+      switch (error.type) {
+        case "CredentialsSignin":
+          return logIn.error.IVALID_CREDENTIALS;
+        case "CallbackRouteError":
+          console.error(error);
+          return logIn.error.SERVER_ERROR;
+        default:
+          return logIn.error.SERVER_ERROR;
       }
-      //log({ error });
+    }
+
+    if (isRedirectError(error)) {
+      // I guess it is not possible to prevet this error since it also happens in the tutorial!
       throw error;
     }
+    //log({ error });
+    throw error;
   }
 }
 
@@ -94,12 +100,12 @@ export async function register(
   formData: FormData
 ): Promise<error[]> {
   const submit = formData.get("submit");
+  const lang = formData.get("lang") as Lang;
   const formDataObj = Object.fromEntries(
     formData.entries()
   ) as RegisterForm<any>;
-
   const formatedDataObj = formatRegisterData(formDataObj);
-  const resFormDataObj = await zRegisterForm.safeParseAsync(formatedDataObj);
+  const resFormDataObj = await validateRegisterForm(formatedDataObj, lang);
 
   if (!resFormDataObj.success) {
     return formatErrors(
