@@ -39,7 +39,7 @@ export default async function AuthButtons({ dict }: { dict: Dict }) {
           </Link>
           <Link href={"/dashboard"} id="settings">
             <Image
-              src="/home/settings.png"
+              src="/home/settings.jpg"
               width={400}
               height={400}
               alt="registrieren"
