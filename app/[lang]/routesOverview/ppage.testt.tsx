@@ -16,7 +16,7 @@ describe("routesOverview", () => {
 
 describe("Links", () => {
   test("Link to 'home' from 'routesOverview'", async () => {
-    //render(await Page());
+    ////render(await Page());
     fireEvent.click(screen.getByRole("link", { name: "title" }));
     waitFor(() => expect(screen.getByTestId("home")).toBeInTheDocument());
   });
