@@ -4,7 +4,7 @@
     "makeYourTrip": "/home/makeYourTrip.jpg",
     "logIn": "/home/logInBlack.jpg",
     "register": "/home/signUpBlack.jpg",
-    "logOut": "/home/logOut.jpg"
+    "logOut": "/images/home/logOut.jpg"
   },
   "logIn": {
     "verifyText": "log in to verify your Email",
@@ -41,8 +41,8 @@
     "month": "month",
     "year": "year",
     "uploadImageButton": "/insertRoadtrip/uploadImage.jpg",
-    "insertRoadtripButton": "/insertRoadtrip/insertRoadtrip.jpg",
-    "insertRoadtripButtonLoading": "/insertRoadtrip/insertRoadtripLoading.jpg",
+    "insertRoadtripButton": "/images/insertRoadtrip/insertRoadtrip.jpg",
+    "insertRoadtripButtonLoading": "/images/insertRoadtrip/insertRoadtripLoading.jpg",
     "error": {
       "day": {
         "WRONG_DATA": "Please enter a number for the day.",
@@ -109,8 +109,8 @@
     "birthday": "birthday",
     "sex": "sex",
     "sexOptions": "[\"female\", \"male\"]",
-    "registerButton": "/register/register.jpg",
-    "registerButtonLoading": "/register/registerLoading.jpg",
+    "registerButton": "/images/register/register.jpg",
+    "registerButtonLoading": "/images/register/registerLoading.jpg",
     "monthsLang": "[\"January\", \"Febuary\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"]",
     "error": {
       "username": {
@@ -154,7 +154,7 @@
   "viewRoadtrip": {
     "introduction": "[\"wants to make a roadtrip from\", \"too\", \".\", \"It should start on the\", \".\",\" He \",\" She\", \"has written the following:\"]",
     "picture": "The picture for this roadtrip:",
-    "sendMessage": "/viewRoadtrip/sendMessage.jpg"
+    "sendMessage": "/images/viewRoadtrip/sendMessage.jpg"
   },
   "chat": {
     "queryStatus": {
@@ -171,7 +171,7 @@
       "heading": "Roadtrip of: "
     },
     "chatForm": {
-      "send": "/chat/send.jpg"
+      "send": "/images/chat/send.jpg"
     }
   },
   "dashboard": {

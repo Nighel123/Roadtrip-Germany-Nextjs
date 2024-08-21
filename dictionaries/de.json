@@ -4,7 +4,7 @@
     "makeYourTrip": "/home/eigenenRoadtripMachen.jpg",
     "logIn": "/home/einloggenBlack.jpg",
     "register": "/home/registrierenBlack.jpg",
-    "logOut": "/home/ausloggen.jpg"
+    "logOut": "/images/home/ausloggen.jpg"
   },
   "logIn": {
     "verifyText": "Log dich ein, um deine Email zu verifizieren.",
@@ -42,8 +42,8 @@
     "month": "Monat",
     "year": "Jahr",
     "uploadImageButton": "/insertRoadtrip/BilderHochladen.jpg",
-    "insertRoadtripButton": "/insertRoadtrip/roadtripEintragen.jpg",
-    "insertRoadtripButtonLoading": "/insertRoadtrip/roadtripEintragenLoading.jpg",
+    "insertRoadtripButton": "/images/insertRoadtrip/roadtripEintragen.jpg",
+    "insertRoadtripButtonLoading": "/images/insertRoadtrip/roadtripEintragenLoading.jpg",
     "error": {
       "day": {
         "WRONG_DATA": "Bitte gebe eine Nummer für den Tag ein.",
@@ -110,8 +110,8 @@
     "birthday": "Geburtstag",
     "sex": "Geschlecht",
     "sexOptions": "[\"weiblich\", \"männlich\"]",
-    "registerButton": "/register/registrieren.jpg",
-    "registerButtonLoading": "/register/registrierenLoading.jpg",
+    "registerButton": "/images/register/registrieren.jpg",
+    "registerButtonLoading": "/images/register/registrierenLoading.jpg",
     "monthsLang": "[\"Januar\", \"Februar\", \"März\", \"April\", \"Mai\", \"Juni\", \"Juli\", \"August\", \"September\", \"Oktober\", \"November\", \"Dezember\"]",
     "error": {
       "username": {
@@ -155,7 +155,7 @@
   "viewRoadtrip": {
     "introduction": "[\"möchte einen Roadtrip von\", \"nach\", \" machen.\", \"Es soll am\", \" losgehen.\",\" Er\",\" Sie\", \"hat folgendes dazu geschrieben:\"]",
     "picture": "Das Bild für diesen Roadtrip:",
-    "sendMessage": "/viewRoadtrip/nachrichtSenden.jpg"
+    "sendMessage": "/images/viewRoadtrip/nachrichtSenden.jpg"
   },
   "chat": {
     "queryStatus": {
@@ -172,7 +172,7 @@
       "heading": "Roadtrip von: "
     },
     "chatForm": {
-      "send": "/chat/senden.jpg"
+      "send": "/imgaes/chat/senden.jpg"
     }
   },
   "dashboard": {
