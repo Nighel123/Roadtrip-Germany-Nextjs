@@ -29,7 +29,12 @@ export default async function RoutesOverview({
       </Suspense>
       <div className="routesOverview" data-testid="routesOverview">
         <Link href="/">
-          <Image src="/title.jpg" alt="title" width={1374} height={567} />
+          <Image
+            src="/images/title.jpg"
+            alt="title"
+            width={1374}
+            height={567}
+          />
         </Link>
 
         <Image
