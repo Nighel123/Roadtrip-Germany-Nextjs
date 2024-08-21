@@ -28,20 +28,15 @@ export default async function RoutesOverview({
         <AuthButtons dict={dict} />
       </Suspense>
       <div className="routesOverview" data-testid="routesOverview">
-        <Link href="/">
-          <Image
-            src="/images/title.jpg"
-            alt="title"
-            width={1374}
-            height={567}
-          />
+        <Link id="titleImage" href="/">
+          <Image src="/images/title.jpg" alt="title" width={992} height={409} />
         </Link>
 
         <Image
           src="/images/routesOverview/blueFrame.jpg"
           alt="blueFrame"
-          width={740}
-          height={444}
+          width={567}
+          height={340}
         />
         <div id="tableContainer">
           <Suspense fallback={<TableSkeleton />}>
@@ -52,8 +47,8 @@ export default async function RoutesOverview({
         <Image
           src="/images/routesOverview/redFrame.jpg"
           alt="redFrame"
-          width={2486}
-          height={1699}
+          width={850}
+          height={581}
         />
         <div id="map">
           <Suspense fallback={<MapSkeleton />}>
@@ -65,16 +60,16 @@ export default async function RoutesOverview({
           <Image
             src={routesOverview.createTrip}
             alt="insertRoadtrip"
-            width={662}
-            height={147}
+            width={283}
+            height={63}
           />
         </Link>
         <Link href="/routesDetailed">
           <Image
             src={routesOverview.viewTrips}
             alt="routesDetailed"
-            width={662}
-            height={145}
+            width={283}
+            height={62}
           />
         </Link>
 

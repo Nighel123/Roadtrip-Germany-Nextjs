@@ -6,9 +6,13 @@
 }
 
 .routesOverview img[alt~="title"] {
+  width: 200%;
+  z-index: -1;
+}
+.routesOverview a#titleImage {
+  z-index: -1;
   grid-column: 1/2;
   grid-row: 1/2;
-  width: 200%;
 }
 
 .routesOverview img[alt~="blueFrame"],
@@ -54,9 +58,6 @@
 .routesOverview #map {
   grid-column: 2/3;
   grid-row: 2/3;
-}
-.routesOverview img[alt~="redFrame"] {
-  height: 100%;
 }
 .routesOverview #map {
   position: relative;
