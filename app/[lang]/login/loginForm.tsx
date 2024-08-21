@@ -8,6 +8,7 @@ import { useSearchParams } from "next/navigation";
 import SubmitButton from "./submitButton";
 import GoogleLogin from "./googleLogin";
 import { Dict } from "../dictionaries";
+import { signIn } from "auth";
 
 export function Form({ dict }: { dict: Dict }) {
   const { logIn } = dict;
@@ -40,7 +41,7 @@ export function Form({ dict }: { dict: Dict }) {
         onClick={ToogleSwipe}
       >
         <Image
-          src="/login/arrowDown.svg"
+          src="/images/login/arrowDown.svg"
           width={20}
           height={20}
           alt="arrow back"

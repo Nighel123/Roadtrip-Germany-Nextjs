@@ -23,7 +23,7 @@ export default function ChatMessages({
 
   const mutation = useMutation({
     mutationFn: (o: { from: number; roadtripId: string }) => {
-      return axios.post("api/chat/update", o);
+      return axios.post("/api/chat/update", o);
     },
     onSuccess: (data) => {
       // Invalidate and refetch
