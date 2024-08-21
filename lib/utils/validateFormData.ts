@@ -11,13 +11,3 @@ export const zRoadtripID = z
 export const zDeleteRoadtrip = z.object({
   id: zRoadtripID,
 });
-
-export const zDeleteUser = z.object({
-  delete: z
-    .string({
-      message: `Du musst "Löschen" eingeben.`,
-    })
-    .regex(/Löschen/gm, {
-      message: `Du musst "Löschen" eingeben.`,
-    }),
-});

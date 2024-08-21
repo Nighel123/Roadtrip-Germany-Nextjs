@@ -1,4 +1,4 @@
-import { MessagesDisplay } from "./definitions";
+import { MessagesDisplay } from "../definitions";
 import {
   nestMessageArrayByOtherUserId,
   nestMessagesToOverviewMessages,

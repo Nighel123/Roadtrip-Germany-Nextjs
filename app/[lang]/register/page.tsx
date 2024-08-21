@@ -35,7 +35,7 @@ const Register = async ({
         width={1005}
         height={850}
       />
-      <Form dict={dict} lang={lang} />
+      <Form dict={dict} />
     </div>
   );
 };

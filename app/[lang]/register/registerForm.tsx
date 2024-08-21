@@ -6,7 +6,6 @@ import { useTouched } from "app/[lang]/insertRoadtrip/useTouched";
 import { register } from "lib/actions";
 import Submit from "./submit";
 import { Dict } from "../dictionaries";
-import { sex } from "lib/definitions";
 
 const errorPaths = [
   "username",
@@ -19,9 +18,9 @@ const errorPaths = [
   "birthday",
 ];
 
-export function Form({ dict, lang }: { dict: Dict; lang: string }) {
+export function Form({ dict }: { dict: Dict }) {
   const { errors, formRef, handleBlur, handleChange, handleSubmit, loading } =
-    useTouched(errorPaths, register);
+    useTouched(errorPaths, register, dict.register.error);
   const sexLang = JSON.parse(dict.register.sexOptions);
 
   return (
@@ -93,7 +92,6 @@ export function Form({ dict, lang }: { dict: Dict; lang: string }) {
         </div>
         <ErrorComponent errors={errors} show={["sex", "submit"]} />
       </div>
-      <input hidden name="lang" value={lang} />
 
       <Submit handleSubmit={handleSubmit} loading={loading} dict={dict} />
     </form>

@@ -1,5 +1,5 @@
 import { Roadtrip, RoadtripDisplay } from "lib/definitions";
-import { formatDateToLocal } from "lib/utils";
+import { formatDateToLocal } from "lib/utils/utils";
 import Link from "next/link";
 
 export default function RoutesTableLine({

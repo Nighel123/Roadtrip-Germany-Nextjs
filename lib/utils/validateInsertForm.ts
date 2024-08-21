@@ -1,10 +1,15 @@
-import { Lang, RoadtripEditForm, RoadtripForm, months } from "lib/definitions";
-import { monthToNumber } from "lib/utils";
+import {
+  ErrorCodes,
+  Lang,
+  RoadtripEditForm,
+  RoadtripForm,
+  months,
+} from "lib/definitions";
+import { monthToNumber } from "./utils";
 import { z } from "zod";
 import { Client, GeocodeRequest } from "@googlemaps/google-maps-services-js";
-import { zRoadtripID } from "lib/validateFormData";
-import { getDictionary } from "../dictionaries";
-import { getLang } from "lib/context";
+import { zRoadtripID } from "./validateFormData";
+import { getDictionary } from "../../app/[lang]/dictionaries";
 export async function isAddressValid(a: string, b: string) {
   /* console.log(a, b); */
   return Promise.resolve(true);
@@ -83,38 +88,24 @@ export function insertFormToZObj(o: RoadtripForm<any> | RoadtripEditForm<any>) {
   };
 }
 
-export async function validateInsertEditForm(
-  formDataObj: RoadtripForm<any> | RoadtripEditForm<any>,
-  lang: Lang
-) {
-  const dict = await getDictionary(lang);
-  const formDataZObj = insertFormToZObj(formDataObj);
-}
-
 const zDate = z
   .object({
     day: z.coerce
-      .number({ message: "Bitte gebe eine Nummer für den Tag ein." })
-      .min(1, { message: "Bitte gebe einen Tag größer als null ein." })
-      .max(31, { message: "Bitte gebe einen Tag der kleiner als 31 ist ein." }),
+      .number({ message: ErrorCodes.WRONG_DATA })
+      .min(1, { message: ErrorCodes.TOO_LOW })
+      .max(31, { message: ErrorCodes.TOO_HIGH }),
     month: z
       .enum(months, {
-        message: `Bitte wähle einen der folgneden Monate aus: ${months.join(
-          ", "
-        )}`,
+        message: ErrorCodes.WRONG_DATA,
       })
       .transform((month) => monthToNumber(month)),
     year: z.coerce
-      .number({ message: "Bitte gebe eine Nummer für das Jahr ein." })
+      .number({ message: ErrorCodes.WRONG_DATA })
       .min(new Date().getFullYear(), {
-        message:
-          "Bitte wähle ein Jahr, dass in der größer als " +
-          new Date().getFullYear(),
+        message: ErrorCodes.TOO_LOW,
       })
       .max(new Date().getFullYear() + 5, {
-        message:
-          "Bitte wähle ein Jahr, dass weniger als fünf Jahre in der Zukunft liegt aus, also vor " +
-          (new Date().getFullYear() + 5),
+        message: ErrorCodes.TOO_HIGH,
       }),
   })
   .transform(({ day, month, year }) => {
@@ -123,11 +114,9 @@ const zDate = z
   })
   .pipe(
     z.object({
-      Date: z
-        .date({ message: "Wir konnten das Datum nicht verifizieren." })
-        .min(new Date(), {
-          message: "Bitte wähle ein Datum aus, dass in der Zukunft liegt.",
-        }),
+      Date: z.date({ message: ErrorCodes.INVALID }).min(new Date(), {
+        message: ErrorCodes.TOO_LOW,
+      }),
       date: z.string(),
     })
   );
@@ -135,29 +124,29 @@ const zDate = z
 const zAddress = z
   .object({
     land: z
-      .string({ message: "Bitte gebe eine Buchstabenreihe für ein Land ein." })
+      .string({ message: ErrorCodes.WRONG_DATA })
       .min(2, {
-        message: "Bitte gebe mindestens zwei Buchstaben für ein Land ein.",
+        message: ErrorCodes.TOO_LOW,
       })
       .max(100, {
-        message: "Bitte gebe maximal 100 Buchstaben für ein Land ein.",
+        message: ErrorCodes.TOO_HIGH,
       }),
     town: z
       .string({
-        message: "Bitte gebe eine Buchstabenreihe für eine Stadt ein.",
+        message: ErrorCodes.WRONG_DATA,
       })
       .min(2, {
-        message: "Bitte gebe mindestens zwei Buchstaben für eine Stadt ein.",
+        message: ErrorCodes.TOO_LOW,
       })
       .max(100, {
-        message: "Bitte gebe maximal 100 Buchstaben für eine Stadt ein.",
+        message: ErrorCodes.TOO_HIGH,
       }),
   })
   .refine(
     async ({ land, town }) => {
       return await isAddressValid(town, land); /* todo: make it a real check. */
     },
-    { message: "Bitte gebe eine gültige Addresse ein." }
+    { message: ErrorCodes.INVALID }
   );
 
 const zRoute = z
@@ -169,27 +158,26 @@ const zRoute = z
     ({ dest, start }) =>
       !(dest.land === start.land && dest.town === start.town),
     {
-      message: "Start- und Zieladdresse dürfen nicht gleich sein.",
+      message: ErrorCodes.INVALID,
       path: ["dest"],
     }
   );
 
 const zDescription = z
   .string({
-    message: "Bitte gebe nur Buchstaben für die Beschreibung ein.",
+    message: ErrorCodes.WRONG_DATA,
   })
   .min(100, {
-    message:
-      "Bitte schreibe einen Beschreibungstext der mindestens 100 Buchstaben lang ist.",
+    message: ErrorCodes.TOO_LOW,
   })
   .max(5000, {
-    message: "Bitte gebe maximal 5000 Buchstaben für die Beschreibung ein.",
+    message: ErrorCodes.TOO_HIGH,
   });
 
 const imageTypes = ["tiff", "jpg", "jpeg", "png"] as const;
 const zFile = z
   .instanceof(File, {
-    message: "Bitte lade ein Bild hoch.",
+    message: ErrorCodes.NO_DATA,
   })
   .transform((File) => {
     const { name, type, size } = File;
@@ -199,24 +187,20 @@ const zFile = z
   .pipe(
     z.object({
       name: z.string({
-        message: "Bitte lade ein Bild hoch.",
+        message: ErrorCodes.NO_DATA,
       }),
       ext: z.enum(imageTypes, {
-        message: `Bitte lade ein Bild von folgendem Typ hoch: ${imageTypes.join(
-          ", "
-        )}`,
+        message: ErrorCodes.WRONG_DATA,
       }),
       size: z
         .number({
-          message: "Bitte lade ein Bild mit einer gültigen größe hoch.",
+          message: ErrorCodes.WRONG_DATA,
         })
         .max(7000000, {
-          message:
-            "Bitte lade ein Bild mit einer maximalen größe von 7Mb hoch.",
+          message: ErrorCodes.TOO_HIGH,
         })
         .min(5000, {
-          message:
-            "Bitte lade ein Bild mit einer minimalen größe von 5Kb hoch.",
+          message: ErrorCodes.TOO_LOW,
         }),
       File: z.instanceof(File, {
         message: "Bitte lade ein Bild hoch.",

@@ -2,14 +2,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { FormEvent, useState } from "react";
 import { useSession } from "next-auth/react";
+import { Dict } from "../dictionaries";
 
 export default function ChatForm({
   roadtripID,
   otherUserID,
+  dict,
 }: {
   roadtripID: string;
   otherUserID: number;
+  dict: Dict;
 }) {
+  const { chatForm } = dict.chat;
   const queryClient = useQueryClient();
   const [text, setText] = useState<string | null>(null);
   const session = useSession();
@@ -22,7 +26,7 @@ export default function ChatForm({
       to: number;
       roadtrip: string;
     }) => {
-      return axios.post("api/chat", newMessage);
+      return axios.post("/api/chat", newMessage);
     },
     onSuccess: () => {
       // Invalidate and refetch
@@ -56,7 +60,7 @@ export default function ChatForm({
         onChange={handleTextChange}
         value={text ? text : ""}
       ></textarea>
-      <input type="image" src="chat/send.png" alt="submit" />
+      <input type="image" src={chatForm.send} alt="submit" />
     </form>
   );
 }

@@ -7,21 +7,26 @@ import {
   getConversationHash,
   getHashArray,
   nestMessagesToOverviewMessages,
-} from "lib/utils";
+} from "lib/utils/utils";
+
 import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import ChatMessages from "./chatMessages";
 import { useSearchParams } from "next/navigation";
 
 import { useSession } from "next-auth/react";
+import { Dict } from "../dictionaries";
 
 export default function ChatSidebar({
   setRoadtripID,
   setOtherUserID,
+  dict,
 }: {
   setRoadtripID: Dispatch<SetStateAction<string | null>>;
   setOtherUserID: Dispatch<SetStateAction<number | null>>;
+  dict: Dict;
 }) {
+  const { chat } = dict;
   const searchParams = useSearchParams();
   const search = searchParams.get("id");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
@@ -61,7 +66,7 @@ export default function ChatSidebar({
     queryKey: ["messages"],
     refetchInterval: 3000,
     queryFn: async () => {
-      const response = await fetch(`api/chat`);
+      const response = await fetch(`/api/chat`);
       if (!response.ok) {
         throw new Error(
           "Network response for fetching users messages was not ok"
@@ -110,26 +115,19 @@ export default function ChatSidebar({
     },
   });
   if (isPending) {
-    return <span className="queryStatus">Loading...</span>;
+    return <span className="queryStatus">{chat.queryStatus.loading}</span>;
   }
 
   if (isError) {
     console.log(error);
-    return (
-      <span className="queryStatus">
-        Miste irgendwas ist schief gelaufen...
-      </span>
-    );
+    return <span className="queryStatus">{chat.queryStatus.error}</span>;
   }
 
   if (!data)
     return (
       <span>
-        <h1>Noch keine Nachrichten zu sehen.</h1>
-        <p>
-          Schreibe jemandem indem du auf einen Roadtrip klickst und dann auf
-          "Nachricht senden".
-        </p>
+        <h1>{chat.dataStatus.noData.heading}</h1>
+        <p>{chat.dataStatus.noData.paragraph}</p>
       </span>
     );
 
@@ -160,7 +158,7 @@ export default function ChatSidebar({
         </div>
 
         <p>
-          {startLand},{startTown} &#8594; {destLand},{destTown}
+          {startLand}, {startTown} &#8594; {destLand}, {destTown}
         </p>
 
         <p>{customText}</p>
@@ -171,11 +169,8 @@ export default function ChatSidebar({
     <>
       {rows.length === 0 && !search ? (
         <span className="queryStatus">
-          <h1>Noch keine Nachrichten zu sehen.</h1>
-          <p>
-            Schreibe jemandem indem du auf einen Roadtrip klickst und dann auf
-            "Nachricht senden".
-          </p>
+          <h1>{chat.dataStatus.noData.heading}</h1>
+          <p>{chat.dataStatus.noData.paragraph}</p>
         </span>
       ) : (
         <div id="table">{rows}</div>

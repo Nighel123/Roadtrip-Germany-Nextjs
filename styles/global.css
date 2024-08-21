@@ -24,6 +24,9 @@ body {
   margin: var(--gap); /* margins around the whole page */
   width: 93%;
 }
+pre {
+  font-family: inherit;
+}
 p.errorMssg {
   color: red;
 }

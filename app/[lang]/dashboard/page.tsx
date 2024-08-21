@@ -11,12 +11,19 @@ import RoutesTableDash from "./routesTableDash";
 import { fetchRoadtripsByUserID } from "lib/data";
 import { auth } from "auth";
 import DeleteAccount from "./deleteAccount";
+import { getDictionary } from "../dictionaries";
 
 export const metadata: Metadata = {
   title: "Roadtrips übersicht",
 };
 
-export default async function Dashboard() {
+export default async function Dashboard({
+  params: { lang },
+}: {
+  params: { lang: "en" | "de" };
+}) {
+  const dict = await getDictionary(lang);
+  const { dashboard } = dict;
   const session = await auth();
   const userID = session?.user?.id;
   const roadtrips = await fetchRoadtripsByUserID(userID);
@@ -33,7 +40,7 @@ export default async function Dashboard() {
           ) : null}
         </div>
         <div>
-          <p id="heading">Eingelogged als:</p>
+          <p id="heading">{dashboard.status}</p>
           <h2>{session?.user?.name}</h2>
           <p id="email">{session?.user?.email}</p>
         </div>
@@ -47,7 +54,7 @@ export default async function Dashboard() {
       />
       <div id="tableContainer">
         <Suspense fallback={<TableSkeleton />}>
-          <RoutesTableDash roadtrips={roadtrips} />
+          <RoutesTableDash roadtrips={roadtrips} dict={dict} />
         </Suspense>
       </div>
 
@@ -64,7 +71,7 @@ export default async function Dashboard() {
       </div>
 
       <div id="deleteAccount">
-        <DeleteAccount />
+        <DeleteAccount dict={dict} />
       </div>
     </div>
   );

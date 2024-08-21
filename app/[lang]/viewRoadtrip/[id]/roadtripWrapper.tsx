@@ -2,11 +2,18 @@ import { fetchRoadtripById } from "lib/data";
 import MapLoader from "../../../../ui/mapLoader";
 import MyMapComponent from "../../../../ui/map";
 import Image from "next/image";
-import { formatDateToLocal } from "lib/utils";
+import { formatDateToLocal } from "lib/utils/utils";
 import Link from "next/link";
 import { auth } from "auth";
+import { Dict } from "app/[lang]/dictionaries";
 
-export default async function RoadtripWrapper({ id }: { id: string }) {
+export default async function RoadtripWrapper({
+  id,
+  dict,
+}: {
+  id: string;
+  dict: Dict;
+}) {
   const userId = (await auth())?.user?.id;
   const roadtrips = await fetchRoadtripById(id);
   const {
@@ -21,36 +28,43 @@ export default async function RoadtripWrapper({ id }: { id: string }) {
     sex,
     user_id,
   } = roadtrips[0];
+  const { viewRoadtrip } = dict;
+  const introduction = JSON.parse(viewRoadtrip.introduction) as string[];
 
   return (
     <div className="roadtripWrapper">
       <div className="description">
         <div>
-          <label htmlFor="description">
-            <b>{username}</b> möchte einen Roadtrip von{" "}
+          <pre>
+            <b>{username}</b> {introduction[0]}{" "}
             <b>
               {starttown}, {startland}
             </b>{" "}
-            nach{" "}
+            {introduction[1]}{" "}
             <b>
               {desttown}, {destland}
-            </b>{" "}
-            machen. Es soll am <b>{formatDateToLocal(date)}</b> losgehen.{" "}
-            {sex === "weiblich" ? "Sie" : "Er"} hat folgendes dazu geschrieben:
-          </label>
+            </b>
+            {introduction[2]}
+            <br />
+            {introduction[3]} <b>{formatDateToLocal(date)}</b>
+            {introduction[4]}
+            {sex === "weiblich" ? introduction[6] : introduction[5]}{" "}
+            {introduction[7]}
+          </pre>
           <p className="description">{description}</p>
         </div>
         {Number(userId) === user_id || userId === undefined ? null : (
           <Link href={`/chat?id=${id}`}>
-            <input type="image" src="sendMessage.png" alt="send Message" />
+            <input
+              type="image"
+              src={viewRoadtrip.sendMessage}
+              alt="send Message"
+            />
           </Link>
         )}
       </div>
       <div className="image">
-        <label htmlFor="Bild">
-          Das Bild das <b>{username}</b> zu diesem Roadtrip hochgeladen hat
-          sieht folgendermaßen aus:
-        </label>
+        <label htmlFor="Bild">{viewRoadtrip.picture}</label>
         <p> </p>
         <Image src={image_url} alt="roadtripPicture" width={150} height={300} />
       </div>

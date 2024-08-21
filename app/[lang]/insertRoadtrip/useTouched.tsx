@@ -5,14 +5,16 @@ import {
   handleChangeType,
   handleClickType,
 } from "lib/definitions";
-import { arrIntersection, arrSubset } from "lib/utils";
+import { arrIntersection, arrSubset } from "lib/utils/utils";
 import { useEffect, useRef, useState } from "react";
-import { error } from "./utils";
+import { error } from "lib/utils/validateInsertForm";
 import { useFormState } from "react-dom";
+import { Dict } from "../dictionaries";
 
 export function useTouched(
   errorPaths: string[],
-  action: (prevState: error[], formData: FormData) => Promise<error[]>
+  action: (prevState: error[], formData: FormData) => Promise<error[]>,
+  errorDict: { [key: string]: { [key: string]: string } }
 ) {
   const formRef = useRef(null);
   const [touched, setTouched_] = useState<string[]>([]);
@@ -25,6 +27,16 @@ export function useTouched(
     const newErrors = state.filter(
       (error) => arrIntersection(touched, error.path).length
     );
+    /* set translation of the servers */
+    newErrors.map((error) => {
+      error.path.forEach((path) => {
+        if (
+          errorDict.hasOwnProperty(path) &&
+          errorDict[path].hasOwnProperty(error.message)
+        )
+          error.message = errorDict[path][error.message];
+      });
+    });
     setErrors(newErrors);
     setLoading(false);
   }, [state]);

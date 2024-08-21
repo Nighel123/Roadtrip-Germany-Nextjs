@@ -42,7 +42,11 @@ export default function InsertForm({
     handleChangeFile,
     handleSubmit,
     loading,
-  } = useTouched(errorPaths, roadtrip ? editRoadtrip : insertRoadtrip);
+  } = useTouched(
+    errorPaths,
+    roadtrip ? editRoadtrip : insertRoadtrip,
+    dict.insertRoadtrip.error
+  );
 
   /* make the error-componet sammmler */
   /* do checks whether the start and destaddress are the same */

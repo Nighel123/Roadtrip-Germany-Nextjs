@@ -14,7 +14,7 @@
     "loginButton": "log in",
     "loginLoading": "loading...",
     "error": {
-      "IVALID_CREDENTIALS": "Ivalid credentials",
+      "WRONG_DATA": "Ivalid credentials",
       "SERVER_ERROR": "Uuups, there was an error at the server!"
     }
   },
@@ -42,7 +42,64 @@
     "year": "year",
     "uploadImageButton": "/insertRoadtrip/uploadImage.jpg",
     "insertRoadtripButton": "/insertRoadtrip/insertRoadtrip.jpg",
-    "insertRoadtripButtonLoading": "/insertRoadtrip/insertRoadtripLoading.jpg"
+    "insertRoadtripButtonLoading": "/insertRoadtrip/insertRoadtripLoading.jpg",
+    "error": {
+      "day": {
+        "WRONG_DATA": "Please enter a number for the day.",
+        "TOO_LOW": "Plase enter a day bigger than one.",
+        "TOO_HIGH": "Plase enter a day smaller than 32."
+      },
+      "month": {
+        "WRONG_pDATA": "Please enter one of the months of the year."
+      },
+      "year": {
+        "WRONG_DATA": "Please enter a number for the year.",
+        "TOO_HIGH": "With 201 you can't do roadtrips anymore!:).",
+        "TOO_LOW": "You should be at least 12 years old!."
+      },
+      "Date": {
+        "INVALID": "invalid date.",
+        "TOO_LOW": "please select a date in the future."
+      },
+      "land": {
+        "WRONG_DATA": "please only enter characters for the field \"land\".",
+        "TOO_LOW": "please enter minimum two characters for a land.",
+        "TOO_HIGH": "please enter maximum 100 characters for a land."
+      },
+      "town": {
+        "WRONG_DATA": "please only enter characters for the field \"town\".",
+        "TOO_LOW": "please enter minimum two characters for a town.",
+        "TOO_HIGH": "please enter maximum 100 characters for a town."
+      },
+      "address": {
+        "INVALID": "please enter a valid address."
+      },
+      "dest": {
+        "INVALID": "start- and finishaddress need not to be the same."
+      },
+      "description": {
+        "WRONG_DATA": "please only enter characters for the description.",
+        "TOO_LOW": "please write a discription text of minimum 100 characters.",
+        "TOO_HIGH": "the maximum character number is 5000."
+      },
+      "file": {
+        "NO_DATA": "Please select an image to upload."
+      },
+      "name": {
+        "NO_DATA": "Please select an image with a name"
+      },
+      "ext": {
+        "WRONG_DATA": "Please select an image of the type: tiff, jpg, jpeg oder png hoch"
+      },
+      "size": {
+        "WRONG_DATA": "please upload an image with a size.",
+        "TOO_HIGH": "please upload an image with maximum 7Mb.",
+        "TOO_LOW": "please upload an image with minimum 5Kb."
+      },
+      "File": {
+        "WRONG_DATA": "please selct an image."
+      }
+    }
   },
   "register": {
     "heading": "Roadtrip-Konto erstellen",
@@ -52,7 +109,6 @@
     "birthday": "birthday",
     "sex": "sex",
     "sexOptions": "[\"female\", \"male\"]",
-    "or": "or",
     "registerButton": "/register/register.jpg",
     "registerButtonLoading": "/register/registerLoading.jpg",
     "monthsLang": "[\"January\", \"Febuary\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\"]",
@@ -80,19 +136,71 @@
         "TOO_HIGH": "Plase enter a day smaller than 32."
       },
       "month": {
-        "WRONG_DATA": "Please enter one of the following months: "
+        "WRONG_pDATA": "Please enter one of the months of the year."
       },
       "year": {
         "WRONG_DATA": "Please enter a number for the year.",
         "TOO_HIGH": "With 201 you can't do roadtrips anymore!:).",
         "TOO_LOW": "You should be at least 12 years old!."
       },
-      "date": {
+      "birthday": {
         "INVALID": "Invalides date."
       },
       "sex": {
-        "WRONG_DATA": "Plase enter .",
-        "WRONG_DATA_END": ""
+        "WRONG_DATA": "Plase enter one of the given sexes below"
+      }
+    }
+  },
+  "viewRoadtrip": {
+    "introduction": "[\"wants to make a roadtrip from\", \"too\", \".\", \"It should start on the\", \".\",\" He \",\" She\", \"has written the following:\"]",
+    "picture": "The picture for this roadtrip:",
+    "sendMessage": "/viewRoadtrip/sendMessage.jpg"
+  },
+  "chat": {
+    "queryStatus": {
+      "loading": "Loading...",
+      "error": "Shit, something went wrong..."
+    },
+    "dataStatus": {
+      "noData": {
+        "heading": "No messages to see yet.",
+        "paragraph": "Write to somebody by clicking on a roadtrip and send him a message."
+      }
+    },
+    "heading": {
+      "heading": "Roadtrip of: "
+    },
+    "chatForm": {
+      "send": "/chat/send.jpg"
+    }
+  },
+  "dashboard": {
+    "status": "Logged in with:",
+    "deleteAccount": "Delete Account",
+    "action": "Delete",
+    "modalUser": {
+      "heading": "Do you really want to delete the account?",
+      "action": "Type in \"Delete\" to delete the account",
+      "loading": "Loading...",
+      "button": "Delete Account",
+      "no": "No",
+      "error": {
+        "SERVER_ERROR": "shit, something went wrong..."
+      }
+    },
+    "table": {
+      "noContent": {
+        "heading": "Here roadtrips will be displayed.",
+        "paragraph": "Your did not upload a roadtrip yet. Click on \"make a roadtrip\" to start your own trip and find travelpartners."
+      },
+      "modalRoadtrip": {
+        "heading": "Do you really want to delete the roadtrip?",
+        "no": "Nein",
+        "loading": "loading...",
+        "yes": "yes",
+        "error": {
+          "SERVER_ERROR": "shit, something went wrong..."
+        }
       }
     }
   }

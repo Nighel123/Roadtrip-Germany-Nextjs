@@ -189,3 +189,18 @@ export type CustomerField = {
   id: string;
   name: string;
 };
+
+export enum ErrorCodes {
+  NO_DATA = "NO_DATA",
+  WRONG_DATA = "WRONG_DATA",
+  WRONG_DATA_END = "WRONG_DATA_END",
+  TOO_LOW = "TOO_LOW",
+  TOO_HIGH = "TOO_HIGH",
+  INVALID = "INVALID",
+  WRONG_CHARACTERS = "WRONG_CHARACTERS",
+  TOO_SHORT = "TOO_SHORT",
+  TOO_LONG = "TOO_LONG",
+  ALREADY_EXISTS = "ALREADY_EXISTS",
+  WRONG_FORMAT = "WRONG_FORMAT",
+  SERVER_ERROR = "SERVER_ERROR",
+}

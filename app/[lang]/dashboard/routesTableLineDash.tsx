@@ -1,6 +1,6 @@
 "use client";
 import { RoadtripDisplay } from "lib/definitions";
-import { formatDateToLocal } from "lib/utils";
+import { formatDateToLocal } from "lib/utils/utils";
 import Link from "next/link";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
@@ -8,12 +8,16 @@ import Modal from "react-modal";
 import { useFormState } from "react-dom";
 import { deleteRoadtrip } from "lib/actions";
 import SubmitButton from "./submitButton";
+import { Dict } from "../dictionaries";
 
 export default function routesTableLineDash({
   roadtrip,
+  dict,
 }: {
   roadtrip: RoadtripDisplay;
+  dict: Dict;
 }) {
+  const { table } = dict.dashboard;
   const [errorMessage, dispatch] = useFormState(deleteRoadtrip, undefined);
   const [modalIsOpen, setIsOpen] = useState(false);
   useEffect(() => Modal.setAppElement("#dashboard"));
@@ -69,17 +73,19 @@ export default function routesTableLineDash({
         contentLabel="Example Modal"
         shouldCloseOnOverlayClick={true}
       >
-        <h2>Willst du den Roadtrip wirklich löschen?</h2>
+        <h2>{table.modalRoadtrip.heading}</h2>
         <button className="no" onClick={closeModal}>
-          Nein
+          {table.modalRoadtrip.no}
         </button>
         <form action={dispatch}>
           <input hidden name={"id"} value={roadtrip.id} />
-          <SubmitButton />
+          <SubmitButton dict={dict} />
         </form>
         {errorMessage && (
           <>
-            <p className="errorMssg">{errorMessage}</p>
+            <p className="errorMssg">
+              {table.modalRoadtrip.error[errorMessage]}
+            </p>
           </>
         )}
       </Modal>

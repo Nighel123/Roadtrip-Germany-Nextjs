@@ -27,7 +27,7 @@ const Login = async ({
         <Register dict={dict} />
       </header>
       <Suspense>
-        <Form dict={dict} lang={lang} />
+        <Form dict={dict} />
       </Suspense>
     </div>
   );

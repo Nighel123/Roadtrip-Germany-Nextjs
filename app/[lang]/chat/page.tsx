@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 
 import "@/styles/chat.css";
 
@@ -7,13 +6,18 @@ import { Metadata } from "next";
 
 import Chat from "./chat";
 import Title from "ui/components/title";
+import { getDictionary } from "../dictionaries";
 
 export const metadata: Metadata = {
   title: "Roadtrip Chat",
 };
 
-export default function Page() {
-  //const messages = await fetchMessagesByUserId(/* userId */);
+export default async function Page({
+  params: { lang },
+}: {
+  params: { lang: "en" | "de" };
+}) {
+  const dict = await getDictionary(lang);
 
   return (
     <div className="chat" data-testid="chat">
@@ -27,7 +31,7 @@ export default function Page() {
           height={1819}
         />
 
-        <Chat />
+        <Chat dict={dict} />
 
         {/* <Suspense fallback={<MapSkeleton />}>
           <MapWrapper />

@@ -6,7 +6,7 @@ import {
   handleBlurType,
   handleChangeType,
   months,
-} from "./definitions";
+} from "../definitions";
 
 export const formatDateToLocal = (
   dateStr: string,

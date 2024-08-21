@@ -13,6 +13,7 @@ import {
   RoadtripEditForm,
   DeleteUserForm,
   Lang,
+  ErrorCodes,
 } from "./definitions";
 import {
   FormDataErrors,
@@ -21,11 +22,11 @@ import {
   zFormDataObj,
   error,
   zFormDataObjEdit,
-} from "app/[lang]/insertRoadtrip/utils";
+} from "lib/utils/validateInsertForm";
 import {
   formatRegisterData,
-  validateRegisterForm,
-} from "app/[lang]/register/utils";
+  zRegisterForm,
+} from "lib/utils/validateRegisterForm";
 import { auth, signIn, signOut } from "auth";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
@@ -33,11 +34,7 @@ import { isRedirectError } from "next/dist/client/components/redirect";
 import { randomUUID } from "node:crypto";
 import { sendVerificationEmail } from "lib/mail";
 import { fetchRoadtripById } from "./data";
-import { zDeleteRoadtrip, zDeleteUser } from "lib/validateFormData";
-import { getLang } from "./context";
-import { getDictionary } from "app/[lang]/dictionaries";
-
-const { log } = console;
+import { zDeleteRoadtrip } from "lib/utils/validateFormData";
 
 export async function SignIn(callbackUrl: string) {
   await signIn("google", { redirectTo: callbackUrl || "/" });
@@ -47,8 +44,6 @@ export async function authenticate(
   prevState: string | undefined,
   formData: FormData
 ) {
-  const lang = formData.get("lang") as Lang;
-  const { logIn } = await getDictionary(lang);
   const LoginObj = Object.fromEntries(formData.entries()) as LoginForm<any>;
 
   const parsedCredentials = z
@@ -60,7 +55,7 @@ export async function authenticate(
     })
     .safeParse(LoginObj);
 
-  if (!parsedCredentials.success) return logIn.error.IVALID_CREDENTIALS;
+  if (!parsedCredentials.success) return ErrorCodes.WRONG_DATA;
 
   const { username, password, callbackUrl, verificationToken } =
     parsedCredentials.data;
@@ -77,12 +72,12 @@ export async function authenticate(
       //log(error);
       switch (error.type) {
         case "CredentialsSignin":
-          return logIn.error.IVALID_CREDENTIALS;
+          return ErrorCodes.WRONG_DATA;
         case "CallbackRouteError":
           console.error(error);
-          return logIn.error.SERVER_ERROR;
+          return ErrorCodes.SERVER_ERROR;
         default:
-          return logIn.error.SERVER_ERROR;
+          return ErrorCodes.SERVER_ERROR;
       }
     }
 
@@ -100,12 +95,11 @@ export async function register(
   formData: FormData
 ): Promise<error[]> {
   const submit = formData.get("submit");
-  const lang = formData.get("lang") as Lang;
   const formDataObj = Object.fromEntries(
     formData.entries()
   ) as RegisterForm<any>;
   const formatedDataObj = formatRegisterData(formDataObj);
-  const resFormDataObj = await validateRegisterForm(formatedDataObj, lang);
+  const resFormDataObj = await zRegisterForm.safeParseAsync(formatedDataObj);
 
   if (!resFormDataObj.success) {
     return formatErrors(
@@ -251,7 +245,7 @@ export async function insertRoadtrip(
 export async function deleteRoadtrip(
   prevState: string | undefined,
   formData: FormData
-): Promise<string | undefined> {
+) {
   const DeleteObj = Object.fromEntries(
     formData.entries()
   ) as DeleteRoadtripForm<any>;
@@ -259,12 +253,12 @@ export async function deleteRoadtrip(
   const parsedForm = zDeleteRoadtrip.safeParse(DeleteObj);
 
   if (!parsedForm.success) {
-    return "Das hat leider nicht geklappt.";
+    return ErrorCodes.SERVER_ERROR;
   }
 
   const { id } = parsedForm.data;
   const roadtrip = (await fetchRoadtripById(id))[0];
-  if (!roadtrip) return "Das hat leider nicht geklappt.";
+  if (!roadtrip) return ErrorCodes.SERVER_ERROR;
 
   try {
     await del([roadtrip.image_url]);
@@ -273,25 +267,15 @@ export async function deleteRoadtrip(
               `;
   } catch (error) {
     console.log(error);
-    return `Das hat leider nicht geklappt`;
+    return ErrorCodes.SERVER_ERROR;
   }
   revalidatePath("/dashboard");
-  return `Roadtrip erfolgreich gelöscht.`;
 }
 
 export async function deleteUser(
   prevState: string | undefined,
   formData: FormData
-): Promise<string | undefined> {
-  const DeleteObj = Object.fromEntries(
-    formData.entries()
-  ) as DeleteUserForm<any>;
-
-  const parsedForm = zDeleteUser.safeParse(DeleteObj);
-  if (!parsedForm.success) {
-    return parsedForm.error?.flatten().fieldErrors.delete?.join();
-  }
-
+) {
   const userId = (await auth())?.user?.id;
   try {
     const { rows } = await sql<{
@@ -307,7 +291,7 @@ export async function deleteUser(
               `;
   } catch (error) {
     console.log(error);
-    return `Das hat leider nicht geklappt`;
+    return ErrorCodes.SERVER_ERROR;
   }
   await signOut();
   revalidatePath("/dashboard");

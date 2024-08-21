@@ -1,5 +1,6 @@
-import { arrIntersection } from "lib/utils";
-import { error } from "./utils";
+import { arrIntersection } from "lib/utils/utils";
+import { error } from "lib/utils/validateInsertForm";
+import { Dict } from "../dictionaries";
 
 export default function ErrorComponent({
   errors,
@@ -9,6 +10,7 @@ export default function ErrorComponent({
   show: string[];
 }) {
   //get only the errors allowd by touched
+
   const fErrors = errors.filter(
     (error) => arrIntersection(show, error.path).length
   );

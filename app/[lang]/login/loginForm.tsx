@@ -9,7 +9,7 @@ import SubmitButton from "./submitButton";
 import GoogleLogin from "./googleLogin";
 import { Dict } from "../dictionaries";
 
-export function Form({ dict, lang }: { dict: Dict; lang: string }) {
+export function Form({ dict }: { dict: Dict }) {
   const { logIn } = dict;
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [swipe, setSwipe] = useState(false);
@@ -49,7 +49,6 @@ export function Form({ dict, lang }: { dict: Dict; lang: string }) {
 
       <form id="logInForm" action={dispatch}>
         <input hidden name="callbackUrl" value={callbackUrl} readOnly />
-        <input hidden name="lang" value={lang} />
         <input
           hidden
           name="verificationToken"
@@ -78,7 +77,7 @@ export function Form({ dict, lang }: { dict: Dict; lang: string }) {
         </div>
         {errorMessage && (
           <>
-            <p className="errorMssg">{errorMessage}</p>
+            <p className="errorMssg">{dict.logIn.error[errorMessage]}</p>
           </>
         )}
       </form>

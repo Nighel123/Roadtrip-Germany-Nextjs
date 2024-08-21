@@ -14,7 +14,7 @@
     "loginButton": "einloggen",
     "loginLoading": "laden...",
     "error": {
-      "IVALID_CREDENTIALS": "Fehlerhafte Eingabe",
+      "WRONG_DATA": "Fehlerhafte Eingabe",
       "SERVER_ERROR": "Ohhh, irgendwas haben wir verkehrt gemacht..."
     }
   },
@@ -47,8 +47,58 @@
     "error": {
       "day": {
         "WRONG_DATA": "Bitte gebe eine Nummer für den Tag ein.",
-        "TOO_LOW": "Bitte gebe einen Tag gößer eins ein.",
+        "TOO_LOW": "Bitte gebe einen Tag größer null ein.",
         "TOO_HIGH": "Bitte gebe einen Tag der kleiner als 32 ist ein."
+      },
+      "month": {
+        "WRONG_DATA": "Bitte wähle einen der Monate des Jahres aus."
+      },
+      "year": {
+        "WRONG_DATA": "Bitte gebe eine Nummer für das Jahr ein.",
+        "TOO_HIGH": "Bitte keine Roadtrips die mehr als fünf Jahre in der Zukunft liegen.",
+        "TOO_LOW": "Bitte kein Jahr, dass in der Vergangenheit liegt."
+      },
+      "Date": {
+        "INVALID": "Invalides Datum.",
+        "TOO_LOW": "Bitte wähle ein Datum aus, dass in der Zukunft liegt."
+      },
+      "land": {
+        "WRONG_DATA": "Bitte gebe eine Buchstabenreihe für ein Land ein.",
+        "TOO_LOW": "Bitte gebe mindestens zwei Buchstaben für ein Land ein.",
+        "TOO_HIGH": "Bitte gebe maximal 100 Buchstaben für ein Land ein."
+      },
+      "town": {
+        "WRONG_DATA": "Bitte gebe eine Buchstabenreihe für eine Stadt ein.",
+        "TOO_LOW": "Bitte gebe mindestens zwei Buchstaben für eine Stadt ein.",
+        "TOO_HIGH": "Bitte gebe maximal 100 Buchstaben für eine Stadt ein."
+      },
+      "address": {
+        "INVALID": "Bitte gebe eine gültige Addresse ein."
+      },
+      "dest": {
+        "INVALID": "Start- und Zieladdresse dürfen nicht gleich sein."
+      },
+      "description": {
+        "WRONG_DATA": "Bitte gebe nur Buchstaben für die Beschreibung ein.",
+        "TOO_LOW": "Bitte schreibe einen Beschreibungstext der mindestens 100 Buchstaben lang ist.",
+        "TOO_HIGH": "Bitte gebe maximal 5000 Buchstaben für die Beschreibung ein."
+      },
+      "file": {
+        "NO_DATA": "Bitte lade ein Bild hoch."
+      },
+      "name": {
+        "NO_DATA": "Bitte lade ein Bild mit Namen hoch"
+      },
+      "ext": {
+        "WRONG_DATA": "Bitte Lade ein Bild vom Typ tiff, jpg, jpeg oder png hoch"
+      },
+      "size": {
+        "WRONG_DATA": "Bitte lade ein Bild mit einer gültigen größe hoch.",
+        "TOO_HIGH": "Bitte lade ein Bild mit einer maximalen größe von 7Mb hoch.",
+        "TOO_LOW": "Bitte lade ein Bild mit einer minimalen größe von 5Kb hoch."
+      },
+      "File": {
+        "WRONG_DATA": "Bitte lade ein Bild hoch."
       }
     }
   },
@@ -59,7 +109,6 @@
     "password": "Passwort",
     "birthday": "Geburtstag",
     "sex": "Geschlecht",
-    "or": "oder",
     "sexOptions": "[\"weiblich\", \"männlich\"]",
     "registerButton": "/register/registrieren.jpg",
     "registerButtonLoading": "/register/registrierenLoading.jpg",
@@ -88,19 +137,71 @@
         "TOO_HIGH": "Bitte gebe einen Tag der kleiner als 32 ist ein."
       },
       "month": {
-        "WRONG_DATA": "Bitte wähle einen der folgneden Monate aus: "
+        "WRONG_DATA": "Bitte wähle einen der Monate des Jahres aus."
       },
       "year": {
         "WRONG_DATA": "Bitte gebe eine Nummer für das Jahr ein.",
         "TOO_HIGH": "Mit 201 Jahren, kann man doch keinen Roadtrip mehr machen!:).",
         "TOO_LOW": "Du solltest mindestens 12 Jahre alt sein."
       },
-      "date": {
+      "birthday": {
         "INVALID": "Invalides Datum."
       },
       "sex": {
-        "WRONG_DATA": "Für dein Geschelcht wähle bitte entweder",
-        "WRONG_DATA_END": "aus."
+        "WRONG_DATA": "Bitte wähle eines der gegebenen Geschlechter von unten aus."
+      }
+    }
+  },
+  "viewRoadtrip": {
+    "introduction": "[\"möchte einen Roadtrip von\", \"nach\", \" machen.\", \"Es soll am\", \" losgehen.\",\" Er\",\" Sie\", \"hat folgendes dazu geschrieben:\"]",
+    "picture": "Das Bild für diesen Roadtrip:",
+    "sendMessage": "/viewRoadtrip/nachrichtSenden.jpg"
+  },
+  "chat": {
+    "queryStatus": {
+      "loading": "Lädt...",
+      "error": "Miste irgendwas ist schief gelaufen..."
+    },
+    "dataStatus": {
+      "noData": {
+        "heading": "Noch keine Nachrichten zu sehen.",
+        "paragraph": "Schreibe jemandem indem du auf einen Roadtrip klickst und dann auf \"Nachricht senden\"."
+      }
+    },
+    "heading": {
+      "heading": "Roadtrip von: "
+    },
+    "chatForm": {
+      "send": "/chat/senden.jpg"
+    }
+  },
+  "dashboard": {
+    "status": "Eingelogged als:",
+    "deleteAccount": "Account löschen",
+    "action": "Löschen",
+    "modalUser": {
+      "heading": "Willst du deinen Account wirklich löschen?",
+      "action": "Type in \"Delete\" to delete the account",
+      "loading": "Lädt...",
+      "button": "Account Löschen",
+      "no": "Nein",
+      "error": {
+        "SERVER_ERROR": "Oh mist, irgendwas ist schief gelaufen..."
+      }
+    },
+    "table": {
+      "noContent": {
+        "heading": "Hier werden deine eigenen Roadtrips angezeigt.",
+        "paragraph": "Du hast noch keine Roadtrips eingestellt. Klicke auf \"eigenen Roadtrip machen\" um einen eigenen Roadtrip einzustellen."
+      },
+      "modalRoadtrip": {
+        "heading": "Willst du den Roadtrip wirklich löschen?",
+        "no": "Nein",
+        "loading": "lädt...",
+        "yes": "ja",
+        "error": {
+          "SERVER_ERROR": "Oh mist, irgendwas ist schief gelaufen..."
+        }
       }
     }
   }
