@@ -1,9 +1,9 @@
 {
   "home": {
-    "actualRoutes": "/home/aktuelleRouten.jpg",
-    "makeYourTrip": "/home/eigenenRoadtripMachen.jpg",
-    "logIn": "/home/einloggenBlack.jpg",
-    "register": "/home/registrierenBlack.jpg",
+    "actualRoutes": "/images/home/aktuelleRouten.jpg",
+    "makeYourTrip": "/images/home/eigenenRoadtripMachen.jpg",
+    "logIn": "/images/home/einloggenBlack.jpg",
+    "register": "/images/home/registrierenBlack.jpg",
     "logOut": "/images/home/ausloggen.jpg"
   },
   "logIn": {
@@ -19,8 +19,8 @@
     }
   },
   "routesOverview": {
-    "createTrip": "/routesOverview/eigeneReiseMachen.jpg",
-    "viewTrips": "/routesOverview/reiseAnsehen.jpg"
+    "createTrip": "/images/routesOverview/eigeneReiseMachen.jpg",
+    "viewTrips": "/images/routesOverview/reiseAnsehen.jpg"
   },
   "imprint": {
     "headline": "Impressum",
@@ -41,7 +41,7 @@
     "day": "Tag",
     "month": "Monat",
     "year": "Jahr",
-    "uploadImageButton": "/insertRoadtrip/BilderHochladen.jpg",
+    "uploadImageButton": "/images/insertRoadtrip/BilderHochladen.jpg",
     "insertRoadtripButton": "/images/insertRoadtrip/roadtripEintragen.jpg",
     "insertRoadtripButtonLoading": "/images/insertRoadtrip/roadtripEintragenLoading.jpg",
     "error": {

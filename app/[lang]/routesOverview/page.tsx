@@ -33,7 +33,7 @@ export default async function RoutesOverview({
         </Link>
 
         <Image
-          src="/routesOverview/blueFrame.jpg"
+          src="/images/routesOverview/blueFrame.jpg"
           alt="blueFrame"
           width={740}
           height={444}
@@ -45,7 +45,7 @@ export default async function RoutesOverview({
         </div>
 
         <Image
-          src="/routesOverview/redFrame.jpg"
+          src="/images/routesOverview/redFrame.jpg"
           alt="redFrame"
           width={2486}
           height={1699}
@@ -74,13 +74,13 @@ export default async function RoutesOverview({
         </Link>
 
         <Image
-          src="/routesOverview/img1.jpg"
+          src="/images/routesOverview/img1.jpg"
           alt="img1"
           width={2048}
           height={783}
         />
         <Image
-          src="/routesOverview/img2.jpg"
+          src="/images/routesOverview/img2.jpg"
           alt="img2"
           width={1536}
           height={345}

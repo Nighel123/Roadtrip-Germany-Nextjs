@@ -13,10 +13,15 @@ export function Swipe() {
   };
   return (
     <div id="SignInWindow">
-      <Image src="/login/signIn.jpg" width={300} height={151} alt="signIn" />
+      <Image
+        src="/images/login/signIn.jpg"
+        width={300}
+        height={151}
+        alt="signIn"
+      />
       <div id="arrowBack" onClick={ToogleSwipe}>
         <Image
-          src="/login/arrowDown.svg"
+          src="/images/login/arrowDown.svg"
           width={20}
           height={20}
           alt="arrow back"

@@ -31,7 +31,7 @@ export default async function Dashboard({
   return (
     <div className="dashboard" id="dashboard" data-testid="routesOverview">
       <Link href="/" id="title">
-        <Image src="/title.jpg" alt="title" width={1374} height={567} />
+        <Image src="/images/title.jpg" alt="title" width={1374} height={567} />
       </Link>
       <div id="userInfo">
         <div id="image">
@@ -47,7 +47,7 @@ export default async function Dashboard({
       </div>
 
       <Image
-        src="/routesOverview/blueFrame.jpg"
+        src="/images/routesOverview/blueFrame.jpg"
         alt="blueFrame"
         width={740}
         height={444}
@@ -59,7 +59,7 @@ export default async function Dashboard({
       </div>
 
       <Image
-        src="/routesOverview/redFrame.jpg"
+        src="/images/routesOverview/redFrame.jpg"
         alt="redFrame"
         width={2486}
         height={1699}

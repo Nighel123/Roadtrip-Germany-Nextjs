@@ -30,7 +30,7 @@ export default async function AuthButtons({ dict }: { dict: Dict }) {
           </form>
           <Link href={"/chat"} id="chatLink">
             <Image
-              src="/chat/messages.jpg"
+              src="/images/chat/messages.jpg"
               width={400}
               height={400}
               alt="registrieren"
@@ -39,7 +39,7 @@ export default async function AuthButtons({ dict }: { dict: Dict }) {
           </Link>
           <Link href={"/dashboard"} id="settings">
             <Image
-              src="/home/settings.jpg"
+              src="/images/home/settings.jpg"
               width={400}
               height={400}
               alt="registrieren"

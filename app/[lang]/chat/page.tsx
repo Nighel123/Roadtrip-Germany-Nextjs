@@ -25,7 +25,7 @@ export default async function Page({
 
       <div className="frame">
         <Image
-          src="/routesDetailed/map.jpg"
+          src="/images/routesDetailed/map.jpg"
           alt="blueFrame"
           width={3245}
           height={1819}

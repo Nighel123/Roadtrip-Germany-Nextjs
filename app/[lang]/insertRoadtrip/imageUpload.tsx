@@ -20,7 +20,7 @@ const ImageUpload = ({
 }) => {
   const { insertRoadtrip } = dict;
   const [preview, setPreview] = useState(
-    roadtrip ? roadtrip.image_url : "/profilePrev.jpg"
+    roadtrip ? roadtrip.image_url : "/images/profilePrev.jpg"
   );
   const hiddenInputRef = useRef<HTMLInputElement | null>(null);
 

@@ -1,9 +1,9 @@
 {
   "home": {
-    "actualRoutes": "/home/routesOverview.jpg",
-    "makeYourTrip": "/home/makeYourTrip.jpg",
-    "logIn": "/home/logInBlack.jpg",
-    "register": "/home/signUpBlack.jpg",
+    "actualRoutes": "/images/home/routesOverview.jpg",
+    "makeYourTrip": "/images/home/makeYourTrip.jpg",
+    "logIn": "/images/home/logInBlack.jpg",
+    "register": "/images/home/signUpBlack.jpg",
     "logOut": "/images/home/logOut.jpg"
   },
   "logIn": {
@@ -19,8 +19,8 @@
     }
   },
   "routesOverview": {
-    "createTrip": "/routesOverview/createTrip.jpg",
-    "viewTrips": "/routesOverview/viewTrips.jpg"
+    "createTrip": "/images/routesOverview/createTrip.jpg",
+    "viewTrips": "/images/routesOverview/viewTrips.jpg"
   },
   "imprint": {
     "headline": "Imprint",
@@ -40,7 +40,7 @@
     "day": "day",
     "month": "month",
     "year": "year",
-    "uploadImageButton": "/insertRoadtrip/uploadImage.jpg",
+    "uploadImageButton": "/images/insertRoadtrip/uploadImage.jpg",
     "insertRoadtripButton": "/images/insertRoadtrip/insertRoadtrip.jpg",
     "insertRoadtripButtonLoading": "/images/insertRoadtrip/insertRoadtripLoading.jpg",
     "error": {

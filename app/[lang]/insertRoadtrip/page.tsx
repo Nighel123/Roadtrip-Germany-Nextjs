@@ -40,7 +40,7 @@ const InsertRoadtrip = async ({
 
       <Image
         id="insertRoadtripImage"
-        src="/insertRoadtrip/insertRoadtripImage.jpg"
+        src="/images/insertRoadtrip/insertRoadtripImage.jpg"
         alt="australian roads"
         width={1006}
         height={850}

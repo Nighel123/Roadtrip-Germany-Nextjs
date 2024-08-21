@@ -16,7 +16,7 @@ export default async function Page({
         <AuthButtons dict={dict} />
       </Suspense>
       <div className="home" data-testid="home">
-        <Image src="/title.jpg" width={1374} height={567} alt="Titel" />
+        <Image src="/images/title.jpg" width={1374} height={567} alt="Titel" />
         <Link href="/routesOverview">
           <Image
             src={dict.home.actualRoutes}
@@ -36,7 +36,7 @@ export default async function Page({
 
         <Image
           id="beispielTrip"
-          src="/home/beispielTrip.jpeg"
+          src="/images/home/beispielTrip.jpeg"
           width={2048}
           height={1376}
           alt="beispielTrip"

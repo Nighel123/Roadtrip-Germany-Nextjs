@@ -28,7 +28,7 @@ export function Form({ dict }: { dict: Dict }) {
   return (
     <div id="SignInWindow">
       <Image
-        src="/login/signIn.jpg"
+        src="/images/login/signIn.jpg"
         width={300}
         height={151}
         alt="signIn"

@@ -30,7 +30,7 @@ const Register = async ({
       </header>
       <Title />
       <Image
-        src="/register/registerSide.jpg"
+        src="/images/register/registerSide.jpg"
         alt="australian roads"
         width={1005}
         height={850}
