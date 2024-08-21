@@ -4,7 +4,7 @@ import { RoadtripDisplay } from "lib/definitions";
 import RoutesTableLineDash from "./routesTableLineDash";
 import { Dict } from "../dictionaries";
 
-export default async function RoutesTableDash({
+export default function RoutesTableDash({
   roadtrips,
   dict,
 }: {
