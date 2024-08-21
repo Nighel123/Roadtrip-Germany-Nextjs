@@ -24,10 +24,9 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request }) {
       // Check if there is any supported locale in the pathname
+
       const { pathname } = request.nextUrl;
-      //console.log(auth);
-      const forbiddenURL = ["/insertRoadtrip", "/chat", "/dashboard"];
-      if (forbiddenURL.some((path) => pathname.endsWith(path))) return !!auth;
+
       const pathnameHasLocale = locales.some(
         (locale) =>
           pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -35,7 +34,12 @@ export const authConfig = {
 
       //if (request.nextUrl.pathname.endsWith("Overview.jpg"))
       //console.log(request.nextUrl);
-      if (pathnameHasLocale) return true;
+      if (pathnameHasLocale) {
+        //console.log(auth);
+        const forbiddenURL = ["/insertRoadtrip", "/chat", "/dashboard"];
+        if (forbiddenURL.some((path) => pathname.endsWith(path))) return !!auth;
+        return true;
+      }
 
       // Redirect if there is no locale
       const locale = getLocale(request);
