@@ -28,29 +28,20 @@ export default async function RoutesOverview({
         <AuthButtons dict={dict} />
       </Suspense>
       <div className="routesOverview" data-testid="routesOverview">
-        <div id="title">
-          <Link id="titleImage" href="/">
-            <Image
-              src="/images/title.jpg"
-              alt="title"
-              width={992}
-              height={409}
-            />
-          </Link>
-        </div>
+        <Link id="titleImage" href="/">
+          <Image src="/images/title.jpg" alt="title" width={992} height={409} />
+        </Link>
 
-        <div id="table">
-          <Image
-            src="/images/routesOverview/blueFrame.jpg"
-            alt="blueFrame"
-            width={567}
-            height={340}
-          />
-          <div id="tableContainer">
-            <Suspense fallback={<TableSkeleton />}>
-              <RoutesTable />
-            </Suspense>
-          </div>
+        <Image
+          src="/images/routesOverview/blueFrame.jpg"
+          alt="blueFrame"
+          width={567}
+          height={340}
+        />
+        <div id="tableContainer">
+          <Suspense fallback={<TableSkeleton />}>
+            <RoutesTable />
+          </Suspense>
         </div>
 
         <Image

@@ -13,6 +13,7 @@ import "@/styles/chat.css";
 import ChatForm from "./chatForm";
 import { useSession } from "next-auth/react";
 import { Dict } from "../dictionaries";
+import Link from "next/link";
 
 export default function ChatHeading({ dict }: { dict: Dict }) {
   const [roadtripID, setRoadtripID] = useState<string | null>(null);
@@ -107,16 +108,23 @@ function Heading({
         <MapLoader>
           <MyMapComponent roadtrips={[roadtrip]} />
         </MapLoader>
-        <Image src={image_url} alt="roadtripPicture" width={150} height={300} />
-        <div>
-          <h1 className="name">
-            {heading.heading} {username}
-          </h1>
-          <div className="date">{formatDateToLocal(date)}</div>
-          <p>
-            {startland}, {starttown} &#8594; {destland}, {desttown}
-          </p>
-        </div>
+        <Link href={`/viewRoadtrip/${roadtrip.id}`}>
+          <Image
+            src={image_url}
+            alt="roadtripPicture"
+            width={150}
+            height={300}
+          />
+          <div>
+            <h1 className="name">
+              {heading.heading} {username}
+            </h1>
+            <div className="date">{formatDateToLocal(date)}</div>
+            <p>
+              {startland}, {starttown} &#8594; {destland}, {desttown}
+            </p>
+          </div>
+        </Link>
       </div>
     </>
   );
