@@ -6,6 +6,7 @@ import { formatDateToLocal } from "lib/utils/utils";
 import Link from "next/link";
 import { auth } from "auth";
 import { Dict } from "app/[lang]/dictionaries";
+import { Suspense } from "react";
 
 export default async function RoadtripWrapper({
   id,
@@ -66,7 +67,14 @@ export default async function RoadtripWrapper({
       <div className="image">
         <label htmlFor="Bild">{viewRoadtrip.picture}</label>
         <p> </p>
-        <Image src={image_url} alt="roadtripPicture" width={150} height={300} />
+        <Suspense>
+          <Image
+            src={image_url}
+            alt="roadtripPicture"
+            width={150}
+            height={300}
+          />
+        </Suspense>
       </div>
       <div id="map">
         <MapLoader>

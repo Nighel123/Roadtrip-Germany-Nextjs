@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ChatHeading from "./chatHeading";
 import { SessionProvider } from "next-auth/react";
 import { Dict } from "../dictionaries";
+import { Suspense } from "react";
 
 /* export const metadata: Metadata = {
   title: "Roadtrip Chat",
@@ -18,7 +19,9 @@ export default function Chat({ dict }: { dict: Dict }) {
   return (
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
-        <ChatHeading dict={dict} />
+        <Suspense>
+          <ChatHeading dict={dict} />
+        </Suspense>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </SessionProvider>

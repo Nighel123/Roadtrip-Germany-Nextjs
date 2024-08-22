@@ -109,12 +109,14 @@ function Heading({
           <MyMapComponent roadtrips={[roadtrip]} />
         </MapLoader>
         <Link href={`/viewRoadtrip/${roadtrip.id}`}>
-          <Image
-            src={image_url}
-            alt="roadtripPicture"
-            width={150}
-            height={300}
-          />
+          <Suspense>
+            <Image
+              src={image_url}
+              alt="roadtripPicture"
+              width={150}
+              height={300}
+            />
+          </Suspense>
           <div>
             <h1 className="name">
               {heading.heading} {username}
