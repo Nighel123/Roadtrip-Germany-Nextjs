@@ -202,3 +202,38 @@ export async function verifyUserEmail(user_id: string) {
     throw new Error("Die Email konnte nicht auf verifiziert gesetzt werden.");
   }
 }
+
+export async function getUsersWithUnreadEmails() {
+  try {
+    const data = await sql`
+          SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName"
+          FROM messages
+          JOIN users AS recipient ON messages.to = users.id
+          JOIN users AS sender ON messages.from = users.id
+          WHERE messages.read IS NULL AND messages."userInformed" IS NULL
+      `;
+    return data.rows as {
+      email: string;
+      text: string;
+      senderName: string;
+      recipientName: string;
+    }[];
+  } catch (error) {
+    console.error(error);
+    throw new Error("Could not get users with unread emails");
+  }
+}
+
+export async function setMessagesToInformed() {
+  try {
+    const data = await sql`
+          UPDATE messages
+          SET "userInformed" = NOW()s
+          WHERE messages.read IS NULL
+      `;
+    return data.rows;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Could not get users with unread emails");
+  }
+}
