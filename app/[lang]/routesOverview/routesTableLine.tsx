@@ -21,7 +21,9 @@ export default function RoutesTableLine({
         <br />
         {roadtrip.desttown}
       </div>
-      <div className="tableItem">{formatDateToLocal(roadtrip.date)}</div>
+      <div className="tableItem">
+        {formatDateToLocal(roadtrip.roadtripDate)}
+      </div>
     </Link>
   );
 }

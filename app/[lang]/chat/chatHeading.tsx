@@ -94,7 +94,7 @@ function Heading({
   }
   const roadtrip = data as RoadtripDisplay;
   const {
-    date,
+    roadtripDate,
     username,
     destland,
     desttown,
@@ -121,7 +121,7 @@ function Heading({
             <h1 className="name">
               {heading.heading} {username}
             </h1>
-            <div className="date">{formatDateToLocal(date)}</div>
+            <div className="date">{formatDateToLocal(roadtripDate)}</div>
             <p>
               {startland}, {starttown} &#8594; {destland}, {desttown}
             </p>

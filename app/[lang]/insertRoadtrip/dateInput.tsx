@@ -26,12 +26,16 @@ const DateInput = ({
           placeholder={insertRoadtrip.day}
           name="day"
           onBlur={handleBlur}
-          defaultValue={roadtrip ? new Date(roadtrip.date).getDay() : ""}
+          defaultValue={
+            roadtrip ? new Date(roadtrip.roadtripDate).getDate() : ""
+          }
         />
         <select
           id="month"
           defaultValue={
-            roadtrip ? monthsLang[new Date(roadtrip.date).getMonth()] : ""
+            roadtrip
+              ? monthsLang[new Date(roadtrip.roadtripDate).getMonth()]
+              : ""
           }
           name="month"
           onBlur={handleBlur}
@@ -44,7 +48,9 @@ const DateInput = ({
           placeholder={insertRoadtrip.year}
           name="year"
           onBlur={handleBlur}
-          defaultValue={roadtrip ? new Date(roadtrip.date).getFullYear() : ""}
+          defaultValue={
+            roadtrip ? new Date(roadtrip.roadtripDate).getFullYear() : ""
+          }
         />
       </div>
     </>

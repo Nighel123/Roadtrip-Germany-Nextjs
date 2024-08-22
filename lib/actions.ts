@@ -1,6 +1,6 @@
 "use server";
 
-import { db, sql, VercelPoolClient } from "@vercel/postgres";
+import { db, sql } from "@vercel/postgres";
 import { del, put } from "@vercel/blob";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -11,8 +11,6 @@ import {
   LoginForm,
   DeleteRoadtripForm,
   RoadtripEditForm,
-  DeleteUserForm,
-  Lang,
   ErrorCodes,
 } from "./definitions";
 import {
@@ -177,7 +175,7 @@ export async function insertRoadtrip(
     description,
     file,
     route: { start, dest },
-    date: { Date },
+    date: { date },
   } = resFormDataObj.data;
   // Test it out:
 
@@ -209,9 +207,7 @@ export async function insertRoadtrip(
       rows: [{ id: imgName }],
     } = await client.sql`
         INSERT INTO roadtrips (user_id, start_id, dest_id, date, image_url, description)
-        VALUES (${user_id},${start_id},${dest_id}, ${Date.toISOString()}, ${
-      file.ext
-    }, ${description})
+        VALUES (${user_id},${start_id},${dest_id}, ${date}, ${file.ext}, ${description})
         RETURNING id`;
 
     if (file) {
@@ -321,7 +317,7 @@ export async function editRoadtrip(
     description,
     file,
     route: { start, dest },
-    date: { Date },
+    date: { date },
     roadtripId,
   } = resFormDataObj.data;
   const roadtrip = (await fetchRoadtripById(roadtripId))[0];
@@ -371,7 +367,7 @@ export async function editRoadtrip(
         `;
     await client.sql`
         UPDATE roadtrips 
-          SET (date, description) = (${Date.toISOString()}, ${description})
+          SET (date, description) = (${date}, ${description})
           WHERE id = ${roadtrip.id}
         `;
 

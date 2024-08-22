@@ -25,7 +25,7 @@ export default async function RoadtripWrapper({
     starttown,
     destland,
     desttown,
-    date,
+    roadtripDate,
     sex,
     user_id,
   } = roadtrips[0];
@@ -47,7 +47,7 @@ export default async function RoadtripWrapper({
             </b>
             {introduction[2]}
             <br />
-            {introduction[3]} <b>{formatDateToLocal(date)}</b>
+            {introduction[3]} <b>{formatDateToLocal(roadtripDate)}</b>
             {introduction[4]}
             {sex === "weiblich" ? introduction[6] : introduction[5]}{" "}
             {introduction[7]}

@@ -110,11 +110,11 @@ const zDate = z
   })
   .transform(({ day, month, year }) => {
     const date = `${year}/${month}/${day}`;
-    return { date, Date: new Date(`${year}/${month}/${day}`) };
+    return { date, roadtripDate: new Date(`${year}/${month}/${day}`) };
   })
   .pipe(
     z.object({
-      Date: z.date({ message: ErrorCodes.INVALID }).min(new Date(), {
+      roadtripDate: z.date({ message: ErrorCodes.INVALID }).min(new Date(), {
         message: ErrorCodes.TOO_LOW,
       }),
       date: z.string(),

@@ -17,7 +17,7 @@ export async function fetchRoadtrips() {
     //so schreibt man also ein Promise!
 
     const data = await sql<RoadtripDisplay>`
-      SELECT roadtrips.id,roadtrips.created, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
+      SELECT roadtrips.id,roadtrips.created, roadtrips.date AS "roadtripDate", roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
       FROM roadtrips
       JOIN users ON user_id = users.id
       JOIN addresses dest ON dest_id = dest.id
@@ -40,7 +40,7 @@ export async function fetchRoadtripsByUserID(userID: string | undefined) {
   if (userID === undefined) return [];
   try {
     const data = await sql<RoadtripDisplay>`
-      SELECT roadtrips.id,roadtrips.created, roadtrips.date, roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
+      SELECT roadtrips.id, roadtrips.created, roadtrips.date AS "roadtripDate", roadtrips.description, roadtrips.image_url, dest.land AS destLand, users.name AS username, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
       FROM roadtrips
       JOIN users ON user_id = users.id
       JOIN addresses dest ON dest_id = dest.id
@@ -62,7 +62,7 @@ export async function fetchRoadtripById(id: string | null) {
   if (!id) return [];
   try {
     const data = await sql<RoadtripDisplay>`
-      SELECT roadtrips.id, roadtrips.date, roadtrips.description, roadtrips.image_url, dest_id, start_id ,dest.land AS destLand, users.name AS username, user_id, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
+      SELECT roadtrips.id, roadtrips.date AS "roadtripDate" , roadtrips.description, roadtrips.image_url, dest_id, start_id ,dest.land AS destLand, users.name AS username, user_id, users.sex AS sex, dest.town AS destTown, start.land AS startLand, start.town AS startTown
       FROM roadtrips
       JOIN users ON user_id = users.id
       JOIN addresses dest ON dest_id = dest.id
