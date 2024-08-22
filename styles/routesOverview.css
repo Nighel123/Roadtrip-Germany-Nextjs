@@ -9,14 +9,13 @@
   width: 200%;
   z-index: -1;
 }
-.routesOverview a#titleImage {
+.routesOverview div#title {
   z-index: -1;
   grid-column: 1/2;
   grid-row: 1/2;
 }
 
-.routesOverview img[alt~="blueFrame"],
-.routesOverview #tableContainer {
+.routesOverview div#table {
   grid-column: 1/2;
   grid-row: 2/3;
 }
