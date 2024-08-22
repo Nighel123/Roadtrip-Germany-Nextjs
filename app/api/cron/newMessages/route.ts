@@ -14,5 +14,6 @@ export async function GET() {
   emailArray.forEach((o) => {
     sendNewMessagesEmail(o);
   });
-  await setMessagesToInformed();
+  //await setMessagesToInformed();
+  return;
 }
