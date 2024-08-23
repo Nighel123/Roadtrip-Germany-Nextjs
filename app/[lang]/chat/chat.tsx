@@ -8,6 +8,7 @@ import ChatHeading from "./chatHeading";
 import { SessionProvider } from "next-auth/react";
 import { Dict } from "../dictionaries";
 import { Suspense } from "react";
+import { sendNewMessageEmail } from "lib/actions";
 
 /* export const metadata: Metadata = {
   title: "Roadtrip Chat",
@@ -15,6 +16,7 @@ import { Suspense } from "react";
 
 export default function Chat({ dict }: { dict: Dict }) {
   //const messages = await fetchMessagesByUserId(/* userId */);
+  sendNewMessageEmail();
   const queryClient = new QueryClient();
   return (
     <SessionProvider>

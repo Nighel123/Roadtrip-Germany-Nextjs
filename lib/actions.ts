@@ -30,8 +30,12 @@ import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { randomUUID } from "node:crypto";
-import { sendVerificationEmail } from "lib/mail";
-import { fetchRoadtripById } from "./data";
+import { sendNewMessagesEmail, sendVerificationEmail } from "lib/mail";
+import {
+  fetchRoadtripById,
+  getUsersWithUnreadEmails,
+  setMessagesToInformed,
+} from "./data";
 import { zDeleteRoadtrip } from "lib/utils/validateFormData";
 
 export async function SignIn(callbackUrl: string) {
@@ -397,4 +401,27 @@ export async function editRoadtrip(
   }
   revalidatePath("/insertRoadtrip");
   redirect("/dashboard");
+}
+
+export async function sendNewMessageEmail() {
+  await new Promise((resolve) => setTimeout(resolve, 900000));
+  const emailArray = await getUsersWithUnreadEmails();
+  emailArray.reduce((acc, curr) => {
+    if (
+      acc.some(
+        ({ senderName, email }) =>
+          senderName == curr.senderName && email == curr.email
+      )
+    ) {
+      return acc;
+    } else {
+      acc.push(curr);
+    }
+    return acc;
+  }, [] as typeof emailArray);
+  emailArray.forEach(async (o) => {
+    await sendNewMessagesEmail(o);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  });
+  await setMessagesToInformed();
 }
