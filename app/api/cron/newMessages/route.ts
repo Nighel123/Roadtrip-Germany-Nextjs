@@ -1,19 +1,27 @@
 import { getUsersWithUnreadEmails, setMessagesToInformed } from "lib/data";
 import { sendNewMessagesEmail } from "lib/mail";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: NextRequest, res: NextResponse) {
   const emailArray = await getUsersWithUnreadEmails();
-  /* emailArray.reduce((acc, curr) => {
-    acc.some(
-      ({ sender, email }) => sender == curr.sender && email == curr.email
-    ) ? return acc : 
-    const array = [...acc];
-    array.push(curr);
-    return array;
-  }, []); */
-  emailArray.forEach((o) => {
-    sendNewMessagesEmail(o);
+  emailArray.reduce((acc, curr) => {
+    if (
+      acc.some(
+        ({ senderName, email }) =>
+          senderName == curr.senderName && email == curr.email
+      )
+    ) {
+      return acc;
+    } else {
+      acc.push(curr);
+    }
+    return acc;
+  }, [] as typeof emailArray);
+  emailArray.forEach(async (o) => {
+    await sendNewMessagesEmail(o);
   });
-  //await setMessagesToInformed();
-  return;
+  await setMessagesToInformed();
+  return new NextResponse("OK", {
+    status: 200,
+  });
 }

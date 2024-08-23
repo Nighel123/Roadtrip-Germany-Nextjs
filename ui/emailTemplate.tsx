@@ -35,7 +35,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
       Click <a href={confirmLink}>here</a> to confirm your email.
     </p>
     <Img
-      src="https://www.roadtrip-germany.de/routesOverview/loadingmap.gif"
+      src="https://www.roadtrip-germany.de/images/routesOverview/loadingmap.gif"
       width={555}
       height={360}
       alt="loading map"
@@ -62,7 +62,7 @@ export const NewMessagesTemplate = ({
       log in to answer {senderName}.
     </p>
     <Img
-      src="https://www.roadtrip-germany.de/routesOverview/loadingmap.gif"
+      src="https://www.roadtrip-germany.de/images/routesOverview/loadingmap.gif"
       width={555}
       height={360}
       alt="loading map"
