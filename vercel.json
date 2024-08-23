@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/newmessages",
-      "schedule": "* * * * *"
+      "schedule": "0 * * * *"
     }
   ]
 }
