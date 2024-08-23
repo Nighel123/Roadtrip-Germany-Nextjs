@@ -8,7 +8,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Dict, getDictionary } from "./dictionaries";
-import { setLang } from "lib/context";
 
 export const metadata: Metadata = {
   title: {
@@ -28,7 +27,7 @@ export default async function RootLayout({
   params: { lang: "en" | "de" };
 }) {
   const dict = await getDictionary(lang);
-  setLang(lang);
+
   return (
     <html lang={lang}>
       <SpeedInsights />
