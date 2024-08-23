@@ -206,11 +206,11 @@ export async function getUsersWithUnreadEmails() {
   noStore();
   try {
     const data = await sql`
-          SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName"
-          FROM messages
-          JOIN users AS recipient ON messages.to = recipient.id
-          JOIN users AS sender ON messages.from = sender.id
-          WHERE messages.read IS NULL AND messages."userInformed" IS NULL
+            SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName"
+            FROM messages
+            JOIN users AS recipient ON messages.to = recipient.id
+            JOIN users AS sender ON messages.from = sender.id
+            WHERE messages.read IS NULL AND messages."userInformed" IS NULL
       `;
     return data.rows as {
       email: string;
@@ -228,12 +228,12 @@ export async function setMessagesToInformed() {
   try {
     const data = await sql`
           UPDATE messages
-          SET "userInformed" = NOW()s
+          SET "userInformed" = NOW()
           WHERE messages.read IS NULL
       `;
     return data.rows;
   } catch (error) {
     console.error(error);
-    throw new Error("Could not get users with unread emails");
+    throw new Error("Could not update messages to informed");
   }
 }
