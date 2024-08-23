@@ -9,7 +9,6 @@ import { Form } from "./registerForm";
 import { Metadata } from "next";
 import Title from "ui/components/title";
 import { getDictionary } from "../dictionaries";
-import { setLang } from "lib/context";
 
 export const metadata: Metadata = {
   title: "Registrieren",
@@ -22,7 +21,6 @@ const Register = async ({
 }) => {
   const dict = await getDictionary(lang);
   const { register } = dict;
-  setLang(lang);
   return (
     <div className="register">
       <header>
