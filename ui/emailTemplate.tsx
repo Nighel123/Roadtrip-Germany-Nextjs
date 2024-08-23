@@ -58,8 +58,9 @@ export const NewMessagesTemplate = ({
     <p>You have new messages from {senderName}:</p>
     <p>{text}</p>
     <p>
-      Click <a href="www.roadtrip-germany.de">www.roadtrip-germany.de</a> to and
-      log in to answer {senderName}.
+      See the chat{" "}
+      <a href="www.roadtrip-germany.de/chat">www.roadtrip-germany.de</a> to
+      react on your new messages.
     </p>
     <Img
       src="https://www.roadtrip-germany.de/images/routesOverview/loadingmap.gif"
