@@ -16,7 +16,6 @@ import { sendNewMessageEmail } from "lib/actions";
 
 export default function Chat({ dict }: { dict: Dict }) {
   //const messages = await fetchMessagesByUserId(/* userId */);
-  sendNewMessageEmail();
   const queryClient = new QueryClient();
   return (
     <SessionProvider>

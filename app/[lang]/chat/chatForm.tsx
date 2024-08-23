@@ -1,8 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Dict } from "../dictionaries";
+import { sendNewMessageEmail } from "lib/actions";
 
 export default function ChatForm({
   roadtripID,
@@ -18,6 +19,12 @@ export default function ChatForm({
   const [text, setText] = useState<string | null>(null);
   const session = useSession();
   const userID = session.data?.user?.id;
+
+  useEffect(() => {
+    return () => {
+      sendNewMessageEmail();
+    };
+  }, []);
 
   const mutation = useMutation({
     mutationFn: (newMessage: {

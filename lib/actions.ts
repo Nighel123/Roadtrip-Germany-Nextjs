@@ -404,7 +404,7 @@ export async function editRoadtrip(
 }
 
 export async function sendNewMessageEmail() {
-  await new Promise((resolve) => setTimeout(resolve, 900000));
+  await new Promise((resolve) => setTimeout(resolve, 60000));
   const emailArray = await getUsersWithUnreadEmails();
   emailArray.reduce((acc, curr) => {
     if (
