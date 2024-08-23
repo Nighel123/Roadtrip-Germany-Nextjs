@@ -153,7 +153,7 @@
   margin-bottom: 8em;
 }
 
-/* media queries */
+/*** media queries ***/
 
 @media only screen and (max-width: 1000px) and (min-width: 500px) {
   .login #SignInWindow {
