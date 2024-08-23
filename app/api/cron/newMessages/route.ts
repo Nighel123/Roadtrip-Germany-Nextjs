@@ -19,6 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   }, [] as typeof emailArray);
   emailArray.forEach(async (o) => {
     await sendNewMessagesEmail(o);
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   });
   await setMessagesToInformed();
   return new NextResponse("OK", {
