@@ -1,7 +1,6 @@
 {
   "functions": {
     "api/new-messages-email-timer": {
-      "memory": 3009,
       "maxDuration": 60
     }
   }
