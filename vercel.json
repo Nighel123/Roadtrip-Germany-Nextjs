@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "app/api/new-messages-email-timer": {
-      "maxDuration": 60
-    }
-  }
-}
