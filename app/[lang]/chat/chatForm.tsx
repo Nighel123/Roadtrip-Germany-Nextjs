@@ -22,7 +22,7 @@ export default function ChatForm({
 
   useEffect(() => {
     return () => {
-      fetch(`/api/new-messages-email`);
+      fetch(`/api/new-messages-email-timer`);
     };
   }, []);
 
