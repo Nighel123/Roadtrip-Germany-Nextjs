@@ -22,7 +22,7 @@ export default function ChatForm({
 
   useEffect(() => {
     return () => {
-      sendNewMessageEmail();
+      fetch(`/api/new-messages-email`);
     };
   }, []);
 
