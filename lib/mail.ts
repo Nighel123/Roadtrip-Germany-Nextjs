@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import { EmailTemplate, NewMessagesTemplate } from "ui/emailTemplate";
+import { getUsersWithUnreadEmails, setMessagesToInformed } from "./data";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -54,4 +55,29 @@ export async function sendNewMessagesEmail({
     throw error;
   }
   //console.log(data);
+}
+
+export function sendNewMessagesEmails(seconds: number) {
+  const millisec = seconds * 1000;
+  setTimeout(async () => {
+    const emailArray = await getUsersWithUnreadEmails();
+    emailArray.reduce((acc, curr) => {
+      if (
+        acc.some(
+          ({ senderName, email }) =>
+            senderName == curr.senderName && email == curr.email
+        )
+      ) {
+        return acc;
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    }, [] as typeof emailArray);
+    emailArray.forEach(async (o) => {
+      await sendNewMessagesEmail(o);
+      await new Promise((resolve) => setTimeout(resolve, 700));
+    });
+    await setMessagesToInformed();
+  }, millisec);
 }

@@ -20,11 +20,11 @@ export default function ChatForm({
   const session = useSession();
   const userID = session.data?.user?.id;
 
-  useEffect(() => {
+  /*   useEffect(() => {
     return () => {
       fetch(`/api/new-messages-email-timer`);
     };
-  }, []);
+  }, []); */
 
   const mutation = useMutation({
     mutationFn: (newMessage: {

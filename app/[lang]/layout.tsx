@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Dict, getDictionary } from "./dictionaries";
+import OnClose from "./onClose";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default async function RootLayout({
       <body className={`${open_sans.className} antialiased`}>
         {children}
         <Footer dict={dict} />
+        <OnClose />
       </body>
       <GoogleAnalytics gaId="G-64S5W9QGXN" />
     </html>
