@@ -58,7 +58,7 @@ export const NewMessagesTemplate = ({
     <p>You have new messages from {senderName}:</p>
     <p>{text}</p>
     <p>
-      See the chat{" "}
+      See the chat on{" "}
       <a href="www.roadtrip-germany.de/chat">www.roadtrip-germany.de</a> to
       react on your new messages.
     </p>

@@ -74,7 +74,7 @@ export async function sendNewMessagesEmails() {
   }, [] as typeof emailArray);
   emailArray.forEach(async (o) => {
     await sendNewMessagesEmail(o);
-    await new Promise((resolve) => setTimeout(resolve, 700));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   });
   await setMessagesToInformed();
 }

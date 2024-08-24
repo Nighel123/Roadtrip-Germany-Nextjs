@@ -19,10 +19,6 @@ export default function OnClose() {
     window.addEventListener("beforeunload", () =>
       fetch(`/api/new-messages-email-timer`)
     );
-    return () =>
-      window.removeEventListener("beforeunload", () =>
-        fetch(`/api/new-messages-email-timer`)
-      );
   }, []);
   return null;
 }
