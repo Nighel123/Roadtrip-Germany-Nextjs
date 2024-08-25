@@ -40,6 +40,7 @@ export default function ChatForm({
       console.log("success");
       setText(null);
       queryClient.invalidateQueries({ queryKey: ["messages"] });
+      setTimeout(() => fetch(`/api/new-messages-email-timer`), 120 * 1000);
     },
   });
   const handleTextChange = (e: any) => {

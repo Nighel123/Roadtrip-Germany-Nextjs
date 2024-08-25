@@ -7,8 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ChatHeading from "./chatHeading";
 import { SessionProvider } from "next-auth/react";
 import { Dict } from "../dictionaries";
-import { Suspense } from "react";
-import { sendNewMessageEmail } from "lib/actions";
+import { Suspense, useEffect } from "react";
 
 /* export const metadata: Metadata = {
   title: "Roadtrip Chat",
