@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "/api/new-messages-email-timer",
-      "schedule": "0 0 * * *"
-    }
-  ]
-}

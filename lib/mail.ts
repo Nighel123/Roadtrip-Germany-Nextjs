@@ -59,11 +59,11 @@ export async function sendNewMessagesEmail({
 
 export async function sendNewMessagesEmails() {
   const emailArray = await getUsersWithUnreadEmails();
-  emailArray.reduce((acc, curr) => {
+  const redArr = emailArray.reduce((acc, curr) => {
     if (
       acc.some(
-        ({ email }) =>
-          /* senderName == curr.senderName &&  */ email == curr.email
+        ({ email, senderName }) =>
+          email == curr.email && senderName == curr.senderName
       )
     ) {
       return acc;
@@ -72,9 +72,9 @@ export async function sendNewMessagesEmails() {
     }
     return acc;
   }, [] as typeof emailArray);
-  emailArray.forEach(async (o) => {
-    await sendNewMessagesEmail(o);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const intervall = 500;
+  redArr.forEach((o, i) => {
+    setTimeout(() => sendNewMessagesEmail(o), i * intervall);
   });
   await setMessagesToInformed();
 }
