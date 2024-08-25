@@ -1,4 +1,5 @@
 import "@/styles/global.css";
+import "@/styles/layout.css";
 import "@/styles/home.css";
 
 import { open_sans } from "@/styles/fonts";
@@ -9,6 +10,8 @@ import Link from "next/link";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Dict, getDictionary } from "./dictionaries";
 import OnClose from "./onClose";
+import InstagramIcon from "ui/components/insagramIcon";
+import FacbookIcon from "ui/components/facebookIcon";
 
 export const metadata: Metadata = {
   title: {
@@ -48,7 +51,11 @@ function Footer({ dict }: { dict: Dict }) {
   const { imprint } = dict;
   return (
     <footer>
-      <Link href={"/impressum"}>{imprint.headline}</Link>
+      <InstagramIcon />
+      <FacbookIcon />
+      <Link href={"/impressum"} id="imprint">
+        {imprint.headline}
+      </Link>
     </footer>
   );
 }

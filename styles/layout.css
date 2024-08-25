@@ -1,0 +1,13 @@
+footer .social-icon {
+  width: 3vw;
+}
+
+footer {
+  justify-content: start;
+  gap: 1vw;
+}
+
+#imprint {
+  justify-self: flex-end;
+  margin-left: 3vw;
+}
