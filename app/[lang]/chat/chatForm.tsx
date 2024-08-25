@@ -20,12 +20,6 @@ export default function ChatForm({
   const session = useSession();
   const userID = session.data?.user?.id;
 
-  /*   useEffect(() => {
-    return () => {
-      fetch(`/api/new-messages-email-timer`);
-    };
-  }, []); */
-
   const mutation = useMutation({
     mutationFn: (newMessage: {
       text: string;
@@ -40,7 +34,6 @@ export default function ChatForm({
       console.log("success");
       setText(null);
       queryClient.invalidateQueries({ queryKey: ["messages"] });
-      setTimeout(() => fetch(`/api/new-messages-email-timer`), 120 * 1000);
     },
   });
   const handleTextChange = (e: any) => {

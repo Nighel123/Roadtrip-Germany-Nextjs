@@ -206,17 +206,19 @@ export async function getUsersWithUnreadEmails() {
   noStore();
   try {
     const data = await sql`
-            SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName"
+            SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName", messages.created AS "messageCreated"
             FROM messages
             JOIN users AS recipient ON messages.to = recipient.id
             JOIN users AS sender ON messages.from = sender.id
             WHERE messages.read IS NULL AND messages."userInformed" IS NULL
+            ORDER BY messages.created ASC 
       `;
     return data.rows as {
       email: string;
       text: string;
       senderName: string;
       recipientName: string;
+      messageCreated: string;
     }[];
   } catch (error) {
     console.error(error);

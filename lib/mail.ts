@@ -64,7 +64,8 @@ export async function sendNewMessagesEmails() {
       acc.some(
         ({ email, senderName }) =>
           email == curr.email && senderName == curr.senderName
-      )
+      ) ||
+      new Date().valueOf() - new Date(curr.messageCreated).valueOf() < 600000
     ) {
       return acc;
     } else {
