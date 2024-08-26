@@ -62,6 +62,27 @@ const refineDate = (o: z.ZodTypeAny) => {
     );
 };
 
+export const zPassword = z
+  .string({
+    message: ErrorCodes.WRONG_DATA,
+  })
+  .min(8, {
+    message: ErrorCodes.TOO_SHORT,
+  })
+  .max(100, {
+    message: ErrorCodes.TOO_LONG,
+  })
+  .regex(
+    //https://stackoverflow.com/questions/5142103/regex-to-validate-password-strength
+    new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])"),
+    {
+      message: ErrorCodes.WRONG_FORMAT,
+    }
+  )
+  .transform(async (password) => {
+    return await bcrypt.hash(password, 10);
+  });
+
 export const zRegisterForm = z.object({
   username: z
     .string({
@@ -90,26 +111,7 @@ export const zRegisterForm = z.object({
       },
       { message: ErrorCodes.ALREADY_EXISTS }
     ),
-  password: z
-    .string({
-      message: ErrorCodes.WRONG_DATA,
-    })
-    .min(8, {
-      message: ErrorCodes.TOO_SHORT,
-    })
-    .max(100, {
-      message: ErrorCodes.TOO_LONG,
-    })
-    .regex(
-      //https://stackoverflow.com/questions/5142103/regex-to-validate-password-strength
-      new RegExp("^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])"),
-      {
-        message: ErrorCodes.WRONG_FORMAT,
-      }
-    )
-    .transform(async (password) => {
-      return await bcrypt.hash(password, 10);
-    }),
+  password: zPassword,
   birthday: refineDate(zBirthday),
   sex: z.enum(sex, {
     message: ErrorCodes.WRONG_DATA /* ${sexLang.join(`${register.or} `)}} */,

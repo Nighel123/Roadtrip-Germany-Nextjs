@@ -402,27 +402,3 @@ export async function editRoadtrip(
   revalidatePath("/insertRoadtrip");
   redirect("/dashboard");
 }
-
-export async function sendNewMessageEmail() {
-  setTimeout(async () => {
-    const emailArray = await getUsersWithUnreadEmails();
-    emailArray.reduce((acc, curr) => {
-      if (
-        acc.some(
-          ({ senderName, email }) =>
-            senderName == curr.senderName && email == curr.email
-        )
-      ) {
-        return acc;
-      } else {
-        acc.push(curr);
-      }
-      return acc;
-    }, [] as typeof emailArray);
-    emailArray.forEach(async (o) => {
-      await sendNewMessagesEmail(o);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    });
-    await setMessagesToInformed();
-  }, 600000);
-}
