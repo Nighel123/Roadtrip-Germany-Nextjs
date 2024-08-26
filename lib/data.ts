@@ -211,7 +211,7 @@ export async function getUsersWithUnreadEmails() {
             JOIN users AS recipient ON messages.to = recipient.id
             JOIN users AS sender ON messages.from = sender.id
             WHERE messages.read IS NULL AND messages."userInformed" IS NULL
-            ORDER BY messages.created ASC 
+            ORDER BY messages.created DESC 
       `;
     return data.rows as {
       email: string;

@@ -42,6 +42,17 @@
   width: 25%;
 }
 
+.login #passwordInput {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.login #passwordInput svg {
+  width: 2vw;
+  color: #94949a;
+}
+
 .login #swipeContainer.right {
   left: -100%;
 }

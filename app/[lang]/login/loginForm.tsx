@@ -1,19 +1,20 @@
 "use client";
 
-import Image from "next/image";
 import { MouseEventHandler, useState } from "react";
 import { useFormState } from "react-dom";
 import { authenticate } from "lib/actions";
 import { useSearchParams } from "next/navigation";
-import SubmitButton from "./submitButton";
-import GoogleLogin from "./googleLogin";
 import { Dict } from "../dictionaries";
-import { signIn } from "auth";
+import { EyeIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import GoogleLogin from "./googleLogin";
+import SubmitButton from "./submitButton";
 
 export function Form({ dict }: { dict: Dict }) {
   const { logIn } = dict;
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [swipe, setSwipe] = useState(false);
+  const [type, setType] = useState<"password" | "text">("password");
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
   const verificationToken =
@@ -25,6 +26,15 @@ export function Form({ dict }: { dict: Dict }) {
     event.preventDefault();
     setSwipe(!swipe);
   };
+
+  const showHidePw = () => {
+    if (type === "password") {
+      setType("text");
+    } else {
+      setType("password");
+    }
+  };
+
   return (
     <div id="SignInWindow">
       <Image
@@ -68,11 +78,12 @@ export function Form({ dict }: { dict: Dict }) {
             </button>
           </div>
           <div id="passwordPage">
-            <input
-              name="password"
-              type="password"
-              placeholder={logIn.password}
-            />
+            <div id="passwordInput">
+              <input name="password" type={type} placeholder={logIn.password} />
+              <span onClick={showHidePw}>
+                <EyeIcon />
+              </span>
+            </div>
             <SubmitButton dict={dict} />
           </div>
         </div>
