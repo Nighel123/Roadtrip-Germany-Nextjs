@@ -6,6 +6,7 @@ import { useTouched } from "app/[lang]/insertRoadtrip/useTouched";
 import { register } from "lib/actions";
 import Submit from "./submit";
 import { Dict } from "../dictionaries";
+import PasswordInput from "./passwordInput";
 
 const errorPaths = [
   "username",
@@ -56,13 +57,7 @@ export function Form({ dict }: { dict: Dict }) {
       <div>
         <label htmlFor="password">{dict.register.password}</label>
         <div className="password">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            onBlur={handleBlur}
-            onChange={handleChange}
-          />
+          <PasswordInput handleBlur={handleBlur} handleChange={handleChange} />
         </div>
         <ErrorComponent errors={errors} show={["password"]} />
       </div>

@@ -32,3 +32,17 @@
   font-weight: 300;
   font-size: 3em;
 }
+
+.register div.password {
+  display: flex;
+  align-items: center;
+}
+
+.register div.password svg {
+  width: 2vw;
+  color: #94949a;
+}
+
+.register div.password input {
+  width: 100%;
+}
