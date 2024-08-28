@@ -9,7 +9,6 @@ import { arrIntersection, arrSubset } from "lib/utils/utils";
 import { useEffect, useRef, useState } from "react";
 import { error } from "lib/utils/validateInsertForm";
 import { useFormState } from "react-dom";
-import { Dict } from "../dictionaries";
 
 export function useTouched(
   errorPaths: string[],

@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { EmailTemplate } from "ui/emailTemplate";
+import { VerificationEmailTemplate } from "./verificationEmailTemplate";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -18,7 +18,7 @@ export async function sendVerificationEmail(
     /* from: "onboarding@resend.dev",
     to: "nickel.paulsen@googlemail.com", */
     subject: `Hello ${username}, confirm existance of ${email}`,
-    react: EmailTemplate({ username, email, confirmLink }),
+    react: VerificationEmailTemplate({ username, email, confirmLink }),
   });
 
   if (error) {

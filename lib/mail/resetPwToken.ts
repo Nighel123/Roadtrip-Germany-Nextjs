@@ -1,7 +1,5 @@
 import { Resend } from "resend";
-import { NewMessagesTemplate } from "ui/emailTemplate";
-import { getUsersWithUnreadEmails, setMessagesToInformed } from "../data";
-import { ResetPwEmail } from "./resetPwEmail";
+import { ResetPwEmailTemplate } from "./resetPwEmailTemplate";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -23,6 +21,10 @@ export async function sendResetPWToken({
     /* from: "onboarding@resend.dev",
     to: "nickel.paulsen@googlemail.com", */
     subject: `Reset password for ${username}`,
-    react: ResetPwEmail({ username, resetLink }),
+    react: ResetPwEmailTemplate({ username, resetLink }),
   });
+  if (error) {
+    console.error("Mail Error: ", error);
+    throw error;
+  }
 }

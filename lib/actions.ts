@@ -30,12 +30,8 @@ import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 
 import { randomUUID } from "node:crypto";
-import { sendNewMessagesEmail, sendVerificationEmail } from "lib/mail";
-import {
-  fetchRoadtripById,
-  getUsersWithUnreadEmails,
-  setMessagesToInformed,
-} from "./data";
+import { sendVerificationEmail } from "./mail/verificationLink";
+import { fetchRoadtripById } from "./data";
 import { zDeleteRoadtrip } from "lib/utils/validateFormData";
 
 export async function SignIn(callbackUrl: string) {

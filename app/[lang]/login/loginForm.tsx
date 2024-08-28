@@ -9,6 +9,8 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import GoogleLogin from "./googleLogin";
 import SubmitButton from "./submitButton";
+import Modal from "react-modal";
+import { usePwResetModal } from "./usePwResetModal";
 
 export function Form({ dict }: { dict: Dict }) {
   const { logIn } = dict;
@@ -19,6 +21,7 @@ export function Form({ dict }: { dict: Dict }) {
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
   const verificationToken =
     searchParams?.get("verification_token") || undefined;
+  const { PwResetModal, openModal } = usePwResetModal({ dict });
 
   const ToogleSwipe: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = (
     event
@@ -85,6 +88,18 @@ export function Form({ dict }: { dict: Dict }) {
               </span>
             </div>
             <SubmitButton dict={dict} />
+            <div id="forgotPassword">
+              <a
+                href=""
+                onClick={(event) => {
+                  openModal(event);
+                  setSwipe(false);
+                }}
+              >
+                forgot Password?
+              </a>
+            </div>
+            <PwResetModal dict={dict} />
           </div>
         </div>
         {errorMessage && (

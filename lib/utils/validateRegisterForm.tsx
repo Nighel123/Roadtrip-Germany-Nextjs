@@ -83,25 +83,26 @@ export const zPassword = z
     return await bcrypt.hash(password, 10);
   });
 
+export const zUsername = z
+  .string({
+    message: ErrorCodes.WRONG_CHARACTERS,
+  })
+  .min(2, {
+    message: ErrorCodes.TOO_SHORT,
+  })
+  .max(60, {
+    message: ErrorCodes.TOO_LONG,
+  });
+
 export const zRegisterForm = z.object({
-  username: z
-    .string({
-      message: ErrorCodes.WRONG_CHARACTERS,
-    })
-    .min(2, {
-      message: ErrorCodes.TOO_SHORT,
-    })
-    .max(60, {
-      message: ErrorCodes.TOO_LONG,
-    })
-    .refine(
-      async (username) => {
-        return !(await checkIfUserNameExists(username));
-      },
-      {
-        message: ErrorCodes.ALREADY_EXISTS,
-      }
-    ),
+  username: zUsername.refine(
+    async (username) => {
+      return !(await checkIfUserNameExists(username));
+    },
+    {
+      message: ErrorCodes.ALREADY_EXISTS,
+    }
+  ),
   email: z
     .string({ message: ErrorCodes.WRONG_CHARACTERS })
     .email({ message: ErrorCodes.WRONG_FORMAT })

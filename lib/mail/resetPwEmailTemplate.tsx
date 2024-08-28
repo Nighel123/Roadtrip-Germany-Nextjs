@@ -5,7 +5,7 @@ interface EmailTemplateProps {
   resetLink: string;
 }
 
-export const ResetPwEmail: React.FC<Readonly<EmailTemplateProps>> = ({
+export const ResetPwEmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
   username,
   resetLink,
 }) => (

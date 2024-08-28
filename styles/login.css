@@ -53,6 +53,25 @@
   color: #94949a;
 }
 
+.login div#forgotPassword a {
+  font-size: 0.8vw;
+  color: #94949a;
+  text-align: center;
+  display: block;
+  margin-top: 0.5vw;
+}
+
+.ReactModalPortal form#forgotPassword {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  justify-content: center;
+  align-items: center;
+}
+.ReactModalPortal form#forgotPassword input {
+  width: 30vw;
+}
+
 .login #swipeContainer.right {
   left: -100%;
 }
