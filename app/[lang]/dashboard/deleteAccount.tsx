@@ -2,7 +2,7 @@
 import Modal from "react-modal";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useFormState } from "react-dom";
-import { deleteRoadtrip, deleteUser } from "lib/actions";
+import { deleteUser } from "./actions";
 import SubmitButtonDeleteAcc from "./submitButtonDeleteAcc";
 import { Dict } from "../dictionaries";
 

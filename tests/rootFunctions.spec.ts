@@ -15,15 +15,15 @@ const registerTestData = {
 
 const roadtripTestData = [
   {
-    startland: "Ukraine",
-    starttown: "Kiew",
-    destland: "Finnland",
-    desttown: "Kopenhagen",
-    day: "1",
+    startland: "Dänemark",
+    starttown: "Kopenhagen",
+    destland: "Norwegen",
+    desttown: "Oslo",
+    day: "15",
     month: "September",
     year: "2024",
     description:
-      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+      "Hey, ich hätte voll Lust nach Oslo zu fahren. Ich würde gerne so eine Woche lang fahren und mir auf dem Weg Naturschutzgebiete und Wanderungen machen. Außerdem gehe ich gerne angeln und würde gerne in den Fjorden Makrelen angeln. Falls du Lust hast schreib mich gerne hier im Chat an!",
   },
   {
     startland: "Deutschland",
@@ -56,7 +56,7 @@ const loginData = [
   },
 ];
 
-const { username, password, email } = loginData[2];
+const { username, password, email } = loginData[0];
 const { sex } = registerTestData;
 const {
   startland,
@@ -67,7 +67,7 @@ const {
   day,
   month,
   year,
-} = roadtripTestData[1];
+} = roadtripTestData[0];
 
 let user_id: string;
 test.describe("rootFunctions", () => {
@@ -84,8 +84,8 @@ test.describe("rootFunctions", () => {
     await page.getByPlaceholder("Jahr").fill(registerTestData.year);
     await page.getByLabel("Geschlecht").selectOption(sex);
     await page.getByRole("button", { name: "Submit" }).click();
-    await page.waitForURL("/register/success");
-    await expect(page).toHaveURL("/register/success");
+    await page.waitForURL("/success/registered");
+    await expect(page).toHaveURL("/success/registered");
   });
 
   test("email-validation and login", async ({ page }) => {
@@ -154,5 +154,10 @@ test.describe("rootFunctions", () => {
       .click();
     await page.waitForURL(`/viewRoadtrip/${roadtrip_id}`);
     await expect(page).toHaveURL(`/viewRoadtrip/${roadtrip_id}`);
+  });
+  test("cleanup", async ({ page }) => {
+    await sql`
+      DELETE FROM users WHERE name = ${username}
+    `;
   });
 });

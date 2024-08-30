@@ -1,4 +1,4 @@
-import { fetchRoadtripById } from "lib/data";
+import { fetchRoadtripById } from "lib/data/data";
 import MapLoader from "../../../../ui/mapLoader";
 import MyMapComponent from "../../../../ui/map";
 import Image from "next/image";

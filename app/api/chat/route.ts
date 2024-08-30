@@ -1,4 +1,4 @@
-import { fetchMessagesByUserId, insertMessage } from "lib/data";
+import { fetchMessagesByUserId, insertMessage } from "lib/data/data";
 import { MessagesDisplay } from "lib/definitions";
 import {
   nestMessageArrayByOtherUserId,

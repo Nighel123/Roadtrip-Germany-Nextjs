@@ -1,4 +1,4 @@
-import { SignIn } from "lib/actions";
+import { SignIn } from "./actions";
 import GoogleButton from "ui/components/googleButton";
 
 export default function GoogleLogin({ callbackUrl }: { callbackUrl: string }) {

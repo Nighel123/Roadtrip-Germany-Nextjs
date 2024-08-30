@@ -1,4 +1,4 @@
-import { fetchRoadtrips } from "lib/data";
+import { fetchRoadtrips } from "lib/data/data";
 import { RoadtripDisplay } from "lib/definitions";
 import RoutesTableLine from "./routesTableLine";
 

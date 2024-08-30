@@ -53,7 +53,15 @@
   color: #94949a;
 }
 
-.login div#forgotPassword a {
+.login #problem-list {
+  margin-bottom: 1em;
+}
+
+.login #problem-list > div.hide {
+  display: none;
+}
+
+.login div#problem-list a {
   font-size: 0.8vw;
   color: #94949a;
   text-align: center;
@@ -176,11 +184,11 @@
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -20%);
 }
 
 .login #googleLogin {
-  margin-bottom: 8em;
+  margin-bottom: 9em;
 }
 
 /*** media queries ***/

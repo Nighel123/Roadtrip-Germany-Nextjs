@@ -1,4 +1,4 @@
-import { fetchRoadtripById } from "lib/data";
+import { fetchRoadtripById } from "lib/data/data";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

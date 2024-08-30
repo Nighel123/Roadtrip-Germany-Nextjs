@@ -13,7 +13,7 @@ export async function sendResetPWToken({
   token: string;
   email: string;
 }) {
-  const resetLink = `${domain}/newPassword/?token=${token}`;
+  const resetLink = `${domain}/new-password/?token=${token}`;
 
   const { data, error } = await resend.emails.send({
     from: "reset-pw@roadtrip-germany.de",

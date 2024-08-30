@@ -8,7 +8,7 @@ import "@/styles/dashboard.css";
 import { Metadata } from "next";
 import MapWrapperDash from "./mapWrapperDash";
 import RoutesTableDash from "./routesTableDash";
-import { fetchRoadtripsByUserID } from "lib/data";
+import { fetchRoadtripsByUserID } from "lib/data/data";
 import { auth } from "auth";
 import DeleteAccount from "./deleteAccount";
 import { getDictionary } from "../dictionaries";

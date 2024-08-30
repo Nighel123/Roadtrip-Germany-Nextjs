@@ -1,4 +1,4 @@
-import { fetchRoadtripsByUserID } from "lib/data";
+import { fetchRoadtripsByUserID } from "lib/data/data";
 import MapLoader from "ui/mapLoader";
 import MyMapComponent from "ui/map";
 import { auth } from "auth";

@@ -6,7 +6,7 @@ import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useFormState } from "react-dom";
-import { deleteRoadtrip } from "lib/actions";
+import { deleteRoadtrip } from "./actions";
 import SubmitButton from "./submitButton";
 import { Dict } from "../dictionaries";
 

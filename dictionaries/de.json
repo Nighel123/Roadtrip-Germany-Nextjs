@@ -16,6 +16,19 @@
     "error": {
       "WRONG_DATA": "Fehlerhafte Eingabe",
       "SERVER_ERROR": "Ohhh, irgendwas haben wir verkehrt gemacht..."
+    },
+    "modal": {
+      "sendVerification": {
+        "WRONG_CHARACTERS": "Bitte gebe eine Email-Addresse ein.",
+        "WRONG_FORMAT": "Das ist nicht das typische Format einer Email-Addresse",
+        "ALREADY_EXISTS": "Du bist bereits verifiziert.",
+        "SERVER_ERROR": "Oh mist, irgendwas ist schief gelaufen..."
+      },
+      "sendPwResetToken": {
+        "WRONG_CHARACTERS": "Bitte gebe eine Email-Addresse ein.",
+        "WRONG_FORMAT": "Das ist nicht das typische Format einer Email-Addresse",
+        "SERVER_ERROR": "Oh mist, irgendwas ist schief gelaufen..."
+      }
     }
   },
   "routesOverview": {
@@ -204,5 +217,23 @@
         }
       }
     }
+  },
+  "success": {
+    "resend-validation": {
+      "headline": "Deine Verifizierungsemail wurde erneut versendet.",
+      "paragraph": "Klick auf den Link in der Email und logge dich mit deinem Benutzernamen und Passwort ein, um dich zu verifizieren. Falls die Email nicht ankommt, kontrolliere deinen Spam-Ordner oder schaue ob dein Posteingang vielleicht voll ist. Anstonsten kontrolliere die Einstellung deines Email-Providers."
+    },
+    "new-password": {
+      "headline": "Email versendet um dein Passwort neu zu setzen.",
+      "paragraph": "Klicke auf den Link in der Email um ein neues Passwort zu vergeben."
+    },
+    "registered": {
+      "headline": "Du bist registriert. Bitte verifiziere deine Email",
+      "paragraph": "Wir haben eine email mit einem verifiyierungs-link an die angegebene email versendet. Bitte klicke auf den link und logge dich ein."
+    }
+  },
+  "newPassword": {
+    "WRONG_DATA": "Ups, da ist etwas schief gelaufen...",
+    "SERVER_ERROR": "Ups, da ist etwas schief gelaufen..."
   }
 }

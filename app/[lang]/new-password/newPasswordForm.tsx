@@ -3,14 +3,17 @@
 import { useShowPw } from "lib/hooks/useShowPw";
 import { useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
-import { updateNewPassword } from "./updateNewPassword";
+import { updateNewPassword } from "./actions";
+import { Dict } from "../dictionaries";
 
-export default function NewPasswordForm() {
+export default function NewPasswordForm({ dict }: { dict: Dict }) {
   const { type, clickElement } = useShowPw();
   const searchParams = useSearchParams();
   const token = searchParams.get("token") || undefined;
   const initialState: null | string[] = null;
   const [state, dispatch] = useFormState(updateNewPassword, initialState);
+
+  const { newPassword }: { newPassword: { [key: string]: string } } = dict;
 
   return (
     <>
@@ -27,11 +30,11 @@ export default function NewPasswordForm() {
           ></input>
           {clickElement}
         </div>
-        <button type="submit">Reset Password</button>
+        <button type="submit">Set new password</button>
       </form>
       {state &&
         state.map((error, index) => (
-          <p key={`error-${index}-${error}`}>{error}</p>
+          <p key={`error-${index}-${error}`}>{newPassword[error]}</p>
         ))}
     </>
   );

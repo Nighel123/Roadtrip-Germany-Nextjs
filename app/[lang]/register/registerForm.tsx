@@ -3,7 +3,7 @@
 import DateInput from "app/[lang]/insertRoadtrip/dateInput";
 import ErrorComponent from "app/[lang]/insertRoadtrip/errorMessage";
 import { useTouched } from "app/[lang]/insertRoadtrip/useTouched";
-import { register } from "lib/actions";
+import { register } from "./actions";
 import Submit from "./submit";
 import { Dict } from "../dictionaries";
 import PasswordInput from "./passwordInput";

@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useState } from "react";
 import { useFormState } from "react-dom";
-import { authenticate } from "lib/actions";
+import { authenticate } from "./actions";
 import { useSearchParams } from "next/navigation";
 import { Dict } from "../dictionaries";
 import { EyeIcon } from "@heroicons/react/24/outline";
@@ -10,18 +10,25 @@ import Image from "next/image";
 import GoogleLogin from "./googleLogin";
 import SubmitButton from "./submitButton";
 import Modal from "react-modal";
-import { usePwResetModal } from "./usePwResetModal";
+import { useModal } from "./useModal";
 
 export function Form({ dict }: { dict: Dict }) {
   const { logIn } = dict;
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [swipe, setSwipe] = useState(false);
   const [type, setType] = useState<"password" | "text">("password");
+  const [showProblems, setShowProblems] = useState(false);
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
   const verificationToken =
     searchParams?.get("verification_token") || undefined;
-  const { PwResetModal, openModal } = usePwResetModal({ dict });
+  const { ModalJSX: PwResetModal, openModal: openPwModal } = useModal({
+    actionSelect: "sendPwResetToken",
+  });
+  const { ModalJSX: VerificatiionModal, openModal: openVerificationModal } =
+    useModal({
+      actionSelect: "sendVerification",
+    });
 
   const ToogleSwipe: MouseEventHandler<HTMLDivElement | HTMLButtonElement> = (
     event
@@ -36,6 +43,10 @@ export function Form({ dict }: { dict: Dict }) {
     } else {
       setType("password");
     }
+  };
+
+  const handleShowProblems = () => {
+    setShowProblems(true);
   };
 
   return (
@@ -88,18 +99,6 @@ export function Form({ dict }: { dict: Dict }) {
               </span>
             </div>
             <SubmitButton dict={dict} />
-            <div id="forgotPassword">
-              <a
-                href=""
-                onClick={(event) => {
-                  openModal(event);
-                  setSwipe(false);
-                }}
-              >
-                forgot Password?
-              </a>
-            </div>
-            <PwResetModal dict={dict} />
           </div>
         </div>
         {errorMessage && (
@@ -109,6 +108,53 @@ export function Form({ dict }: { dict: Dict }) {
         )}
       </form>
       <GoogleLogin callbackUrl={callbackUrl} />
+      <div id="problem-list">
+        <div
+          id="problem-question"
+          className={showProblems ? "hide" : undefined}
+        >
+          <a
+            href=""
+            onClick={(event) => {
+              event.preventDefault();
+              handleShowProblems();
+            }}
+          >
+            problems login in?
+          </a>
+        </div>
+        <div
+          id="problem-container"
+          className={showProblems ? undefined : "hide"}
+        >
+          <div id="no-validation-email">
+            <a
+              href=""
+              onClick={(event) => {
+                event.preventDefault();
+                openVerificationModal();
+                setSwipe(false);
+              }}
+            >
+              resend verification Email
+            </a>
+            <VerificatiionModal dict={dict} />
+          </div>
+          <div id="forgotPassword">
+            <a
+              href=""
+              onClick={(event) => {
+                event.preventDefault();
+                openPwModal();
+                setSwipe(false);
+              }}
+            >
+              forgot Password?
+            </a>
+          </div>
+          <PwResetModal dict={dict} />
+        </div>
+      </div>
     </div>
   );
 }

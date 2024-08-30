@@ -3,7 +3,6 @@ import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { Dict } from "../dictionaries";
-import { sendNewMessageEmail } from "lib/actions";
 
 export default function ChatForm({
   roadtripID,

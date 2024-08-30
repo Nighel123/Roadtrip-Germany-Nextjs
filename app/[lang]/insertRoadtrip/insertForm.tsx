@@ -10,11 +10,12 @@ import DateInput from "./dateInput";
 import TextInput from "./textInput";
 import ImageUpload from "./imageUpload";
 import Submit from "./submit";
-import { editRoadtrip, insertRoadtrip } from "lib/actions";
+import { insertRoadtrip } from "./actions";
 import { useTouched } from "./useTouched";
 import ErrorComponent from "./errorMessage";
 import { RoadtripDisplay } from "lib/definitions";
 import { Dict } from "../dictionaries";
+import { editRoadtrip } from "../dashboard/actions";
 
 const errorPaths = [
   "day",

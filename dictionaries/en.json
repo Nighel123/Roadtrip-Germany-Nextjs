@@ -16,6 +16,19 @@
     "error": {
       "WRONG_DATA": "Ivalid credentials",
       "SERVER_ERROR": "Uuups, there was an error at the server!"
+    },
+    "modal": {
+      "sendVerification": {
+        "WRONG_CHARACTERS": "Please enter an Email-address.",
+        "WRONG_FORMAT": "This is not an email",
+        "ALREADY_EXISTS": "You are already verified.",
+        "SERVER_ERROR": "shit, something went wrong..."
+      },
+      "sendPwResetToken": {
+        "WRONG_CHARACTERS": "Please enter an Email-address.",
+        "WRONG_FORMAT": "This is not an email",
+        "SERVER_ERROR": "shit, something went wrong..."
+      }
     }
   },
   "routesOverview": {
@@ -203,5 +216,23 @@
         }
       }
     }
+  },
+  "success": {
+    "resend-validation": {
+      "headline": "Your verification email has been sent again.",
+      "paragraph": "Click on the link in the email and login to verify your address. If the email doesn't arrive, check your spam folder or see if your inbox might be full. Otherwise, check the settings of your email provider"
+    },
+    "new-password": {
+      "headline": "Email sent to reset your password.",
+      "paragraph": "Click on the link in the email and enter your new password, to set a new password."
+    },
+    "registered": {
+      "headline": "You are registered. Please verify your email.",
+      "paragraph": "We have sent you an verification-email with a link. Please clickt the link and login."
+    }
+  },
+  "newPassword": {
+    "WRONG_DATA": "Ups, some shit happend...",
+    "SERVER_ERROR": "Ups, some shit happend..."
   }
 }

@@ -1,6 +1,7 @@
 import { Resend } from "resend";
 import { NewMessagesTemplate } from "./NewMessagesEmailTemplate";
-import { getUsersWithUnreadEmails, setMessagesToInformed } from "../data";
+import { getUsersWithUnreadEmails } from "../data/user";
+import { setMessagesToInformed } from "lib/data/data";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

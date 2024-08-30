@@ -1,7 +1,7 @@
 import { sql } from "@vercel/postgres";
-import { MessagesDisplay, RoadtripDisplay } from "./definitions";
 import { unstable_noStore as noStore } from "next/cache";
 import { auth } from "auth";
+import { MessagesDisplay, RoadtripDisplay } from "lib/definitions";
 
 export async function fetchRoadtrips() {
   // Add noStore() here to prevent the response from being cached.
@@ -202,29 +202,7 @@ export async function verifyUserEmail(user_id: string) {
     throw new Error("Die Email konnte nicht auf verifiziert gesetzt werden.");
   }
 }
-export async function getUsersWithUnreadEmails() {
-  noStore();
-  try {
-    const data = await sql`
-            SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName", messages.created AS "messageCreated"
-            FROM messages
-            JOIN users AS recipient ON messages.to = recipient.id
-            JOIN users AS sender ON messages.from = sender.id
-            WHERE messages.read IS NULL AND messages."userInformed" IS NULL
-            ORDER BY messages.created DESC 
-      `;
-    return data.rows as {
-      email: string;
-      text: string;
-      senderName: string;
-      recipientName: string;
-      messageCreated: string;
-    }[];
-  } catch (error) {
-    console.error(error);
-    throw new Error("Could not get users with unread emails");
-  }
-}
+
 
 export async function setMessagesToInformed() {
   try {
