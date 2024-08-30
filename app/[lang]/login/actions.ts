@@ -4,12 +4,12 @@ import { z } from "zod";
 import { ErrorCodes, LoginForm } from "../../../lib/definitions";
 import { sql } from "@vercel/postgres";
 import { redirect } from "next/navigation";
-import { sendResetPWToken } from "lib/mail/resetPwToken";
+import { sendResetPWToken } from "app/[lang]/new-password/resetPwToken";
 import { generateVerificationToken, getUserbyEmail } from "lib/data/users";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { signIn } from "auth";
-import { sendVerificationEmail } from "lib/mail/verificationLink";
+import { sendVerificationEmail } from "app/[lang]/register/verificationLink";
 
 export async function SignIn(callbackUrl: string) {
   await signIn("google", { redirectTo: callbackUrl || "/" });

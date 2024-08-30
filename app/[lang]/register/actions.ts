@@ -14,7 +14,7 @@ import {
 } from "lib/utils/validateRegisterForm";
 
 import { RegisterForm } from "lib/definitions";
-import { sendVerificationEmail } from "lib/mail/verificationLink";
+import { sendVerificationEmail } from "app/[lang]/register/verificationLink";
 import { generateVerificationToken } from "lib/data/users";
 
 export async function register(

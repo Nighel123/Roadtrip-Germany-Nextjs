@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { NewMessagesTemplate } from "./NewMessagesEmailTemplate";
-import { getUsersWithUnreadEmails } from "../data/users";
+import { getUsersWithUnreadEmails } from "lib/data/users";
 import { setMessagesToInformed } from "lib/data/messages";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -30,7 +30,6 @@ export async function sendNewMessagesEmail({
     console.error("Mail Error: ", error);
     throw error;
   }
-  //console.log(data);
 }
 
 export async function sendNewMessagesEmails() {

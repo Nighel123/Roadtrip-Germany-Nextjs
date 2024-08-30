@@ -1,16 +1,4 @@
-import {
-  Body,
-  Container,
-  Column,
-  Head,
-  Html,
-  Img,
-  Link,
-  Preview,
-  Row,
-  Section,
-  Text,
-} from "@react-email/components";
+import { Img } from "@react-email/components";
 
 interface EmailTemplateProps {
   username: string;
