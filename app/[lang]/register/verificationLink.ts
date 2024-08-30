@@ -1,5 +1,8 @@
 import { Resend } from "resend";
-import { VerificationEmailTemplate } from "./verificationEmailTemplate";
+import { VerificationEmailTemplate } from "../../../dictionaries/verificationEmailTemplate";
+import { getLocale } from "auth.config";
+import { headers } from "next/headers";
+import { getDictionary } from "../dictionaries";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const domain = process.env.NEXT_PUBLIC_APP_URL;
@@ -10,6 +13,7 @@ export async function sendVerificationEmail(
   token: `${string}-${string}-${string}-${string}-${string}`
 ) {
   const confirmLink = `${domain}/login/?verification_token=${token}`;
+  const lang = getLocale(headers());
 
   //throw new Error("mail error thrown");
   const { data, error } = await resend.emails.send({
@@ -17,8 +21,11 @@ export async function sendVerificationEmail(
     to: email,
     /* from: "onboarding@resend.dev",
     to: "nickel.paulsen@googlemail.com", */
-    subject: `Hello ${username}, confirm existance of ${email}`,
-    react: VerificationEmailTemplate({ username, email, confirmLink }),
+    subject:
+      lang === "en"
+        ? `Hello ${username}, confirm existance of ${email}`
+        : `Hallo ${username}, bitte bestätige die Existenz von ${email}`,
+    react: VerificationEmailTemplate({ username, email, confirmLink, lang }),
   });
 
   if (error) {

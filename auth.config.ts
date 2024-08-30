@@ -1,19 +1,19 @@
 import type { NextAuthConfig } from "next-auth";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 let locales = ["de", "en"];
 
-function getLocale(request: NextRequest) {
-  let headers = {
-    "accept-language": request.headers.get("accept-language") || "",
+export function getLocale(headers: Headers) {
+  let acc_lang_headers = {
+    "accept-language": headers.get("accept-language") || "",
   };
-  let languages = new Negotiator({ headers }).languages();
+  let languages = new Negotiator({ headers: acc_lang_headers }).languages();
 
   let defaultLocale = "en";
 
-  return match(languages, locales, defaultLocale);
+  return match(languages, locales, defaultLocale) as "en" | "de";
 }
 
 export const authConfig = {
@@ -42,7 +42,7 @@ export const authConfig = {
       }
 
       // Redirect if there is no locale
-      const locale = getLocale(request);
+      const locale = getLocale(request.headers);
 
       request.nextUrl.pathname = `/${locale}${pathname}`;
       // e.g. incoming request is /products

@@ -235,5 +235,15 @@
   "newPassword": {
     "WRONG_DATA": "Ups, da ist etwas schief gelaufen...",
     "SERVER_ERROR": "Ups, da ist etwas schief gelaufen..."
+  },
+  "verificationEmail": {
+    "subject1": "Hallo",
+    "subject": ", confirm existance of",
+    "email-heading": "A warm welcome to you, ",
+    "text1": "You have recently registered at",
+    "text2": "with the email: ",
+    "text3": ". With this Email we are sending you the confirmation-link to validate that your email address actually exists.",
+    "text4": "Click",
+    "text5": "to confirm your email."
   }
 }
