@@ -1,9 +1,9 @@
 import { auth, signOut } from "auth";
 import Image from "next/image";
 import Link from "next/link";
-import { SignInButton } from "../../ui/signInButton";
+import { SignInButton } from "ui/signInButton";
 import NewMessageCounter from "./newMessageCounter";
-import Register from "../../ui/components/register";
+import Register from "ui/components/register";
 import { Dict } from "./dictionaries";
 
 export default async function AuthButtons({ dict }: { dict: Dict }) {

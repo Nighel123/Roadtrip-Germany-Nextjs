@@ -1,6 +1,6 @@
-import { fetchRoadtripById } from "lib/data/data";
-import MapLoader from "../../../../ui/mapLoader";
-import MyMapComponent from "../../../../ui/map";
+import { fetchRoadtripById } from "lib/data/roadtrips";
+import MapLoader from "ui/mapLoader";
+import MyMapComponent from "ui/map";
 import Image from "next/image";
 import { formatDateToLocal } from "lib/utils/utils";
 import Link from "next/link";

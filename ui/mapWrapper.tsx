@@ -1,4 +1,4 @@
-import { fetchRoadtrips } from "lib/data/data";
+import { fetchRoadtrips } from "lib/data/roadtrips";
 import MapLoader from "./mapLoader";
 import MyMapComponent from "./map";
 

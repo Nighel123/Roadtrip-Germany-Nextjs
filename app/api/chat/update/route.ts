@@ -1,4 +1,4 @@
-import { updateReadStatus } from "lib/data/data";
+import { updateReadStatus } from "lib/data/messages";
 
 export async function POST(req: Request) {
   const obj = await req.json();

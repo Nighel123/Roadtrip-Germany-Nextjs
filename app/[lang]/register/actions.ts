@@ -15,7 +15,7 @@ import {
 
 import { RegisterForm } from "lib/definitions";
 import { sendVerificationEmail } from "lib/mail/verificationLink";
-import { generateVerificationToken } from "lib/data/user";
+import { generateVerificationToken } from "lib/data/users";
 
 export async function register(
   prevState: error[],

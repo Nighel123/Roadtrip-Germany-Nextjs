@@ -8,7 +8,7 @@ import {
   deleteVerificationTokenByUserId,
   getVerificationTokenByUserIdAndToken,
   verifyUserEmail,
-} from "lib/data/data";
+} from "lib/data/users";
 import google from "next-auth/providers/google";
 import PostgresAdapter from "@auth/pg-adapter";
 import { Pool } from "pg";

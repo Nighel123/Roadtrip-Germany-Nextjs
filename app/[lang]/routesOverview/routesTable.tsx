@@ -1,6 +1,6 @@
-import { fetchRoadtrips } from "lib/data/data";
-import { RoadtripDisplay } from "lib/definitions";
+import { fetchRoadtrips } from "lib/data/roadtrips";
 import RoutesTableLine from "./routesTableLine";
+import { RoadtripDisplay } from "lib/definitions";
 
 export default async function RoutesTable() {
   const roadtrips = await fetchRoadtrips();

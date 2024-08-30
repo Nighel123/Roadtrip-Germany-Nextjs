@@ -111,7 +111,6 @@ test.describe("rootFunctions", () => {
   });
   test("insertRoadtrip", async ({ page }) => {
     /* login */
-
     await page.goto(`/login`);
     await page.getByPlaceholder("Benutzername").fill(username || "");
     await page.getByPlaceholder("Passwort").fill(password || "");

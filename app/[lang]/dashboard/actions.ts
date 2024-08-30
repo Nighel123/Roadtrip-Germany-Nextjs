@@ -19,7 +19,7 @@ import {
 } from "lib/utils/validateInsertForm";
 import { auth, signOut } from "auth";
 
-import { fetchRoadtripById } from "lib/data/data";
+import { fetchRoadtripById } from "lib/data/roadtrips";
 import { zDeleteRoadtrip } from "lib/utils/validateFormData";
 
 export async function deleteRoadtrip(

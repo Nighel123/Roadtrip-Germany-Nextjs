@@ -6,7 +6,7 @@ import "@/styles/insertRoadtripForm.css";
 import Image from "next/image";
 import InsertForm from "./insertForm";
 import { Metadata } from "next";
-import { fetchRoadtripById } from "lib/data/data";
+import { fetchRoadtripById } from "lib/data/roadtrips";
 import Title from "ui/components/title";
 import { getDictionary } from "../dictionaries";
 

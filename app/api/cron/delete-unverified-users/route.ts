@@ -1,4 +1,4 @@
-import { deleteUnverifiedUsers } from "lib/data/user";
+import { deleteUnverifiedUsers } from "lib/data/users";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
