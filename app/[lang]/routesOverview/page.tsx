@@ -10,6 +10,7 @@ import "@/styles/routesOverview.css";
 import { Metadata } from "next";
 import AuthButtons from "app/[lang]/authButtons";
 import { getDictionary } from "../dictionaries";
+import Search from "ui/search";
 
 export const metadata: Metadata = {
   title: "Roadtrips übersicht",
@@ -17,11 +18,17 @@ export const metadata: Metadata = {
 
 export default async function RoutesOverview({
   params: { lang },
+  searchParams,
 }: {
   params: { lang: "en" | "de" };
+  searchParams?: {
+    query?: string;
+  };
 }) {
   const dict = await getDictionary(lang);
   const { routesOverview } = dict;
+
+  const query = searchParams?.query || "";
   return (
     <>
       <Suspense>
@@ -38,9 +45,10 @@ export default async function RoutesOverview({
           width={567}
           height={340}
         />
+        <Search placeholder={dict.routesOverview.searchPlaceholder} />
         <div id="tableContainer">
-          <Suspense fallback={<TableSkeleton />}>
-            <RoutesTable />
+          <Suspense key={query} fallback={<TableSkeleton />}>
+            <RoutesTable query={query} />
           </Suspense>
         </div>
 
@@ -52,7 +60,7 @@ export default async function RoutesOverview({
         />
         <div id="map">
           <Suspense fallback={<MapSkeleton />}>
-            <MapWrapper />
+            <MapWrapper query={query} />
           </Suspense>
         </div>
 

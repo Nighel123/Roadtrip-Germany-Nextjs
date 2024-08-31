@@ -9,12 +9,24 @@ import "@/styles/routesDetailed.css";
 
 import { Metadata } from "next";
 import Title from "ui/components/title";
+import Search from "ui/search";
+import { getDictionary } from "../dictionaries";
 
 export const metadata: Metadata = {
   title: "Roadtrips detailliert",
 };
 
-export default async function RoutesDetailed() {
+export default async function RoutesDetailed({
+  params: { lang },
+  searchParams,
+}: {
+  params: { lang: "en" | "de" };
+  searchParams?: {
+    query?: string;
+  };
+}) {
+  const dict = await getDictionary(lang);
+  const query = searchParams?.query || "";
   return (
     <div className="routesDetailed" data-testid="routesOverview">
       <Title />
@@ -26,14 +38,15 @@ export default async function RoutesDetailed() {
           width={3245}
           height={1819}
         />
+        <Search placeholder={dict.routesOverview.searchPlaceholder} />
         <div id="tableContainer">
           <Suspense fallback={<TableSkeleton />}>
-            <RoutesTable />
+            <RoutesTable query={query} />
           </Suspense>
         </div>
 
         <Suspense fallback={<MapSkeleton />}>
-          <MapWrapper />
+          <MapWrapper query={query} />
         </Suspense>
       </div>
     </div>

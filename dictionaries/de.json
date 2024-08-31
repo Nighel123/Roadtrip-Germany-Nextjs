@@ -34,7 +34,8 @@
   },
   "routesOverview": {
     "createTrip": "/images/routesOverview/eigeneReiseMachen.jpg",
-    "viewTrips": "/images/routesOverview/reiseAnsehen.jpg"
+    "viewTrips": "/images/routesOverview/reiseAnsehen.jpg",
+    "searchPlaceholder": "Roadtrips durchsuchen..."
   },
   "imprint": {
     "headline": "Impressum",

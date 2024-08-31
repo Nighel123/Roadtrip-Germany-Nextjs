@@ -34,7 +34,8 @@
   },
   "routesOverview": {
     "createTrip": "/images/routesOverview/createTrip.jpg",
-    "viewTrips": "/images/routesOverview/viewTrips.jpg"
+    "viewTrips": "/images/routesOverview/viewTrips.jpg",
+    "searchPlaceholder": "Search roadtrips..."
   },
   "imprint": {
     "headline": "Imprint",

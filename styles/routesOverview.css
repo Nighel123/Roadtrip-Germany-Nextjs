@@ -24,6 +24,28 @@
   grid-row: 2/3;
 }
 
+.routesOverview .search {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  display: flex;
+  align-items: center;
+  height: 2vw;
+  margin-top: 1.5vw;
+  margin-left: 2.1vw;
+}
+
+.routesOverview .searchInput {
+  width: 20vw;
+  height: 2.5vw;
+}
+.routesOverview .searchIcon {
+  width: 2.5vw;
+  /* margin-left: -3em; */
+  margin-left: 0.6vw;
+  color: white;
+  stroke-width: 0.15vw;
+}
+
 .routesOverview #tableContainer {
   position: relative;
   top: 15%;

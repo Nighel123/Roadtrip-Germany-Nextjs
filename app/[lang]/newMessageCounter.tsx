@@ -22,7 +22,7 @@ function Counter() {
   const [count, setCount] = useState<string>("0");
   const { isPending, isError, data } = useQuery({
     queryKey: ["counter"],
-    refetchInterval: 1000,
+    refetchInterval: 10000,
     queryFn: async () => {
       const response = await fetch(`/api/chat/count`);
       if (!response.ok) {
