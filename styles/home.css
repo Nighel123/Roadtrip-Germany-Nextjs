@@ -48,16 +48,6 @@
   right: 6.5vw;
 }
 
-#login {
-  width: 13.5%;
-  float: left;
-  margin: 0px 90% 0px 0.7vw;
-  position: absolute;
-  padding-bottom: 5.5%;
-  top: 3vw;
-  left: 0em;
-}
-
 #newMessageCounter {
   width: 1.5vw;
   height: 1.5vw;

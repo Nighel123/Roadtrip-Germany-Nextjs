@@ -11,6 +11,9 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { Dict, getDictionary } from "./dictionaries";
 import InstagramIcon from "ui/components/insagramIcon";
 import FacbookIcon from "ui/components/facebookIcon";
+import { cookies, headers } from "next/headers";
+import { revalidatePath } from "next/cache";
+import { redirect, usePathname } from "next/navigation";
 
 export const metadata: Metadata = {
   title: {
@@ -21,6 +24,10 @@ export const metadata: Metadata = {
     "Eine Website um Travelbuddies zu finden und zusammen Roadtrips zu planen.",
   metadataBase: new URL("https://www.roadtrip-germany.de"),
 };
+
+export async function generateStaticParams() {
+  return [{ lang: "en" }, { lang: "de" }];
+}
 
 export default async function RootLayout({
   children,
@@ -54,6 +61,31 @@ function Footer({ dict }: { dict: Dict }) {
       <Link href={"/impressum"} id="imprint">
         {imprint.headline}
       </Link>
+      <Language />
     </footer>
+  );
+}
+
+function Language() {
+  const handleClickFac = (lang: "en" | "de") => async () => {
+    "use server";
+    cookies().delete("NEXT_LOCALE");
+    const oneDay = 24 * 60 * 60 * 1000;
+    cookies().set("NEXT_LOCALE", lang, { expires: Date.now() + 2 * oneDay });
+    const headerList = headers();
+    const pathname = headerList.get("x-current-path");
+    redirect(pathname ? pathname : "/");
+  };
+
+  return (
+    <div className="langSwitcher">
+      <form action={handleClickFac("en")}>
+        <input type="submit" name="en" value="en" className="langButton" />
+      </form>
+      <span>|</span>
+      <form action={handleClickFac("de")}>
+        <input type="submit" name="de" value="de" className="langButton" />
+      </form>
+    </div>
   );
 }

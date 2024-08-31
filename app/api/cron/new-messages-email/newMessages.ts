@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { NewMessagesTemplate } from "./NewMessagesEmailTemplate";
+import { NewMessagesTemplate } from "../../../../dictionaries/NewMessagesEmailTemplate";
 import { getUsersWithUnreadEmails } from "lib/data/users";
 import { setMessagesToInformed } from "lib/data/messages";
 
@@ -10,11 +10,13 @@ export async function sendNewMessagesEmail({
   email,
   text,
   senderName,
+  lang,
 }: {
   recipientName: string;
   email: string;
   text: string;
   senderName: string;
+  lang: "en" | "de";
 }) {
   //throw new Error("mail error thrown");
   const { data, error } = await resend.emails.send({
@@ -22,8 +24,11 @@ export async function sendNewMessagesEmail({
     to: email,
     /* from: "onboarding@resend.dev",
     to: "nickel.paulsen@googlemail.com", */
-    subject: `Hello ${recipientName}, new messages for you from ${senderName}`,
-    react: NewMessagesTemplate({ recipientName, senderName, text }),
+    subject:
+      lang === "en"
+        ? `Hello ${recipientName}, new messages for you from ${senderName}`
+        : `Hallo ${recipientName}, es gibt neue Nachricten von ${senderName}`,
+    react: NewMessagesTemplate({ recipientName, senderName, text, lang }),
   });
 
   if (error) {

@@ -7,7 +7,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const data = await fetchOldRoadtripImages(offsetDays);
   const imgArr = data.map((imgObj) => imgObj.image_url);
   await deleteOldRoadtrips(offsetDays);
-  del(imgArr);
+  if (imgArr.length) del(imgArr);
   return new NextResponse("OK", {
     status: 200,
   });

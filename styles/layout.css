@@ -12,6 +12,16 @@ footer {
   margin-left: 3vw;
 }
 
+footer .langSwitcher {
+  display: flex;
+  margin-left: auto;
+}
+
+footer .langSwitcher .langButton {
+  background-color: transparent;
+  border: 0;
+}
+
 @media screen and (max-width: 500px) {
   footer #imprint {
     font-size: 2.5vw;

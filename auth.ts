@@ -2,11 +2,12 @@ import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { sql } from "@vercel/postgres";
-import type { User } from "lib/definitions";
+import { ErrorCodes, type User } from "lib/definitions";
 import bcrypt from "bcrypt";
 import {
   deleteVerificationTokenByUserId,
   getVerificationTokenByUserIdAndToken,
+  setUserLangById,
   verifyUserEmail,
 } from "lib/data/users";
 import google from "next-auth/providers/google";
@@ -37,8 +38,15 @@ const pool = new Pool({
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,
   adapter: PostgresAdapter(pool),
+  events: {
+    async linkAccount({ user }) {
+      if (!user.id) return;
+      verifyUserEmail(user.id);
+      setUserLangById(user.id);
+    },
+  },
   providers: [
-    google,
+    google({ allowDangerousEmailAccountLinking: true }),
     Credentials({
       async authorize(credentials) {
         /* this function will be called from the signIn-function */
@@ -72,6 +80,8 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
                 console.error(error);
                 throw error;
               }
+            } else {
+              throw Error(ErrorCodes.NO_DATA);
             }
           }
         }

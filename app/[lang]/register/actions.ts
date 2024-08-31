@@ -16,6 +16,8 @@ import {
 import { RegisterForm } from "lib/definitions";
 import { sendVerificationEmail } from "app/[lang]/register/verificationLink";
 import { generateVerificationToken } from "lib/data/users";
+import { getLocale } from "auth.config";
+import { headers } from "next/headers";
 
 export async function register(
   prevState: error[],
@@ -47,13 +49,14 @@ export async function register(
   const { username, email, password, birthday, sex } = resFormDataObj.data;
 
   const client = await db.connect();
+  const lang = getLocale(headers());
   try {
     await client.sql`BEGIN`; // start a transaction
     const {
       rows: [{ id: user_id }],
     } = await client.sql`
-        INSERT INTO users (name, email, password, birthday,sex)  
-        VALUES (${username}, ${email}, ${password},${birthday.Date.toISOString()}, ${sex})
+        INSERT INTO users (name, email, password, birthday,sex, lang)  
+        VALUES (${username}, ${email}, ${password},${birthday.Date.toISOString()}, ${sex}, ${lang})
         RETURNING id`;
 
     const token = await generateVerificationToken({

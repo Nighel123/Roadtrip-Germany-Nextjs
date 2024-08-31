@@ -17,21 +17,8 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
       mapClickable: true,
       routesClickable: true,
     };
-    mapPlot(ref, roadtrips, options, router);
+    //mapPlot(ref, roadtrips, options, router);
   });
-
-  if (roadtrips.length === 0)
-    return (
-      <>
-        <h1 className="noContent">
-          Hier wird eine Karte mit deinen Routen angezeigt.
-        </h1>
-        <p className="noContent">
-          Du hast noch keine Roadtrips eingestellt. Klicke auf "eigenen Roadtrip
-          machen" um einen eigenen Roadtrip einzustellen.
-        </p>
-      </>
-    );
 
   return <div ref={ref} id="mapcontent" />;
 }

@@ -3,6 +3,8 @@
 import { sql, VercelPoolClient } from "@vercel/postgres";
 import { randomUUID } from "node:crypto";
 import { unstable_noStore as noStore } from "next/cache";
+import { getLocale } from "auth.config";
+import { headers } from "next/headers";
 
 export async function generateVerificationToken({
   user_id,
@@ -53,7 +55,7 @@ export async function getUsersWithUnreadEmails() {
   noStore();
   try {
     const data = await sql`
-            SELECT recipient.email, recipient.name AS "recipientName", messages.text, sender.name AS "senderName", messages.created AS "messageCreated"
+            SELECT recipient.email, recipient.lang , recipient.name AS "recipientName", messages.text, sender.name AS "senderName", messages.created AS "messageCreated"
             FROM messages
             JOIN users AS recipient ON messages.to = recipient.id
             JOIN users AS sender ON messages.from = sender.id
@@ -66,6 +68,7 @@ export async function getUsersWithUnreadEmails() {
       senderName: string;
       recipientName: string;
       messageCreated: string;
+      lang: "de" | "en";
     }[];
   } catch (error) {
     console.error(error);
@@ -117,6 +120,20 @@ export async function verifyUserEmail(user_id: string) {
     const res = await sql`
       UPDATE users 
       SET "emailVerified" = ${new Date().toISOString()} 
+      WHERE id = ${user_id}`;
+    return res.rowCount;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Die Email konnte nicht auf verifiziert gesetzt werden.");
+  }
+}
+
+export async function setUserLangById(user_id: string) {
+  const lang = getLocale(headers());
+  try {
+    const res = await sql`
+      UPDATE users 
+      SET lang = ${lang} 
       WHERE id = ${user_id}`;
     return res.rowCount;
   } catch (error) {

@@ -12,6 +12,18 @@
   position: absolute;
   top: 1.5em;
   left: 0em;
+  z-index: 1;
+}
+
+#login-head {
+  width: 13.5%;
+  float: left;
+  margin: 0px 90% 0px 0.7vw;
+  position: absolute;
+  padding-bottom: 5.5%;
+  top: 3vw;
+  left: 0em;
+  z-index: 1;
 }
 
 body {

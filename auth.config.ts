@@ -2,6 +2,8 @@ import type { NextAuthConfig } from "next-auth";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import path from "path";
 
 let locales = ["de", "en"];
 
@@ -27,10 +29,11 @@ export const authConfig = {
 
       const { pathname } = request.nextUrl;
 
-      const pathnameHasLocale = locales.some(
-        (locale) =>
-          pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-      );
+      const cookieStore = cookies();
+      const cookieLang = cookieStore.get("NEXT_LOCALE")?.value;
+      const lang = cookieLang ?? getLocale(request.headers);
+
+      let pathnameHasLocale: boolean = pathname.startsWith(`/${lang}`);
 
       //if (request.nextUrl.pathname.endsWith("Overview.jpg"))
       //console.log(request.nextUrl);
@@ -38,13 +41,22 @@ export const authConfig = {
         //console.log(auth);
         const forbiddenURL = ["/insertRoadtrip", "/chat", "/dashboard"];
         if (forbiddenURL.some((path) => pathname.endsWith(path))) return !!auth;
-        return true;
+        const headers = new Headers(request.headers);
+        headers.set("x-current-path", pathname);
+        return NextResponse.next({ headers });
       }
 
-      // Redirect if there is no locale
-      const locale = getLocale(request.headers);
+      const regex = /(de|en)\b/;
+      let newPath: string;
+      if (regex.test(pathname)) {
+        newPath = pathname.replace(regex, `${lang}`);
+      } else {
+        newPath = `/${lang}/${pathname}`;
+      }
 
-      request.nextUrl.pathname = `/${locale}${pathname}`;
+      request.nextUrl.pathname = newPath;
+      // Redirect if there is no locale
+
       // e.g. incoming request is /products
       // The new URL is now /en-US/products
 

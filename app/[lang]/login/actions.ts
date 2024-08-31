@@ -52,6 +52,7 @@ export async function authenticate(
           return ErrorCodes.WRONG_DATA;
         case "CallbackRouteError":
           console.error(error);
+          if (error?.cause?.err?.message) return error.cause.err.message;
           return ErrorCodes.SERVER_ERROR;
         default:
           return ErrorCodes.SERVER_ERROR;

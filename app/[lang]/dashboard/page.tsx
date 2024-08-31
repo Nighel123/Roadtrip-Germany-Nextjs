@@ -66,7 +66,7 @@ export default async function Dashboard({
       />
       <div id="map">
         <Suspense fallback={<MapSkeleton />}>
-          <MapWrapperDash />
+          <MapWrapperDash dict={dict} />
         </Suspense>
       </div>
 

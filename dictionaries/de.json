@@ -15,7 +15,8 @@
     "loginLoading": "laden...",
     "error": {
       "WRONG_DATA": "Fehlerhafte Eingabe",
-      "SERVER_ERROR": "Ohhh, irgendwas haben wir verkehrt gemacht..."
+      "SERVER_ERROR": "Ohhh, irgendwas haben wir verkehrt gemacht...",
+      "NO_DATA": "Deine Email ist noch nicht validiert. Klicke auf den Link in der Email um das zu tun."
     },
     "modal": {
       "sendVerification": {
@@ -194,7 +195,7 @@
     "action": "Löschen",
     "modalUser": {
       "heading": "Willst du deinen Account wirklich löschen?",
-      "action": "Type in \"Delete\" to delete the account",
+      "action": "Tippe \"Löschen\" ein um den Account zu löschen.",
       "loading": "Lädt...",
       "button": "Account Löschen",
       "no": "Nein",
@@ -216,6 +217,10 @@
           "SERVER_ERROR": "Oh mist, irgendwas ist schief gelaufen..."
         }
       }
+    },
+    "map": {
+      "heading": "Hier wird eine Karte mit deinen Routen angezeigt.",
+      "paragraph": "Du hast noch keine Roadtrips eingestellt. Klicke auf \"eigenenRoadtrip machen\" um einen eigenen Roadtrip einzustellen."
     }
   },
   "success": {

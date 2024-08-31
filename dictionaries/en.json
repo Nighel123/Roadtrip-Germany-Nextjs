@@ -15,7 +15,8 @@
     "loginLoading": "loading...",
     "error": {
       "WRONG_DATA": "Ivalid credentials",
-      "SERVER_ERROR": "Uuups, there was an error at the server!"
+      "SERVER_ERROR": "Uuups, there was an error at the server!",
+      "NO_DATA": "Your Email is not validated. Click on the link in the Email we sended to you."
     },
     "modal": {
       "sendVerification": {
@@ -215,6 +216,10 @@
           "SERVER_ERROR": "shit, something went wrong..."
         }
       }
+    },
+    "map": {
+      "heading": "Here a map with roadtrips will be displayed.",
+      "paragraph": "You didn't do any roadtrips of your own. To change this click on the \"make a trip\" button on the homepage to create your own trip!"
     }
   },
   "success": {
