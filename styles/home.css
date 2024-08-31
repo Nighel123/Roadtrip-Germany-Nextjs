@@ -15,39 +15,6 @@
   margin-top: calc(3 * var(--gap));
 }
 
-#ausloggen > input {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-}
-#ausloggen {
-  width: 12%;
-  margin: -1vw 0px 0px 1.1vw;
-  float: left;
-  position: absolute;
-  top: 1.5em;
-  left: 0em;
-}
-
-#chatLink {
-  width: 5%;
-  margin: 0.6vw 0px 0px 0;
-  /* float: right; */
-  position: absolute;
-  top: 0vw;
-  right: 1vw;
-}
-
-#settings {
-  width: 5.8%;
-  margin: 0.5vw 0px 0px 0;
-  /* float: right; */
-  position: absolute;
-  top: 0vw;
-  right: 6.5vw;
-}
-
 #newMessageCounter {
   width: 1.5vw;
   height: 1.5vw;

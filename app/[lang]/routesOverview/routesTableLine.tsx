@@ -1,4 +1,4 @@
-import { Roadtrip, RoadtripDisplay } from "lib/definitions";
+import { RoadtripDisplay } from "lib/definitions";
 import { formatDateToLocal } from "lib/utils/utils";
 import Link from "next/link";
 
