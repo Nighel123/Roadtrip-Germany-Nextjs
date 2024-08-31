@@ -14,6 +14,7 @@ import { useModal } from "./useModal";
 
 export function Form({ dict }: { dict: Dict }) {
   const { logIn } = dict;
+  const { error }: { error: { [key: string]: string } } = logIn;
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
   const [swipe, setSwipe] = useState(false);
   const [type, setType] = useState<"password" | "text">("password");
@@ -103,7 +104,7 @@ export function Form({ dict }: { dict: Dict }) {
         </div>
         {errorMessage && (
           <>
-            <p className="errorMssg">{dict.logIn.error[errorMessage]}</p>
+            <p className="errorMssg">{error[errorMessage]}</p>
           </>
         )}
       </form>

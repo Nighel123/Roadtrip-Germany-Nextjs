@@ -2,6 +2,7 @@ import "@/styles/newPassword.css";
 import NewPasswordForm from "./newPasswordForm";
 import { getDictionary } from "../dictionaries";
 import Title from "ui/components/title";
+import { Suspense } from "react";
 
 export default async function Page({
   params: { lang },
@@ -13,7 +14,9 @@ export default async function Page({
     <div className="newPassword">
       <Title />
       <h1>set a new password</h1>
-      <NewPasswordForm dict={dict} />
+      <Suspense>
+        <NewPasswordForm dict={dict} />
+      </Suspense>
     </div>
   );
 }
