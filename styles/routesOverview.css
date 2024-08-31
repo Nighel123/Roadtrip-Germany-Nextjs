@@ -29,14 +29,15 @@
   grid-row: 2/3;
   display: flex;
   align-items: center;
-  height: 2vw;
-  margin-top: 1.5vw;
-  margin-left: 2.1vw;
+  height: 15%;
+  width: 100%;
+  margin-top: 0.5%;
+  margin-left: 4.8%;
 }
 
 .routesOverview .searchInput {
-  width: 20vw;
-  height: 2.5vw;
+  width: 40%;
+  height: 60%;
 }
 .routesOverview .searchIcon {
   width: 2.5vw;
@@ -155,13 +156,15 @@
     grid-template-columns: 1fr;
     gap: 2%;
   }
+
   .routesOverview img[alt~="title"] {
     grid-column: 1/2;
     grid-row: 1/2;
     width: 100%;
   }
 
-  .routesOverview .tableItem {
+  .routesOverview .tableItem,
+  .routesOverview .searchInput {
     font-size: 2.5vw;
   }
 
