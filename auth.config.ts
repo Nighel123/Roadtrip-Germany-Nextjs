@@ -39,8 +39,14 @@ export const authConfig = {
       //console.log(request.nextUrl);
       if (pathnameHasLocale) {
         //console.log(auth);
-        const forbiddenURL = ["/insertRoadtrip", "/chat", "/dashboard"];
-        if (forbiddenURL.some((path) => pathname.endsWith(path))) return !!auth;
+        const forbiddenURL = ["insertRoadtrip", "chat", "dashboard"];
+        if (
+          forbiddenURL.some((path) => {
+            const regex = new RegExp(`.*(${path}).*`, "gm");
+            return regex.test(pathname);
+          })
+        )
+          return !!auth;
         const headers = new Headers(request.headers);
         headers.set("x-current-path", pathname);
         return NextResponse.next({ headers });

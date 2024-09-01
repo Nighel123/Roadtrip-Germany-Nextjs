@@ -4,9 +4,6 @@ import path from "path";
 const { db, sql } = require("@vercel/postgres");
 
 const registerTestData = {
-  username: "testUser",
-  email: "nickel.paulsen@googlemail.com",
-  password: "testPass123",
   day: "31",
   month: "Februar",
   year: "1991",
@@ -36,6 +33,17 @@ const roadtripTestData = [
     description:
       "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   },
+  {
+    startland: "Deutschland",
+    starttown: "Regensburg",
+    destland: "Spain",
+    desttown: "Barcelona",
+    day: "15",
+    month: "September",
+    year: "2024",
+    description:
+      "Hey, I would like to drive to the Rainbow-Gathering in Spain around the 15th of Spain. I would like to take some time and go camping on the way! Preferably Wildcamping! I have a small car for three people. I would be happy to share the travels and food and costs!",
+  },
 ];
 
 const loginData = [
@@ -56,7 +64,7 @@ const loginData = [
   },
 ];
 
-const { username, password, email } = loginData[0];
+const { username, password, email } = loginData[1];
 const { sex } = registerTestData;
 const {
   startland,
@@ -67,7 +75,7 @@ const {
   day,
   month,
   year,
-} = roadtripTestData[0];
+} = roadtripTestData[2];
 
 let user_id: string;
 test.describe("rootFunctions", () => {

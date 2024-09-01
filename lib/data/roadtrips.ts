@@ -95,6 +95,7 @@ export async function fetchRoadtripsByUserID(userID: string | undefined) {
 }
 
 export async function fetchRoadtripById(id: string | null) {
+  noStore();
   if (!id) return [];
   try {
     const data = await sql<RoadtripDisplay>`
