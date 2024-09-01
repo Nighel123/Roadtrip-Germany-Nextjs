@@ -49,7 +49,7 @@ export const authConfig = {
           return !!auth;
         const headers = new Headers(request.headers);
         headers.set("x-current-path", pathname);
-        return NextResponse.next({ headers });
+        return true;
       }
 
       const regex = /(de|en)\b/;
