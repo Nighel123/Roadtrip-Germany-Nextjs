@@ -17,7 +17,7 @@ export default function Map({ roadtrips }: { roadtrips: RoadtripDisplay[] }) {
       mapClickable: true,
       routesClickable: true,
     };
-    mapPlot(ref, roadtrips, options, router);
+    //mapPlot(ref, roadtrips, options, router);
   });
 
   return <div ref={ref} id="mapcontent" />;
