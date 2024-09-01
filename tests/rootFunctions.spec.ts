@@ -7,7 +7,7 @@ const registerTestData = {
   day: "31",
   month: "Februar",
   year: "1991",
-  sex: "männlich",
+  sex: "weiblich",
 };
 
 const roadtripTestData = [
@@ -38,11 +38,22 @@ const roadtripTestData = [
     starttown: "Regensburg",
     destland: "Spain",
     desttown: "Barcelona",
-    day: "15",
+    day: "9",
     month: "September",
     year: "2024",
     description:
       "Hey, I would like to drive to the Rainbow-Gathering in Spain around the 15th of Spain. I would like to take some time and go camping on the way! Preferably Wildcamping! I have a small car for three people. I would be happy to share the travels and food and costs!",
+  },
+  {
+    startland: "Deutschland",
+    starttown: "Hamburg",
+    destland: "Spain",
+    desttown: "Madrid",
+    day: "20",
+    month: "September",
+    year: "2024",
+    description:
+      "I am Lisa and I am doing a travel to Madrid in Spain. I would like to find company travelling to the Rainbow-Gathering in Spain. I am a happy outgoing person who likes to meet new people and get to know more people. If you have any idead for the trip, what we can look at oder visit let me know",
   },
 ];
 
@@ -64,7 +75,7 @@ const loginData = [
   },
 ];
 
-const { username, password, email } = loginData[1];
+const { username, password, email } = loginData[2];
 const { sex } = registerTestData;
 const {
   startland,

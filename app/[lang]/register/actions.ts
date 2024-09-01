@@ -31,12 +31,14 @@ export async function register(
   const resFormDataObj = await zRegisterForm.safeParseAsync(formatedDataObj);
 
   if (!resFormDataObj.success) {
-    return formatErrors(
+    const errorObj = formatErrors(
       resFormDataObj.error?.flatten((issue: ZodIssue) => ({
         path: issue.path,
         message: issue.message,
       })) as FormDataErrors
     );
+    console.log(errorObj);
+    return errorObj;
   }
   if (!submit)
     return [
