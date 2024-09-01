@@ -55,6 +55,17 @@ const roadtripTestData = [
     description:
       "I am Lisa and I am doing a travel to Madrid in Spain. I would like to find company travelling to the Rainbow-Gathering in Spain. I am a happy outgoing person who likes to meet new people and get to know more people. If you have any idead for the trip, what we can look at oder visit let me know",
   },
+  {
+    startland: "Paris",
+    starttown: "Frankreich",
+    destland: "Prag",
+    desttown: "Tschechien",
+    day: "1",
+    month: "Oktober",
+    year: "2024",
+    description:
+      "Hallo, my name is Flixi and I am visiting my parents in October in Prag. I would be very happy to have some travelmates with me on my way. I would like to make a small trip out of it and go to a festival in Prag.",
+  },
 ];
 
 const loginData = [
@@ -73,9 +84,14 @@ const loginData = [
     password: process.env.PASS_3,
     email: process.env.EMAIL_3,
   },
+  {
+    username: process.env.USER_NAME_4,
+    password: process.env.PASS_4,
+    email: process.env.EMAIL_4,
+  },
 ];
 
-const { username, password, email } = loginData[2];
+const { username, password, email } = loginData[3];
 const { sex } = registerTestData;
 const {
   startland,
@@ -86,7 +102,7 @@ const {
   day,
   month,
   year,
-} = roadtripTestData[2];
+} = roadtripTestData[4];
 
 let user_id: string;
 test.describe("rootFunctions", () => {

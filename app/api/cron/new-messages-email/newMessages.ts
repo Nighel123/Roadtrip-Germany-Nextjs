@@ -1,7 +1,8 @@
-import { Resend } from "resend";
+import { CreateEmailResponseSuccess, Resend } from "resend";
 import { NewMessagesTemplate } from "../../../../dictionaries/NewMessagesEmailTemplate";
 import { getUsersWithUnreadEmails } from "lib/data/users";
 import { setMessagesToInformed } from "lib/data/messages";
+import { rejects } from "node:assert";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -35,6 +36,7 @@ export async function sendNewMessagesEmail({
     console.error("Mail Error: ", error);
     throw error;
   }
+  return data;
 }
 
 export async function sendNewMessagesEmails() {
@@ -54,8 +56,20 @@ export async function sendNewMessagesEmails() {
     return acc;
   }, [] as typeof emailArray);
   const intervall = 500;
+  const promiseArr: Promise<CreateEmailResponseSuccess | null>[] = [];
   redArr.forEach((o, i) => {
-    setTimeout(() => sendNewMessagesEmail(o), i * intervall);
+    const prom: Promise<CreateEmailResponseSuccess | null> = new Promise(
+      (resolve, reject) =>
+        setTimeout(() => {
+          const data = sendNewMessagesEmail(o);
+          if (data) {
+            resolve(data);
+          } else {
+            reject();
+          }
+        }, i * intervall)
+    );
+    promiseArr.push(prom);
   });
-  await setMessagesToInformed();
+  return promiseArr;
 }

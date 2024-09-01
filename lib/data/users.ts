@@ -3,7 +3,7 @@
 import { sql, VercelPoolClient } from "@vercel/postgres";
 import { randomUUID } from "node:crypto";
 import { unstable_noStore as noStore } from "next/cache";
-import { getLocale } from "auth.config";
+import { getLocale } from "middleware";
 import { headers } from "next/headers";
 
 export async function generateVerificationToken({
