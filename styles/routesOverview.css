@@ -79,6 +79,14 @@
   align-content: center;
   font-size: 1vw;
 }
+.routesOverview .tableRow.top .tableItem {
+  background-color: #8c0303;
+  color: white;
+}
+
+.routesOverview .tableRow.top .tableItem:not(:last-child) {
+  border-right: #fafafa 0.1vw solid;
+}
 
 .routesOverview img[alt~="redFrame"],
 .routesOverview #map {

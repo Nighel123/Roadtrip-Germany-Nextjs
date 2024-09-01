@@ -78,3 +78,11 @@ div.routesDetailed .grid {
   align-content: center;
   font-size: 0.9vw;
 }
+.routesDetailed .tableRow.top .tableItem {
+  background-color: #8c0303;
+  color: white;
+}
+
+.routesDetailed .tableRow.top .tableItem:not(:last-child) {
+  border-right: #fafafa 0.1vw solid;
+}

@@ -24,7 +24,7 @@ export function mapPlot(
     let mapBounds = new google.maps.LatLngBounds();
     if (mapClickable) {
       map.addListener("click", function () {
-        router.push("/routsDetailed");
+        router.push("/routesDetailed");
       });
     }
 
@@ -200,40 +200,45 @@ export function mapPlot(
       new OverlayView(polylinePath, map, username);
     };
 
-    Promise.all(
-      roadtrips.map((roadtrip) => {
-        return directionsService
-          .route({
-            origin: roadtrip.starttown,
-            destination: roadtrip.desttown,
-            travelMode: google.maps.TravelMode.DRIVING,
-          })
-          .then((route) => {
-            plotRoute(route);
-            getBoundsOfRoute(route);
-            return route;
-          })
-          .catch((error) => {
-            throw error;
-          });
-      })
-    ).then((routs) => {
-      map.fitBounds(mapBounds);
-      map.setZoom(zoom);
+    if (roadtrips.length) {
+      Promise.all(
+        roadtrips.map((roadtrip) => {
+          return directionsService
+            .route({
+              origin: roadtrip.starttown,
+              destination: roadtrip.desttown,
+              travelMode: google.maps.TravelMode.DRIVING,
+            })
+            .then((route) => {
+              plotRoute(route);
+              getBoundsOfRoute(route);
+              return route;
+            })
+            .catch((error) => {
+              throw error;
+            });
+        })
+      ).then((routs) => {
+        map.fitBounds(mapBounds);
+        map.setZoom(zoom);
 
-      routs.map((route, i) => {
-        let polylinePathHR = getPolylinePathOfRoute(route);
-        makeDrawnRoutelineClickable(polylinePathHR, roadtrips[i]);
-        let polylinePathLR = route.routes[0].overview_path;
-        displayUsernameAboveEachRoute(polylinePathLR, roadtrips[i].username);
+        routs.map((route, i) => {
+          let polylinePathHR = getPolylinePathOfRoute(route);
+          makeDrawnRoutelineClickable(polylinePathHR, roadtrips[i]);
+          let polylinePathLR = route.routes[0].overview_path;
+          displayUsernameAboveEachRoute(polylinePathLR, roadtrips[i].username);
+        });
       });
-    });
+    } else {
+      map.setZoom(3.5);
+      map.setCenter({ lat: 51, lng: 9 });
+    }
   }
 }
 
 let rendererOptions = {
-  preserveViewport: true,
-  supressPolylines: true,
+  /* preserveViewport: true, */
+  /* supressPolylines: true, */
 };
 
 /*Object to specify the settings for the map*/

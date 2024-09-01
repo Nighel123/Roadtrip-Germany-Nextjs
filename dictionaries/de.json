@@ -35,7 +35,13 @@
   "routesOverview": {
     "createTrip": "/images/routesOverview/eigeneReiseMachen.jpg",
     "viewTrips": "/images/routesOverview/reiseAnsehen.jpg",
-    "searchPlaceholder": "Roadtrips durchsuchen..."
+    "searchPlaceholder": "Roadtrips durchsuchen...",
+    "table": {
+      "user": "Nutzer",
+      "start": "Start",
+      "goal": "Ziel",
+      "date": "Datums"
+    }
   },
   "imprint": {
     "headline": "Impressum",

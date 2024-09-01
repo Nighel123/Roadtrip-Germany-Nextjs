@@ -48,7 +48,7 @@ export default async function RoutesOverview({
         <Search placeholder={dict.routesOverview.searchPlaceholder} />
         <div id="tableContainer">
           <Suspense key={query} fallback={<TableSkeleton />}>
-            <RoutesTable query={query} />
+            <RoutesTable query={query} dict={dict} />
           </Suspense>
         </div>
 

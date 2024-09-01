@@ -41,7 +41,7 @@ export default async function RoutesDetailed({
         <Search placeholder={dict.routesOverview.searchPlaceholder} />
         <div id="tableContainer">
           <Suspense fallback={<TableSkeleton />}>
-            <RoutesTable query={query} />
+            <RoutesTable query={query} dict={dict} />
           </Suspense>
         </div>
 

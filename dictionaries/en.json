@@ -35,7 +35,13 @@
   "routesOverview": {
     "createTrip": "/images/routesOverview/createTrip.jpg",
     "viewTrips": "/images/routesOverview/viewTrips.jpg",
-    "searchPlaceholder": "Search roadtrips..."
+    "searchPlaceholder": "Search roadtrips...",
+    "table": {
+      "user": "user",
+      "start": "start",
+      "goal": "goal",
+      "date": "date"
+    }
   },
   "imprint": {
     "headline": "Imprint",

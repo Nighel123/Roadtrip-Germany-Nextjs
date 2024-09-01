@@ -24,12 +24,12 @@ export async function fetchRoadtrips(query?: string) {
       JOIN addresses dest ON dest_id = dest.id
       JOIN addresses start ON start_id = start.id
       WHERE 
-        dest.land LIKE ${search} OR
-        dest.town LIKE ${search} OR
-        start.land LIKE ${search} OR
-        start.town LIKE ${search} OR
-        users.name LIKE ${search} OR
-        roadtrips.date::text LIKE ${search}
+        dest.land % ${search} OR dest.land ILIKE ${search} OR
+        dest.town % ${search} OR dest.town ILIKE ${search} OR
+        start.land % ${search} OR start.land ILIKE ${search} OR
+        start.town % ${search} OR start.town ILIKE ${search} OR
+        users.name % ${search} OR users.name ILIKE ${search} OR
+        roadtrips.date::text%${search} OR roadtrips.date::text ILIKE ${search}
       ORDER BY roadtrips.created DESC
       LIMIT 20
     `;
