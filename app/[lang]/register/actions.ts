@@ -37,7 +37,6 @@ export async function register(
         message: issue.message,
       })) as FormDataErrors
     );
-    console.log(errorObj);
     return errorObj;
   }
   if (!submit)

@@ -12,8 +12,7 @@ import { Dict, getDictionary } from "./dictionaries";
 import InstagramIcon from "ui/components/insagramIcon";
 import FacbookIcon from "ui/components/facebookIcon";
 import { cookies, headers } from "next/headers";
-import { revalidatePath } from "next/cache";
-import { redirect, usePathname } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: {
@@ -73,7 +72,7 @@ function Language() {
     const oneDay = 24 * 60 * 60 * 1000;
     cookies().set("NEXT_LOCALE", lang, { expires: Date.now() + 2 * oneDay });
     const headerList = headers();
-    const pathname = headerList.get("x-current-path");
+    const pathname = headerList.get("x-current-roadtrip-path");
     redirect(pathname ? pathname : "/");
   };
 
