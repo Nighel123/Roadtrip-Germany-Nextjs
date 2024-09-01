@@ -16,7 +16,7 @@ import {
 import { RegisterForm } from "lib/definitions";
 import { sendVerificationEmail } from "app/[lang]/register/verificationLink";
 import { generateVerificationToken } from "lib/data/users";
-import { getLocale } from "auth.config";
+import { getLocale } from "middleware";
 import { headers } from "next/headers";
 
 export async function register(
