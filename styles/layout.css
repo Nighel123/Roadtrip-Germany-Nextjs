@@ -33,4 +33,7 @@ footer .langSwitcher .langButton {
   footer #imprint {
     font-size: 2.5vw;
   }
+  footer .langSwitcher .langButton {
+    font-size: 2.5vw;
+  }
 }
