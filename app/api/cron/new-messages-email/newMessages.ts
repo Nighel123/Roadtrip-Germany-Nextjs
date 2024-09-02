@@ -63,7 +63,7 @@ export async function sendNewMessagesEmails() {
         setTimeout(() => {
           const data = sendNewMessagesEmail(o);
           if (data) {
-            resolve(data);
+            resolve({ ...data, ...o });
           } else {
             reject();
           }
