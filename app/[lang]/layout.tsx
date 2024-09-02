@@ -68,7 +68,6 @@ function Footer({ dict }: { dict: Dict }) {
 function Language() {
   const handleClickFac = (lang: "en" | "de") => async () => {
     "use server";
-    cookies().delete("NEXT_LOCALE");
     const oneDay = 24 * 60 * 60 * 1000;
     cookies().set("NEXT_LOCALE", lang, { expires: Date.now() + 2 * oneDay });
     const headerList = headers();
@@ -79,11 +78,15 @@ function Language() {
   return (
     <div className="langSwitcher">
       <form action={handleClickFac("en")}>
-        <input type="submit" name="en" value="en" className="langButton" />
+        <button type="submit" className="langButton">
+          en
+        </button>
       </form>
       <span>|</span>
       <form action={handleClickFac("de")}>
-        <input type="submit" name="de" value="de" className="langButton" />
+        <button type="submit" className="langButton">
+          de
+        </button>
       </form>
     </div>
   );

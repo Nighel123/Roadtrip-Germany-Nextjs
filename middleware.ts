@@ -1,4 +1,4 @@
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import { authConfig } from "./auth.config";
 import { cookies } from "next/headers";
 import Negotiator from "negotiator";
@@ -17,9 +17,9 @@ export function getLocale(headers: Headers) {
   return match(languages, locales, defaultLocale) as "en" | "de";
 }
 
-const { auth } = NextAuth(authConfig);
+export default NextAuth(authConfig).auth;
 
-export default async function middleware(request: NextRequest) {
+/* function middleware(request: NextRequest) {
   // Check if there is any supported locale in the pathname
 
   const { pathname } = request.nextUrl;
@@ -31,7 +31,6 @@ export default async function middleware(request: NextRequest) {
   let pathnameHasLocale: boolean = pathname.startsWith(`/${lang}`);
 
   if (pathnameHasLocale) {
-    await auth();
     let response = NextResponse.next();
     response.headers.set("x-current-roadtrip-path", pathname);
     return response;
@@ -42,7 +41,7 @@ export default async function middleware(request: NextRequest) {
   if (regex.test(pathname)) {
     newPath = pathname.replace(regex, `${lang}`);
   } else {
-    newPath = `/${lang}/${pathname}`;
+    newPath = `/${lang}${pathname}`;
   }
 
   request.nextUrl.pathname = newPath;
@@ -52,7 +51,7 @@ export default async function middleware(request: NextRequest) {
   // The new URL is now /en-US/products
 
   return NextResponse.redirect(request.nextUrl);
-}
+} */
 
 export const config = {
   // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher

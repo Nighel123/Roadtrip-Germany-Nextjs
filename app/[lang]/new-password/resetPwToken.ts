@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { ResetPwEmailTemplate } from "dictionaries/resetPwEmailTemplate";
-import { getLocale } from "auth.config";
+import { getLocale } from "middleware";
 import { headers } from "next/headers";
 
 const resend = new Resend(process.env.RESEND_API_KEY);

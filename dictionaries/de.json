@@ -124,7 +124,7 @@
     }
   },
   "register": {
-    "heading": "create roadtrip-account",
+    "heading": "Erstelle einen Roadtrip-Account",
     "username": "Nutzername",
     "email": "E-Mail-Adresse",
     "password": "Passwort",

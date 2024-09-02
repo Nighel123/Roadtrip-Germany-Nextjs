@@ -5,6 +5,18 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import path from "path";
 
+let locales = ["de", "en"];
+
+export function getLocale(headers: Headers) {
+  let acc_lang_headers = {
+    "accept-language": headers.get("accept-language") || "",
+  };
+  let languages = new Negotiator({ headers: acc_lang_headers }).languages();
+
+  let defaultLocale = "en";
+
+  return match(languages, locales, defaultLocale) as "en" | "de";
+}
 export const authConfig = {
   pages: {
     signIn: "/login",
@@ -15,19 +27,41 @@ export const authConfig = {
       //if (request.nextUrl.pathname.endsWith("Overview.jpg"))
       //console.log(request.nextUrl);
       const { pathname } = request.nextUrl;
-      //console.log(auth);
-      /* const forbiddenURL = ["insertRoadtrip", "chat", "dashboard"];
+      const cookieStore = cookies();
+      const cookieLang = cookieStore.get("NEXT_LOCALE")?.value;
+      const lang = cookieLang ?? getLocale(request.headers);
+
+      let pathnameHasLocale: boolean = pathname.startsWith(`/${lang}`);
+
+      if (pathnameHasLocale) {
+        const forbiddenURL = ["insertRoadtrip", "chat", "dashboard"];
         if (
           forbiddenURL.some((path) => {
             const regex = new RegExp(`.*(${path}).*`, "gm");
             return regex.test(pathname);
           })
         )
-          return NextResponse.next(); */
-      const forbiddenURL = ["/insertRoadtrip", "/chat", "/dashboard"];
-      if (forbiddenURL.some((path) => pathname.endsWith(path))) return !!auth;
+          return !!auth;
 
-      return true;
+        let response = NextResponse.next();
+        response.headers.set("x-current-roadtrip-path", pathname);
+        return response;
+      }
+      const regex = /(de|en)\b/;
+      let newPath: string;
+      if (regex.test(pathname)) {
+        newPath = pathname.replace(regex, `${lang}`);
+      } else {
+        newPath = `/${lang}${pathname}`;
+      }
+
+      request.nextUrl.pathname = newPath;
+      // Redirect if there is no locale
+
+      // e.g. incoming request is /products
+      // The new URL is now /en-US/products
+
+      return NextResponse.redirect(request.nextUrl);
     } /* ,
     async redirect({ url, baseUrl }) {
       console.log("url: ", url, "baseUrl: ", baseUrl);

@@ -9,8 +9,6 @@ import { generateVerificationToken, getUserbyEmail } from "lib/data/users";
 import { AuthError } from "next-auth";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { signIn } from "auth";
-import { headers } from "next/headers";
-import { getLocale } from "auth.config";
 import { sendVerificationEmail } from "../register/verificationLink";
 
 export async function SignIn(callbackUrl: string) {

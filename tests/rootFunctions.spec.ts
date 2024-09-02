@@ -119,8 +119,8 @@ test.describe("rootFunctions", () => {
     await page.getByPlaceholder("Jahr").fill(registerTestData.year);
     await page.getByLabel("Geschlecht").selectOption(sex);
     await page.getByRole("button", { name: "Submit" }).click();
-    await page.waitForURL("/de/success/registered");
-    await expect(page).toHaveURL("/de/success/registered");
+    await page.waitForURL(/(\/success)\b/gm);
+    await expect(page).toHaveURL(/(\/success\/registered)\b/gm);
   });
 
   test("email-validation and login", async ({ page }) => {
@@ -141,8 +141,8 @@ test.describe("rootFunctions", () => {
     await page.getByPlaceholder("Benutzername").fill(username || "");
     await page.getByPlaceholder("Passwort").fill(password || "");
     await page.getByRole("button", { name: "einloggen" }).click();
-    await page.waitForURL("/de");
-    await expect(page).toHaveURL("/de");
+    await page.waitForURL("/");
+    await expect(page).toHaveURL("/");
   });
   test("insertRoadtrip", async ({ page }) => {
     /* login */
@@ -150,8 +150,8 @@ test.describe("rootFunctions", () => {
     await page.getByPlaceholder("Benutzername").fill(username || "");
     await page.getByPlaceholder("Passwort").fill(password || "");
     await page.getByRole("button", { name: "einloggen" }).click();
-    await page.waitForURL("/de");
-    await expect(page).toHaveURL("/de");
+    await page.waitForURL("/");
+    await expect(page).toHaveURL("/");
     /* insert Roaadtrip */
     await page.goto(`/insertRoadtrip`);
     await page.locator("#startland").fill(startland);
@@ -166,8 +166,8 @@ test.describe("rootFunctions", () => {
       .getByTestId("file")
       .setInputFiles(path.join(__dirname, "beispielTrip.jpeg"));
     await page.getByRole("button", { name: "submit" }).click();
-    await page.waitForURL("/de/routesOverview");
-    await expect(page).toHaveURL("/de/routesOverview");
+    await page.waitForURL("/routesOverview");
+    await expect(page).toHaveURL("/routesOverview");
   });
   test("check display of roadtrip", async ({ page }) => {
     const {

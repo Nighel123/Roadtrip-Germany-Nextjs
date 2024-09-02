@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { VerificationEmailTemplate } from "../../../dictionaries/verificationEmailTemplate";
-import { getLocale } from "auth.config";
+import { getLocale } from "middleware";
 import { headers } from "next/headers";
 import { getDictionary } from "../dictionaries";
 
