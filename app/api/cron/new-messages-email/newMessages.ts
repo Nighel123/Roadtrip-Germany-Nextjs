@@ -60,8 +60,9 @@ export async function sendNewMessagesEmails() {
   redArr.forEach((o, i) => {
     const prom: Promise<CreateEmailResponseSuccess | null> = new Promise(
       (resolve, reject) =>
-        setTimeout(() => {
+        setTimeout(async () => {
           const data = sendNewMessagesEmail(o);
+          await setMessagesToInformed(o.id);
           if (data) {
             resolve({ ...data, ...o });
           } else {

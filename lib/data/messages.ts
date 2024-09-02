@@ -86,12 +86,12 @@ export async function updateReadStatus(o: {
   }
 }
 
-export async function setMessagesToInformed() {
+export async function setMessagesToInformed(id: string) {
   try {
     const data = await sql`
           UPDATE messages
           SET "userInformed" = NOW()
-          WHERE messages.read IS NULL
+          WHERE messages.read IS NULL AND messages.id = ${id}
       `;
     return data.rows;
   } catch (error) {

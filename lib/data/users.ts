@@ -55,7 +55,14 @@ export async function getUsersWithUnreadEmails() {
   noStore();
   try {
     const data = await sql`
-            SELECT recipient.email, recipient.lang , recipient.name AS "recipientName", messages.text, sender.name AS "senderName", messages.created AS "messageCreated"
+            SELECT 
+              recipient.email, 
+              recipient.lang, 
+              recipient.name AS "recipientName", 
+              messages.text, 
+              messages.id,
+              sender.name AS "senderName", 
+              messages.created AS "messageCreated"
             FROM messages
             JOIN users AS recipient ON messages.to = recipient.id
             JOIN users AS sender ON messages.from = sender.id
@@ -69,6 +76,7 @@ export async function getUsersWithUnreadEmails() {
       recipientName: string;
       messageCreated: string;
       lang: "de" | "en";
+      id: string;
     }[];
   } catch (error) {
     console.error(error);
