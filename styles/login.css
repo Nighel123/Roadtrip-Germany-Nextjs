@@ -223,4 +223,7 @@
   .login .button {
     font-size: 4vw;
   }
+  .login div#problem-list a {
+    font-size: 2vw;
+  }
 }
