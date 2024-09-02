@@ -7,7 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata } from "next";
 import Link from "next/link";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { Dict, getDictionary } from "./dictionaries";
 import InstagramIcon from "ui/components/insagramIcon";
 import FacbookIcon from "ui/components/facebookIcon";
@@ -47,6 +47,7 @@ export default async function RootLayout({
         <Footer dict={dict} />
       </body>
       <GoogleAnalytics gaId="G-64S5W9QGXN" />
+      <GoogleTagManager gtmId="GTM-KWQKHMDZ" />
     </html>
   );
 }
