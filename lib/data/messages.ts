@@ -99,7 +99,7 @@ export async function setMessagesToInformed({
     const data = await sql`
           UPDATE messages
           SET "userInformed" = NOW()
-          WHERE messages.read IS NULL AND "from" = ${senderId} AND "too" = ${recipientId} AND roadtrip = ${roadtripId}
+          WHERE messages.read IS NULL AND "from" = ${senderId} AND "to" = ${recipientId} AND roadtrip = ${roadtripId}
       `;
     return data.rows;
   } catch (error) {
