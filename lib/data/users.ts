@@ -60,7 +60,9 @@ export async function getUsersWithUnreadEmails() {
               recipient.lang, 
               recipient.name AS "recipientName", 
               messages.text, 
-              messages.id,
+              sender.id AS "senderId",
+              recipient.id AS "recipientId",
+              roadtrip AS "roadtripId",
               sender.name AS "senderName", 
               messages.created AS "messageCreated"
             FROM messages
@@ -76,7 +78,9 @@ export async function getUsersWithUnreadEmails() {
       recipientName: string;
       messageCreated: string;
       lang: "de" | "en";
-      id: string;
+      senderId: number;
+      recipientId: number;
+      roadtripId: string;
     }[];
   } catch (error) {
     console.error(error);

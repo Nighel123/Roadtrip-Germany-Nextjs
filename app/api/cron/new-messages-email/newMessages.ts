@@ -62,7 +62,8 @@ export async function sendNewMessagesEmails() {
       (resolve, reject) =>
         setTimeout(async () => {
           const data = sendNewMessagesEmail(o);
-          await setMessagesToInformed(o.id);
+          const { senderId, recipientId, roadtripId } = o;
+          await setMessagesToInformed({ senderId, recipientId, roadtripId });
           if (data) {
             resolve({ ...data, ...o });
           } else {
